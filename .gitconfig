@@ -1,0 +1,89 @@
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = true
+  pager = true
+  log = true
+
+[alias]
+  gl = log --graph --oneline --decorate --branches --tags --remotes
+  br = branch -v
+  co = checkout
+  ci = commit
+  di = diff
+  st = status
+  # Show the commits and content in this branch
+  showbr = log --pretty=oneline trunk..
+  showallbr = log -U trunk ..
+  # Change the HEAD commit message to the template and edit
+  amd = commit --amend
+  #amd = !git commit --amend -eF `git config commit.template`
+  # Spell check your git commits with aspell
+  #aspell = !git log --pretty=format:%s%n%n%b -n1 > /tmp/aspell.txt && aspell -c /tmp/aspell.txt && git commit --amend -F /tmp/aspell.txt
+  # Push your code to the sandcastle server
+  #sandpush = !git push -f ssh://sandcastle.facebook.com/data/git/tfb HEAD:refs/users/`whoami`
+  # Commit changes to current head as amended commit
+  plus = commit --amend -a -C HEAD
+  # Commit changes on *top* of current head as a checkpoint commit
+  cp = commit -am 'cp'
+
+  lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  lg = !"git lg1"
+
+  jira-log = "!f() { A=$1; B=${2-origin/master}; git fetch origin; git log $A..$B --pretty=format:'%H%n%B%x0C' | tr -d \"\\r\" | perl -e '$/ = \"\\f\"; print \"||SHA||Summary||Issue ID||\\n\"; while(<>) { /\\s*(\\w+)\\s+([^\\n]+).*jira: ([^\\n]+)/si; print \"| $1 | $2 | $3 |\\n\"};';}; f"
+
+[svn]
+  followparent = true
+
+#[commit]
+#  template = /path/to/git-commit-template.txt
+
+[user]
+  name = Randolf Tjandra
+  email = randolf@crunchyroll.com
+
+# Show a log of '56 minutes ago' rather than 'November 12, 2008 12:34:53'
+[log]
+  date = relative
+
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  #plain = white
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  whitespace = red blink
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[core]
+  pager = less -FRSX
+  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  excludesfile = ~/.gitignore
+
+#[merge]
+#    tool = fmdiff
+#[difftool "sourcetree"]
+# cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+# path = 
+#[mergetool "sourcetree"]
+# cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+# trustExitCode = true
+#[difftool]
+# prompt = false
+#[diff]
+# tool = opendiff
+[commit]
+  template = /home/cxdev/.gitmessage.txt
