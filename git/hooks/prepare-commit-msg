@@ -4,5 +4,5 @@
 #Also assumes you're using the standard Crunchyroll gitmessgae.txt
 #
 #Converts branch name to Jira ticket
-sed -i "s/Jira: none/Jira: $(git branch | grep '*' | sed -E 's/\* draft-//;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')/" "$1" 
+sed -i.bak "s/Jira: none/Jira: $(git branch | grep '*' | sed -E 's/\* draft-//;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')/" "$1" 
 
