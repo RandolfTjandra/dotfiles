@@ -32,6 +32,7 @@ cd /Users/randolftjandra/Dev
 # Aliases
 alias vim="nvim"
 alias godots="cd ~/Dev/bash-stuff"
+alias l="ls -la"
 
 # Start tmux on new window
 if [ "$TMUX" = "" ]; then tmux; fi
