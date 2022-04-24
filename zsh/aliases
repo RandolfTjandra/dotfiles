@@ -1,0 +1,5 @@
+# Aliases
+alias vim="nvim"
+alias godots="cd ${BASH_STUFF}"
+alias l="ls -la"
+

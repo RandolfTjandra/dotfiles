@@ -27,12 +27,8 @@ source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-cd /Users/randolftjandra/Dev
-
 # Aliases
-alias vim="nvim"
-alias godots="cd ~/Dev/bash-stuff"
-alias l="ls -la"
+source "${BASH_STUFF}/zsh/aliases"
 
 # Start tmux on new window
 if [ "$TMUX" = "" ]; then tmux; fi
@@ -43,3 +39,7 @@ export EDITOR=nvim
 # auto complete
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 autoload -Uz compinit && compinit
+
+# fzf
+export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›"'
+
