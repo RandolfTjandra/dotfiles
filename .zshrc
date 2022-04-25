@@ -1,3 +1,8 @@
+# Start tmux on new window
+if [ -z "$TMUX" ]; then
+  exec tmux new-session -A -s workspace
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -23,15 +28,15 @@ source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# only show current dir in prompt
+typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›"'
 
 # Aliases
 source "${BASH_STUFF}/zsh/aliases"
-
-# Start tmux on new window
-if [ "$TMUX" = "" ]; then tmux; fi
 
 # Set neovim as default editor
 export EDITOR=nvim
@@ -39,7 +44,4 @@ export EDITOR=nvim
 # auto complete
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 autoload -Uz compinit && compinit
-
-# fzf
-export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›"'
 
