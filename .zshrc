@@ -35,13 +35,13 @@ typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›"'
 
-# Aliases
-source "${BASH_STUFF}/zsh/aliases"
-
 # Set neovim as default editor
 export EDITOR=nvim
 
 # auto complete
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 autoload -Uz compinit && compinit
+
+# Aliases
+source "${BASH_STUFF}/zsh/aliases"
 
