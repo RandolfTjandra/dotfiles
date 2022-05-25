@@ -1,4 +1,4 @@
-  # Copyright (c) 2017-present Arctic Ice Studio <development@arcticicestudio.com>
+# Copyright (c) 2017-present Arctic Ice Studio <development@arcticicestudio.com>
 # Copyright (c) 2017-present Sven Greb <code@svengreb.de>
 
 # Project:    Nord Alacritty
@@ -10,7 +10,7 @@
 
 colors:
   primary:
-    background: '#2e3440'
+    background: '#3b4252'
     foreground: '#d8dee9'
     dim_foreground: '#a5abb6'
   cursor:
