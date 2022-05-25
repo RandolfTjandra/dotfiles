@@ -1,6 +1,7 @@
 # Aliases
 alias vim="nvim"
 alias godots="cd ${BASH_STUFF}"
-alias l="ls -la --color"
+#alias l="ls -la --color"
+alias l="gls -aFlh --group-directories-first --color"
 alias pipes="pipes.sh -p 3 -t 0 -R"
 

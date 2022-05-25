@@ -1,6 +1,6 @@
 # Start tmux on new window
 if [ -z "$TMUX" ]; then
-  exec tmux new-session -A -s workspace
+  exec tmux new-session -A -s '0' 
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
