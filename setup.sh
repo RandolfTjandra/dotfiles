@@ -10,3 +10,7 @@ ln -s $bashstufflocation/.zprofile ~/.zprofile
 
 echo creating symlink to $bashstufflocation/zsh
 ln -s $bashstufflocation/zsh ~/.config/zsh
+
+echo exporting env var for $bashstufflocation
+export BASH_STUFF="$bashstufflocation"
+

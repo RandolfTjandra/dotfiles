@@ -45,7 +45,7 @@ nmap({ "<S-Tab>", "<C-W><S-W>" })
 
 -- Buffer management
 nmap({ "<C-]>", "<cmd>bnext<CR>" })
-nmap({ "<C-[>", "<cmd>bprev<CR>" })
+nmap({ "<Esc>", "<cmd>bprev<CR>" })
 
 -- Do not move cursor when using *
 nmap({

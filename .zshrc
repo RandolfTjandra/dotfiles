@@ -8,6 +8,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+
 # Load version control information
 autoload -Uz vcs_info
 precmd() { vcs_info }
@@ -19,10 +20,10 @@ zstyle ':vcs_info:git:*' formats '[%b]'
 setopt PROMPT_SUBST
 PROMPT='%n in ${PWD/#$HOME/~} > '
 
-# prompt
+# right prompt
 export RPROMPT='${vcs_info_msg_0_}'
 
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -39,6 +40,11 @@ export EDITOR=nvim
 # auto complete
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 autoload -Uz compinit && compinit
+
+# maybe delete
+bindkey -e
+
+export PATH=~/Library/Python/2.7/bin:$PATH
 
 # Aliases
 source "$HOME/.config/zsh/aliases"
