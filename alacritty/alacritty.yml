@@ -11,7 +11,7 @@ env:
 window:
   decorations: buttonless
   dimensions:  { columns: 80, lines: 24 }
-  padding:     { x: 1, y: 1 }
+  padding:     { x: 1, y: 0 }
   opacity: 0.9
 
 # When true, bold text is drawn using the bright variant of colors.
@@ -30,7 +30,7 @@ font:
     style: Book
 
   # Point size of the font
-  size: 12.0
+  size: 13
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
