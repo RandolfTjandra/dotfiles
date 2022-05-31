@@ -55,7 +55,10 @@ nmap({ "<Leader>t", "<cmd>NvimTreeFindFileToggle<CR>" })
 nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
 
 -- Git
-nmap({ "gb", ":GBrowse<cr>" })
+nmap({ "gb", ":Git blame<cr>" })
+nmap({ "gh", ":GBrowse!<cr>" })
+vmap({ "gh", ":'<'>GBrowse!<cr>" })
+
 
 -- Substitute
 nmap({ "s", "<cmd>lua require('substitute').operator()<CR>" })
