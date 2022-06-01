@@ -145,23 +145,25 @@ lctrl + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 alt - r         : yabai -m space --rotate 270
 shift + alt - r : yabai -m space --rotate 90
 
+# Rotate on X and Y Axis
+shift + alt - x : yabai -m space --mirror x-axis
+shift + alt - y : yabai -m space --mirror y-axis
+
 # Make window native fullscreen
 #alt - f         : yabai -m window --toggle zoom-fullscreen
 #shift + alt - f : yabai -m window --toggle native-fullscreen
 alt + cmd - f         : yabai -m window --toggle zoom-fullscreen
 shift + alt + cmd - f : yabai -m window --toggle native-fullscreen
 
-# swap window
-#shift + alt - h : chunkc tiling::window --swap west
-#shift + alt - j : chunkc tiling::window --swap south
-#shift + alt - k : chunkc tiling::window --swap north
-#shift + alt - l : chunkc tiling::window --swap east
-
 # move window
-#shift + cmd - h : chunkc tiling::window --warp west
-#shift + cmd - j : chunkc tiling::window --warp south
-#shift + cmd - k : chunkc tiling::window --warp north
-#shift + cmd - l : chunkc tiling::window --warp east
+shift + alt - h : yabai -m window --warp west
+shift + alt - j : yabai -m window --warp south
+shift + alt - k : yabai -m window --warp north
+shift + alt - l : yabai -m window --warp east
+
+# Move focus container to workspace
+#shift + alt - p : yabai -m window --space prev; yabai -m space --focus prev
+#shift + alt - n : yabai -m window --space next; yabai -m space --focus next
 
 # make floating window fill screen
 #shift + alt - up     : chunkc tiling::window --grid-layout 1:1:0:0:1:1
@@ -248,15 +250,6 @@ shift + alt + cmd - f : yabai -m window --toggle native-fullscreen
 #ctrl + alt - k : chunkc tiling::window --use-insertion-point north
 #ctrl + alt - l : chunkc tiling::window --use-insertion-point east
 
-## rotate tree
-#alt - r : chunkc tiling::desktop --rotate 90
-#
-## mirror tree y-axis
-#alt - y : chunkc tiling::desktop --mirror vertical
-#
-## mirror tree x-axis
-#alt - x : chunkc tiling::desktop --mirror horizontal
-#
 ## toggle desktop offset
 #alt - a : chunkc tiling::desktop --toggle offset
 #
