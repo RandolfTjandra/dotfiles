@@ -76,6 +76,7 @@ function M.setup()
       keyword_length = 1,
     },
     sources = {
+      { name = "emoji" },
       { name = "nvim_lsp" },
       { name = "luasnip" },
       {
