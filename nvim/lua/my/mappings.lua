@@ -1,7 +1,6 @@
 local M = {}
 
 local map = require("my.utils").map
-
 local nmap = map.nmap
 local imap = map.imap
 local vmap = map.vmap
@@ -16,12 +15,6 @@ imap({ "<C-c>", "<Esc>" })
 
 -- Disable EX mode
 bmap({ "Q", "<Nop>" })
-
--- Save with ^s
-nmap({ "<C-s>", fn = "save" })
-
--- Close buffers / quit with ^q
-nmap({ "<C-q>", fn = "quit" })
 
 -- Window movement
 nmap({ "<Tab>", "<C-W><C-w>" })
@@ -45,10 +38,12 @@ vmap({ "<Leader>y", '"+y', {} })
 -- fzf
 local fzf = require("fzf-lua")
 
-nmap({ "<Leader><Leader>", "<cmd>lua require('fzf-lua').git_files()<CR>" })
-nmap({ "<Leader>p", "<cmd>lua require('fzf-lua').files()<CR>" })
-nmap({ "<Leader>b", "<cmd>lua require('fzf-lua').buffers()<CR>" })
-nmap({ "<Leader>f", "<cmd>lua require('fzf-lua').live_grep_native()<CR>" })
+-- leader
+nmap({ "<Leader><Leader>", fzf.git_files })
+nmap({ "<Leader>p", fzf.files })
+nmap({ "<Leader>b", fzf.buffers })
+nmap({ "<Leader>f", fzf.live_grep_native })
+nmap({ "<Leader>r", fzf.command_history })
 
 -- nvim-tree
 nmap({ "<Leader>t", "<cmd>NvimTreeFindFileToggle<CR>" })
@@ -78,42 +73,6 @@ nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
 -- Repeat the last execuded macro
 nmap({ ",", "@@" })
 
--- Functions defined in this may be used in any of the map functions by passing
--- the `lua` key and the name of any function
-local fn = {}
-
-function fn.save()
-	local path = vim.fn.expand("%")
-	local perms = vim.fn.getfperm(path)
-	local writeable = vim.fn.filewritable(path)
-
-	if writeable or path == "" or perms == "" then
-		vim.cmd("write")
-	else
-		vim.cmd("write suda://%")
-	end
-end
-
-function fn.quit()
-	local buffers = {}
-
-	-- Get all buffers
-	for buffer = 1, vim.fn.bufnr("$") do
-		local is_listed = vim.fn.buflisted(buffer) == 1
-		if is_listed then
-			table.insert(buffers, buffer)
-		end
-	end
-
-	-- Quit if there is only an empty buffer
-	if #buffers == 1 then
-		vim.cmd("confirm quit")
-	else
-		vim.cmd("confirm Bdelete")
-	end
-end
-M.fn = fn
-
 function M.lsp_mapping(bufnr)
 	local fzf_conf = require("my.configs.fzf")
 
@@ -125,11 +84,11 @@ function M.lsp_mapping(bufnr)
 	end
 
 	-- fzf lsp triggers
-	map.nmap({ "gD", bufnr = bufnr, fn = fzf_lsp("declarations") })
-	map.nmap({ "gd", bufnr = bufnr, fn = fzf_lsp("definitions") })
-	map.nmap({ "gr", bufnr = bufnr, fn = fzf_lsp("references") })
-	map.nmap({ "ga", bufnr = bufnr, fn = fzf_lsp("code_actions") })
-	map.nmap({ "gi", bufnr = bufnr, fn = fzf_lsp("implementations") })
+	map.nmap({ "gD", fzf_lsp("declarations"), bufnr = bufnr })
+	map.nmap({ "gd", fzf_lsp("definitions"), bufnr = bufnr, desc = "go to definition" })
+	map.nmap({ "gr", fzf_lsp("references"), bufnr = bufnr })
+	map.nmap({ "ga", fzf_lsp("code_actions"), bufnr = bufnr })
+	map.nmap({ "gi", fzf_lsp("implementations"), bufnr = bufnr })
 
 	map.nmap({
 		"gs",
