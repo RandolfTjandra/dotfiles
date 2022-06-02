@@ -135,6 +135,47 @@ function M.setup()
       }),
     },
   })
+  local kindColors = {
+
+    Text = { link = "Normal" },
+    File = { link = "Normal" },
+
+    Method = { link = "Function" },
+    Function = { link = "Function" },
+    Folder = { link = "Function" },
+
+    Constructor = { link = "Keyword" },
+    Class = { link = "Keyword" },
+    Module = { link = "Keyword" },
+
+    Interface = { link = "Type" },
+
+    Unit = { link = "String" },
+    Value = { link = "String" },
+    Enum = { link = "String" },
+    EnumMember = { link = "String" },
+
+    Constant = { link = "Constant" },
+
+    Snippet = { link = "Whitespace" },
+
+    --     Field = "ﰠ",
+    --     Property = "ﰠ",
+    --     Variable = "",
+    --
+    --     Keyword = "",
+    --     Color = "",
+    --     Reference = "",
+    --     Struct = "פּ",
+    --     Event = "",
+    --     Operator = "",
+    --     TypeParameter = ""
+  }
+
+  -- Setup kind colors
+  for key, color in pairs(kindColors) do
+    vim.api.nvim_set_hl(0, "CmpItemKind" .. key, color)
+  end
 end
 
 return M
