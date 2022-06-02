@@ -40,66 +40,8 @@ function M.setup()
 	)
 end
 
-local function lsp_keymaps(bufnr)
-	local map = require("my.utils").map
-
-	map.nmap({
-		"gD",
-		"<cmd>lua vim.lsp.buf.declaration()<CR>",
-		bufnr = bufnr,
-	})
-	map.nmap({
-		"gd",
-		"<cmd>lua vim.lsp.buf.definition()<CR>",
-		bufnr = bufnr,
-	})
-
-	map.nmap({
-		"gi",
-		"<cmd>lua vim.lsp.buf.implementation()<CR>",
-		bufnr = bufnr,
-	})
-	map.nmap({
-		"gr",
-		"<cmd>lua vim.lsp.buf.references()<CR>",
-		bufnr = bufnr,
-	})
-	map.nmap({
-		"<space>",
-		"<cmd>lua vim.lsp.buf.hover()<CR>",
-		bufnr = bufnr,
-	})
-	map.nmap({
-		"<C-p>",
-		'<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>',
-		bufnr = bufnr,
-	})
-	map.nmap({
-		"<C-n>",
-		'<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>',
-		bufnr = bufnr,
-	})
-
-	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
-end
-
 M.on_attach = function(client, bufnr)
-	if client.name == "tsserver" then
-		client.server_capabilities.document_formatting = false
-	end
-	if client.name == "jsonls" then
-		client.server_capabilities.document_formatting = false
-	end
-	if client.name == "html" then
-		client.server_capabilities.document_formatting = false
-	end
-	if client.name == "sumneko_lua" then
-		client.server_capabilities.document_formatting = false
-	end
-	if client.name == "gopls" then
-		client.server_capabilities.document_formatting = false
-	end
-	lsp_keymaps(bufnr)
+	require("my.mappings").lsp_mapping(bufnr)
 end
 
 local capabilities

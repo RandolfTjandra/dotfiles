@@ -42,6 +42,7 @@ function M.setup()
     options = {
       --theme = "gruvbox-flat",
       theme = "nord",
+      --theme = "everblush",
       component_separators = { left = '', right = ''},
       section_separators = { left = '', right = '' },
 

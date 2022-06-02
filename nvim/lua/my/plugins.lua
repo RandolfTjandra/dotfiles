@@ -188,6 +188,8 @@ return packer.startup(function(use)
   -- Colorscheme nightfox
   use "EdenEast/nightfox.nvim"
 
+  -- Colorscheme  everblush
+  --use { "mangeshrex/everblush.vim" }
 
   -- file explorer https://github.com/kyazdani42/nvim-tree.lua
   use {
