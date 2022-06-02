@@ -37,8 +37,6 @@ vmap({ "<Leader>y", '"+y', {} })
 
 -- fzf
 local fzf = require("fzf-lua")
-
--- leader
 nmap({ "<Leader><Leader>", fzf.git_files })
 nmap({ "<Leader>p", fzf.files })
 nmap({ "<Leader>b", fzf.buffers })
@@ -57,9 +55,10 @@ nmap({ "gh", ":GBrowse!<cr>" })
 vmap({ "gh", ":'<'>GBrowse!<cr>" })
 
 -- Substitute
-nmap({ "s", "<cmd>lua require('substitute').operator()<CR>" })
-nmap({ "ss", "<cmd>lua require('substitute').line()<CR>" })
-nmap({ "S", "<cmd>lua require('substitute').eol()<CR>" })
+local substitute = require("substitute")
+nmap({ "s", substitute.operator })
+nmap({ "ss", substitute.line })
+nmap({ "S", substitute.eol })
 
 -- Yank filepath into system clipboard
 nmap({
