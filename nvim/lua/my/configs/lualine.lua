@@ -9,31 +9,32 @@ function M.setup()
   local bubbles_config = {
     options = {
       --theme = "gruvbox-flat",
-      theme = "nord",
-      component_separators = '|',
-      section_separators = { left = '', right = '' },
+      -- theme = "nord",
+      theme = "catppuccin",
+      component_separators = "|",
+      section_separators = { left = "", right = "" },
 
       disabled_filetypes = { "NvimTree", "dashboard", "Outline" },
     },
     sections = {
       lualine_a = {
-        { 'mode', separator = { left = '' }, right_padding = 2 },
+        { "mode", separator = { left = "" }, right_padding = 2 },
       },
-      lualine_b = { 'filename', 'branch' },
-      lualine_c = { 'fileformat' },
+      lualine_b = { "filename", "branch" },
+      lualine_c = { "fileformat" },
       lualine_x = {},
-      lualine_y = { 'filetype', 'progress' },
+      lualine_y = { "filetype", "progress" },
       lualine_z = {
-        { 'location', separator = { right = '' }, left_padding = 2 },
+        { "location", separator = { right = "" }, left_padding = 2 },
       },
     },
     inactive_sections = {
-      lualine_a = { 'filename' },
+      lualine_a = { "filename" },
       lualine_b = {},
       lualine_c = {},
       lualine_x = {},
       lualine_y = {},
-      lualine_z = { 'location' },
+      lualine_z = { "location" },
     },
   }
   --
@@ -43,30 +44,30 @@ function M.setup()
       --theme = "gruvbox-flat",
       theme = "nord",
       --theme = "everblush",
-      component_separators = { left = '', right = ''},
-      section_separators = { left = '', right = '' },
+      component_separators = { left = "", right = "" },
+      section_separators = { left = "", right = "" },
 
       disabled_filetypes = { "NvimTree", "dashboard", "Outline" },
     },
     sections = {
       lualine_a = {
-        { 'mode', separator = { left = '', right = '' }, right_padding = 2 },
+        { "mode", separator = { left = "", right = "" }, right_padding = 2 },
       },
-      lualine_b = { 'branch', 'diff' },
-      lualine_c = { 'filename' },
-      lualine_x = { 'filetype' },
-      lualine_y = { 'progress' },
+      lualine_b = { "branch", "diff" },
+      lualine_c = { "filename" },
+      lualine_x = { "filetype" },
+      lualine_y = { "progress" },
       lualine_z = {
-        { 'location', separator = { left = '', right = '' }, left_padding = 2 },
+        { "location", separator = { left = "", right = "" }, left_padding = 2 },
       },
     },
     inactive_sections = {
-      lualine_a = { 'filename' },
+      lualine_a = { "filename" },
       lualine_b = {},
       lualine_c = {},
       lualine_x = {},
       lualine_y = {},
-      lualine_z = { 'location' },
+      lualine_z = { "location" },
     },
   }
 
@@ -85,4 +86,3 @@ function M.setup()
 end
 
 return M
-

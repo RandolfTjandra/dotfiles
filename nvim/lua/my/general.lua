@@ -33,12 +33,19 @@ set.confirm = true -- Ask for confirmation when closing unsaved files
 --    require("my.configs.substitute").setup()
 --  end,
 --})
-require("nightfox").setup({
-	options = {
-		transparent = true, -- Disable setting background
-	},
-})
-cmd("colorscheme nordfox")
+
+-- nord setup
+-- require("nightfox").setup({
+--   options = {
+--     transparent = true, -- Disable setting background
+--   },
+-- })
+-- cmd("colorscheme nordfox")
+
+-- Colorscheme catppuccin
+-- let g:catppuccin_flavour = "dusk" " latte, frappe, macchiato, mocha
+g.catppuccin_flavour = "frappe"
+cmd("colorscheme catppuccin")
 
 set.termguicolors = true
 set.background = "dark"
@@ -76,30 +83,30 @@ g.loaded_netrwFileHandlers = false
 
 -- Enable spell check in git commit messages
 vim.api.nvim_create_autocmd("BufRead", {
-	desc = "Enable spell check in git commit messages",
-	group = vim.api.nvim_create_augroup("CommitSpellCheck", {}),
-	pattern = "COMMIT_EDITMSG",
-	callback = function()
-		set.spell = true
-	end,
+  desc = "Enable spell check in git commit messages",
+  group = vim.api.nvim_create_augroup("CommitSpellCheck", {}),
+  pattern = "COMMIT_EDITMSG",
+  callback = function()
+    set.spell = true
+  end,
 })
 
 -- Open help on right
 vim.api.nvim_create_autocmd("FileType", {
-	desc = "Open help to the right",
-	group = vim.api.nvim_create_augroup("HelpWindow", {}),
-	pattern = "help",
-	command = "wincmd L",
+  desc = "Open help to the right",
+  group = vim.api.nvim_create_augroup("HelpWindow", {}),
+  pattern = "help",
+  command = "wincmd L",
 })
 
 -- Highlight
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight yanked text",
-	group = vim.api.nvim_create_augroup("YankHighlight", {}),
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 800 })
-	end,
+  desc = "Highlight yanked text",
+  group = vim.api.nvim_create_augroup("YankHighlight", {}),
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 800 })
+  end,
 })
 
 -- Make searches nice and in-your-face
