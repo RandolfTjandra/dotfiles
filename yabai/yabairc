@@ -53,4 +53,4 @@ yabai -m config mouse_action2 resize
 /* yabai -m config status_bar_clock_icon        time */
 
 # add 20 padding to the top and 0 padding to the bottom of every space located on the main display
-yabai -m config external_bar all:24:0
+yabai -m config external_bar all:30:0
