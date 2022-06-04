@@ -8,7 +8,7 @@ function M.setup()
 
   local bubbles_config = {
     options = {
-      --theme = "gruvbox-flat",
+      -- theme = "gruvbox-flat",
       -- theme = "nord",
       theme = "catppuccin",
       component_separators = "|",
@@ -41,8 +41,9 @@ function M.setup()
 
   local powerlineish_config = {
     options = {
-      --theme = "gruvbox-flat",
-      theme = "nord",
+      -- theme = "gruvbox-flat",
+      -- theme = "nord",
+      theme = "catppuccin",
       --theme = "everblush",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
