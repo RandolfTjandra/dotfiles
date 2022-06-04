@@ -22,6 +22,7 @@ function apply_theme() {
     local theme_vars=(
         t_status
         t_border
+        t_active_border
         t_msg
         t_window_name
         t_window_num
