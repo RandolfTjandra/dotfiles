@@ -6,6 +6,29 @@ local imap = map.imap
 local vmap = map.vmap
 local bmap = map.bmap
 
+-- Close buffers / quit with ^q
+nmap({
+  "<C-q>",
+  function()
+    local buffers = {}
+
+    -- Get all buffers
+    for buffer = 1, vim.fn.bufnr("$") do
+      local is_listed = vim.fn.buflisted(buffer) == 1
+      if is_listed then
+        table.insert(buffers, buffer)
+      end
+    end
+
+    -- Quit if there is only an empty buffer
+    if #buffers == 1 then
+      vim.cmd("confirm quit")
+    else
+      vim.cmd("confirm Bdelete")
+    end
+  end,
+})
+
 -- Remap ^c to be the same as escape without telling us to use :q to quit. the
 -- 'r' command is special cased to a NOP.
 nmap({ "r<C-c>", "<NOP>" })
