@@ -12,10 +12,12 @@ set -e
 
 option="\#{window_flags}"
 
+# s/*//
+
 while IFS=\n read value; do
     mappings+=($value)
 done <<-EOM
-s/*//
+s/*//
 s/-//
 s/#//
 s/!//
