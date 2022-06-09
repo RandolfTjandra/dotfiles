@@ -115,6 +115,9 @@ vim.highlight.create("Conditional", { cterm = "italic", gui = "italic" }, false)
 vim.highlight.create("Repeat", { cterm = "italic", gui = "italic" }, false)
 vim.highlight.create("Label", { cterm = "italic", gui = "italic" }, false)
 
+-- vim.highlight.create("Function", { cterm = "italic", gui = "italic" }, false)
+-- vim.highlight.create("Type", { cterm = "italic", gui = "italic" }, false)
+
 -- Make searches nice and in-your-face
 vim.api.nvim_set_hl(0, "Search", { link = "Todo" })
 
