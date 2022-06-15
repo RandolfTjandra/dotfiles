@@ -115,9 +115,6 @@
 # open mpv
 #cmd - m : open -na /Applications/mpv.app $(pbpaste)
 
-# close focused window
-#alt - w : chunkc tiling::window --close
-
 # focus window
 alt - h : yabai -m window --focus west
 alt - j : yabai -m window --focus south
@@ -135,11 +132,10 @@ lctrl + alt + shift - l : yabai -m window --resize right:50:0; \
                   yabai -m window --resize left:50:0
 
 # equalize size of windows
-#shift + alt - 0 : yabai -m space --balance
-lctrl + alt - e : yabai -m space --balance
+shift + alt - e : yabai -m space --balance
 
 # Enable / Disable gaps in current workspace
-lctrl + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+shift + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 
 # Rotate windows clockwise and anticlockwise
 alt - r         : yabai -m space --rotate 270
@@ -150,10 +146,10 @@ shift + alt - x : yabai -m space --mirror x-axis
 shift + alt - y : yabai -m space --mirror y-axis
 
 # Make window native fullscreen
-#alt - f         : yabai -m window --toggle zoom-fullscreen
-#shift + alt - f : yabai -m window --toggle native-fullscreen
-alt + cmd - f         : yabai -m window --toggle zoom-fullscreen
-shift + alt + cmd - f : yabai -m window --toggle native-fullscreen
+# alt + cmd - f         : yabai -m window --toggle zoom-fullscreen
+# shift + alt + cmd - f : yabai -m window --toggle native-fullscreen
+lctrl + alt + shift - f : yabai -m window --toggle zoom-fullscreen
+alt + shift - f         : yabai -m window --toggle native-fullscreen
 
 # move window
 shift + alt - h : yabai -m window --warp west
@@ -162,8 +158,8 @@ shift + alt - k : yabai -m window --warp north
 shift + alt - l : yabai -m window --warp east
 
 # Move focus container to workspace
-#shift + alt - p : yabai -m window --space prev; yabai -m space --focus prev
-#shift + alt - n : yabai -m window --space next; yabai -m space --focus next
+shift + alt - p : yabai -m window --space prev; yabai -m space --focus prev
+shift + alt - n : yabai -m window --space next; yabai -m space --focus next
 
 # make floating window fill screen
 #shift + alt - up     : chunkc tiling::window --grid-layout 1:1:0:0:1:1
