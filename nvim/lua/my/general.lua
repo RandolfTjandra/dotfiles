@@ -15,17 +15,17 @@ set.smartcase = true -- Don't ignore case when using uppercase in a search
 set.confirm = true -- Ask for confirmation when closing unsaved files
 
 -- colorscheme
---exec(
---  [[
---  augroup user_colors
---    autocmd!
---    autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
---  augroup END
---  ]],
---  false
---)
---cmd("colorscheme gruvbox-flat")
---g.gruvbox_flat_style = "dark"
+-- exec(
+--   [[
+--   augroup user_colors
+--     autocmd!
+--     autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+--   augroup END
+--   ]],
+--   false
+-- )
+-- cmd("colorscheme gruvbox-flat")
+-- g.gruvbox_flat_style = "dark"
 --
 --use({
 --  "gbprod/substitute.nvim",
