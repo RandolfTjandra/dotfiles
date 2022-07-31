@@ -3,6 +3,9 @@ local set = vim.opt
 local cmd = vim.cmd
 local g = vim.g
 
+local hl = require("my.utils").hl
+local update_hl = hl.update_hl
+
 set.number = true -- Show line numbers
 set.wrap = false -- Don't visually wrap lines
 set.showmode = false -- Don't show mode (--INSERT--, etc)
@@ -110,13 +113,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Syntax Highlighting
-vim.highlight.create("Comment", { cterm = "none", gui = "none" }, false)
-vim.highlight.create("Conditional", { cterm = "italic", gui = "italic" }, false)
-vim.highlight.create("Repeat", { cterm = "italic", gui = "italic" }, false)
-vim.highlight.create("Label", { cterm = "italic", gui = "italic" }, false)
-
--- vim.highlight.create("Function", { cterm = "italic", gui = "italic" }, false)
--- vim.highlight.create("Type", { cterm = "italic", gui = "italic" }, false)
+update_hl("Conditional", { italic = true })
+update_hl("Repeat", { italic = true })
+update_hl("Label", { italic = true })
+update_hl("Function", { italic = true })
+update_hl("Type", { italic = true })
+update_hl("Comment", { italic = false })
 
 -- Make searches nice and in-your-face
 vim.api.nvim_set_hl(0, "Search", { link = "Todo" })
