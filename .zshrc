@@ -1,12 +1,12 @@
 # Start or continue tmux on new window
 if [ -z "$TMUX" ]; then
-  echo "Select a tmux session..."
-  SESSIONS=( $(tmux ls -F "#S") 'new' 'exit')
+  echo "Select a tmux session or Action..."
+  SESSIONS=( $(tmux ls -F "#S") 'Create a new session' 'Exit')
   SESSION=$(gum choose ${SESSIONS[@]} --cursor "  " --cursor.foreground "#CA9EE6")
-  if [[ $SESSION == 'exit' ]]; then
+  if [[ $SESSION == 'Exit' ]]; then
     echo 'starting without tmux'
   else
-    if [[ $SESSION == 'new' ]]; then
+    if [[ $SESSION == 'Create a new session' ]]; then
       SESSION=$(gum input --placeholder "Enter new session name" --prompt " ❯ ")
     fi
     exec tmux new-session -A -s "$SESSION"
