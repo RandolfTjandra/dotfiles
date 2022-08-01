@@ -1,0 +1,2 @@
+gh = "!git log --oneline | gum filter | cut -d' ' -f1 | pbcopy"
+
