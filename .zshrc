@@ -1,6 +1,6 @@
 # Start or continue tmux on new window
 if [ -z "$TMUX" ]; then
-  echo "Select a session..."
+  echo "Select a tmux session..."
   SESSIONS=( $(tmux ls -F "#S") 'new' 'exit')
   SESSION=$(gum choose ${SESSIONS[@]} --cursor "  " --cursor.foreground "#CA9EE6")
   if [[ $SESSION == 'exit' ]]; then
