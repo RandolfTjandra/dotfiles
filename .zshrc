@@ -7,7 +7,7 @@ if [ -z "$TMUX" ]; then
     echo 'starting without tmux'
   else
     if [[ $SESSION == 'new' ]]; then
-      SESSION=$(gum input --placeholder "Enter new session name" --prompt " > ")
+      SESSION=$(gum input --placeholder "Enter new session name" --prompt " ❯ ")
     fi
     exec tmux new-session -A -s "$SESSION"
   fi
