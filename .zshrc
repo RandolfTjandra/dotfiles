@@ -1,17 +1,5 @@
 # Start or continue tmux on new window
-if [ -z "$TMUX" ]; then
-  echo "Select a tmux session or Action..."
-  SESSIONS=( $(tmux ls -F "#S") 'Create a new session' 'Exit')
-  SESSION=$(gum choose ${SESSIONS[@]} --cursor "  " --cursor.foreground "#CA9EE6")
-  if [[ $SESSION == 'Exit' ]]; then
-    echo 'starting without tmux'
-  else
-    if [[ $SESSION == 'Create a new session' ]]; then
-      SESSION=$(gum input --placeholder "Enter new session name" --prompt " ❯ ")
-    fi
-    exec tmux new-session -A -s "$SESSION"
-  fi
-fi
+source "$HOME/.config/zsh/tmux_start"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -53,7 +41,7 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=
 autoload -Uz compinit && compinit
 
 # Aliases
-source "${BASH_STUFF}/zsh/aliases"
+source "$HOME/.config/zsh/aliases"
 
 #export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/randolftjandra/.cargo/bin:/Applications/kitty.app/Contents/MacOS:/opt/homebrew/opt/fzf/bin
 
