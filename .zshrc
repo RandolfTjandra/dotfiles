@@ -1,7 +1,17 @@
-# Start tmux on new window
-# if [ -z "$TMUX" ]; then
-#   exec tmux new-session -A -s '0' 
-# fi
+# Start or continue tmux on new window
+if [ -z "$TMUX" ]; then
+  echo "Select a session..."
+  SESSIONS=( $(tmux ls -F "#S") 'new' 'exit')
+  SESSION=$(gum choose ${SESSIONS[@]} --cursor "  " --cursor.foreground "#CA9EE6")
+  if [[ $SESSION == 'exit' ]]; then
+    echo 'starting without tmux'
+  else
+    if [[ $SESSION == 'new' ]]; then
+      SESSION=$(gum input --placeholder "Enter new session name" --prompt " > ")
+    fi
+    exec tmux new-session -A -s "$SESSION"
+  fi
+fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
