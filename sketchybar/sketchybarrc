@@ -55,9 +55,10 @@ source "$ITEM_DIR/apple.sh"
 source "$ITEM_DIR/spaces.sh"
 
 # Right
-source "$ITEM_DIR/github.sh"
+# source "$ITEM_DIR/github.sh"
 source "$ITEM_DIR/calendar.sh"
 source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/battery.sh"
 
 ############## FINALIZING THE SETUP ##############
 sketchybar --update
