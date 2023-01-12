@@ -53,3 +53,43 @@ source "$HOME/.config/zsh/aliases"
 
 export PATH="/usr/local/opt/php@7.4/bin:$PATH"
 export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+function get_profile {
+  if [[ "$1" == "prod" ]]; then profile="ellationc"; else profile="ellationengc"; fi
+  echo "$profile"
+}
+
+function find_bastion_ip {
+  ip=$(aws ec2 describe-instances --profile $(get_profile "$1") --region us-west-2 --filters "Name=tag-value,Values=${1}-bastion" --query 'Reservations[*].Instances[*].NetworkInterfaces[*].Association.PublicIp' --output text | head -n1)
+  echo $ip | tee >(pbcopy)
+}
+
+function find_payments_ip {
+  service=$(gum choose "secure-payments" "secure-payments.cc" "secure-payments.cron")
+  ip=$(aws ec2 describe-instances --profile $(get_profile "$1") --region us-west-2 --filters "Name=tag-value,Values=${1}-$service" --query 'Reservations[*].Instances[*].NetworkInterfaces[*].PrivateIpAddress' --output text | head -n1)
+  echo $ip | tee >(pbcopy)
+}
+
+function get-apigateway-url {
+  item=$(aws apigateway get-rest-apis --profile=${1} --output=json | jq -r '.items | .[] | .name' | fzf)
+  query="items[?name=='$item']";
+  result=$(aws apigateway get-rest-apis --profile=${1} --output json --query $query | jq -r '.[0] | [{id: .id, vpc: .endpointConfiguration.vpcEndpointIds[]}] | .[0] | join("-")')
+  echo "https://$result.execute-api.us-west-2.amazonaws.com/prod" | tee >(pbcopy)
+}
+
+function get-ec2-ip {
+  item=$(aws ec2 describe-instances --profile=${1} --query 'Reservations[].Instances[].[Tags[?Key==`Name`]| [0].Value]' | sort | uniq | fzf)
+  ip=$(aws ec2 describe-instances --profile=${1}  --region us-west-2 --filters "Name=tag-value,Values=${item}" --query 'Reservations[*].Instances[*].NetworkInterfaces[*].PrivateIpAddress' --output text | head -n1)
+  echo $ip | tee >(pbcopy)
+}
+
+# aws lambda list-functions --profile=ellationeng --output=json | jq -r '.Functions | .[] | .FunctionName' | gum filter
+#  get-apigateway-url $(aws lambda list-functions --profile=ellationeng --output=json | jq -r '.Functions | .[] | .FunctionName' | gum filter) ellationeng
+#
+#  to set the proto0 ami to whatever is set in prod
+#  ef-version secure-payments ami-id proto0 --set $(ef-version secure-payments ami-id prod --get) --commit  --noprecheck
+#  then use https://jenkins-build.ellationengc.cxc-mgmt.com/job/secure-payments-deploy-proto0/ to deploy

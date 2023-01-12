@@ -37,6 +37,8 @@ lctrl + alt + shift - k : yabai -m window --resize top:0:-50; \
 lctrl + alt + shift - l : yabai -m window --resize right:50:0; \
                   yabai -m window --resize left:50:0
 
+#lctrl + alt + shift + w : yabai -m rule --add app="^Cron$" space=6; yabai -m rule --add app="^Slack$" space=6
+
 # equalize size of windows
 lctrl + alt + shift - e : yabai -m space --balance
 

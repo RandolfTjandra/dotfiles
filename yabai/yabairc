@@ -45,6 +45,20 @@ yabai -m config external_bar all:26:0
 
 #SPACEBAR_HEIGHT=$(spacebar -m config height)
 #yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
-yabai -m config external_bar all:30:0
+#yabai -m config external_bar all:30:0
 
 yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+
+function setup_space {
+  local idx="$1"
+  local name="$2"
+  local space=
+  echo "setup space $idx : $name"
+
+  space=$(yabai -m query --spaces --space "$idx")
+  if [ -z "$space" ]; then
+    yabai -m space --create
+  fi
+
+  yabai -m space "$idx" --label "$name"
+}
