@@ -44,8 +44,12 @@ M.on_attach = function(client, bufnr)
 end
 
 local capabilities
-local cap = vim.lsp.protocol.make_client_capabilities()
-local capabilities = require("cmp_nvim_lsp").default_capabilities(cap)
+-- local cap = vim.lsp.protocol.make_client_capabilities()
+-- local capabilities = require("cmp_nvim_lsp").default_capabilities(cap)
+
+-- capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 M.capabilities = capabilities
 
 return M
