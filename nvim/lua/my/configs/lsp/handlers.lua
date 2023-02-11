@@ -46,7 +46,9 @@ end
 local capabilities
 
 -- capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").defalt_capailities(capabilities)
+-- capabilities = require("cmp_nvim_lsp").default_capailities()
+local cap = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require("cmp_nvim_lsp").default_capabilities(cap)
 
 M.capabilities = capabilities
 
