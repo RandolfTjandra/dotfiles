@@ -29,6 +29,9 @@ nmap({
   end,
 })
 
+-- Copilot (maybe unnecessary?)
+-- imap({ "<C-j>", 'copilot#Accept("<CR>")', { expr = true, silent = true } })
+
 -- Remap ^c to be the same as escape without telling us to use :q to quit. the
 -- 'r' command is special cased to a NOP.
 nmap({ "r<C-c>", "<NOP>" })
