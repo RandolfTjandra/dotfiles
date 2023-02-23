@@ -8,6 +8,7 @@
 #  M  The window contains the marked pane.
 #  Z  The window's active pane is zoomed.
 
+# Exit after any failed command
 set -e
 
 option="\#{window_flags}"
@@ -32,7 +33,7 @@ sed_script="$(
 )"
 
 # The extra replacment adds spaces between each character
-formatting_script="sed -e '${sed_script};s/./& /g'"
+formatting_script="sed -e '${sed_script}g'"
 flags_value=" #(printf '%%s\n' '#F' | ${formatting_script})"
 
 for setting in window-status-format window-status-current-format; do
