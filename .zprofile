@@ -1,7 +1,7 @@
-eval "$(/usr/local/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(ssh-agent -s)"
-ssh-add --apple-use-keychain ~/.ssh/randolf_at_crunchyroll_com
-ssh-add --apple-use-keychain ~/.ssh/randolftjandra_at_crunchyroll_com
+# ssh-add --apple-use-keychain ~/.ssh/randolf_at_crunchyroll_com
+# ssh-add --apple-use-keychain ~/.ssh/randolftjandra_at_crunchyroll_com
 #--apple-use-keychain and --apple-load-keychain
 
 
