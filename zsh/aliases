@@ -11,7 +11,7 @@ alias gocover="go test ./... -coverprofile cover.out && go tool cover -html=cove
 
 
 # Work related
-alias projects='cd /Users/rtjandra/Dev/projects/cx-projects'
+alias projects='cd /Users/randolftjandra/Dev'
 alias gogo='cd /Users/rtjandra/Dev/projects/cx-projects/golang/src/github.com'
 alias gocover="go test ./... -coverprofile cover.out && go tool cover -html=cover.out -o coverage.html && go tool cover -func cover.out | grep total"
 
