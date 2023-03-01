@@ -5,3 +5,5 @@ alias matrix="cmatrix -absr"
 alias pipes="pipes.sh -p 3 -t 0 -R"
 alias vim="nvim"
 alias dev="cd ~/Dev"
+alias gocover="go test ./... -coverprofile cover.out && go tool cover -html=cover.out -o coverage.html && go tool cover -func cover.out | grep total"
+
