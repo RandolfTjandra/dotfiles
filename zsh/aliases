@@ -1,6 +1,7 @@
 # Aliases
 alias godots="cd ${BASH_STUFF}"
-alias l="gls -aFlh --group-directories-first --color"
+alias lg="gls -aFlh --group-directories-first --color"
+alias l="lsd -AFlh --group-directories-first"
 alias matrix="cmatrix -absr"
 alias pipes="pipes.sh -p 3 -t 0 -R"
 alias vim="nvim"
