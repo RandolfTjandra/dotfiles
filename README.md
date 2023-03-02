@@ -9,7 +9,7 @@ Feel free to look around if you want though.
 ln -s ~/.config/tmux/.tmux.conf ~/.tmux.conf 
 
 ## env setup
-export BASH_STUFF="/Users/randolftjandra/Dev/bash-stuff/"
+export DOTS="/Users/randolftjandra/Dev/dotfiles/"
 
 ## Kitty
 ### list fonts and their family names
