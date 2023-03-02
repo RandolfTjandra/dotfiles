@@ -26,8 +26,8 @@
 #   invalid: 245
 # tree-edge: 245
 
-user: 230
-group: 187
+user: magenta
+group: 183
 permission:
   read: dark_green
   write: dark_yellow
