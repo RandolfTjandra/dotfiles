@@ -1,4 +1,4 @@
-# bash-stuff
+# dotfiles
 This is my personal dots repo. A lot of it is a mess right now so I wouldn't recommend copying any of it.
 Feel free to look around if you want though.
 
