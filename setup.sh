@@ -23,3 +23,5 @@ ln -sfn $dotslocation/zsh ~/.config/zsh
 ln -sfn $dotslocation/.hammerspoon ~/.hammerspoon
 ln -sfn $dotslocation/.zprofile ~/.zprofile
 ln -sfn $dotslocation/.zshrc ~/.zshrc
+ln -sfn $dotslocation/.gitconfig ~/.gitconfig
+ln -sfn $dotslocation/.gitmessage ~/.gitmessage

@@ -1,3 +1,10 @@
+[user]
+  name = Randolf Tjandra
+  email = randolftjandra@gmail.com
+
+[pull]
+  rebase = true
+
 [color]
   diff = auto 
   status = auto 
@@ -9,10 +16,15 @@
 
 [alias]
   gl = log --graph --oneline --decorate --branches --tags --remotes   
+  br = branch -v
   co = checkout
   ci = commit
+  di = diff
   st = status -sb
-  br = branch -v
+  # Show the commits and content in this branch
+  showbr = log --pretty=oneline trunk..
+  showallbr = log -U trunk ..
+
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
@@ -21,30 +33,36 @@
   lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
   lg = !(git lg1)
 
+  # Copies commit has into pb from git log
   gh = "!git log --oneline | gum filter | cut -d' ' -f1 | pbcopy"
+
+  # Formats recent changes for jira
+  jira-log = "!f() { A=$1; B=${2-origin/master}; git fetch origin; git log $A..$B --pretty=format:'%H%n%B%x0C' | tr -d \"\\r\" | perl -e '$/ = \"\\f\"; print \"||SHA||Summary||Issue ID||\\n\"; while(<>) { /\\s*(\\w+)\\s+([^\\n]+).*jira: ([^\\n]+)/si; print \"| $1 | $2 | $3 |\\n\"};';}; f"
 
   # create new qa branch form current branch
   coqa = "!f() { git checkout -b $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
 
+  # Commits staged changes and force pushes them to origin
   foobar = "!f() { git commit --amend; git push origin HEAD --force; };f"
-
 
   #test = "!f() { if false;then echo true;else echo false;fi; }; f"
   test= "!f() { git switch $(git rev-parse --abbrev-ref HEAD)-qa 2>/dev/null || git switch -c $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
   #if [[]];then ;else;fi
 
+[log]
+  date = relative
+
 [core]
-  excludesfile = /Users/randolf/.gitignore
+  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  excludesfile = ~/.gitignore
+
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
   path = 
+
 [mergetool "sourcetree"]
   cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
   trustExitCode = true
-
-[user]
-  name = Randolf Tjandra
-  email = randolf@crunchyroll.com
 
 [log]
   date = relative
@@ -76,9 +94,11 @@
   insteadOf = https://github.com/
 
 [commit]
-  template = /Users/rtjandra/.gitmessage.txt
+  template = ~/.gitmessage
+
 [init]
-	templatedir = ~/.git-templates
+  templatedir = ~/.git-templates
+
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
 
