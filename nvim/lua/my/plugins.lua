@@ -137,6 +137,7 @@ return packer.startup(function(use)
       require("my.configs.null-ls").setup()
     end,
   })
+  use("MunifTanjim/prettier.nvim")
 
   -- Autocompletion
   use({

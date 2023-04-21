@@ -45,3 +45,7 @@ source "$HOME/.config/zsh/aliases"
 
 #export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/randolftjandra/.cargo/bin:/Applications/kitty.app/Contents/MacOS:/opt/homebrew/opt/fzf/bin
 
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+# 1Password auto complete
+eval "$(op completion zsh)"; compdef _op op
