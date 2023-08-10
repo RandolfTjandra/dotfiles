@@ -18,6 +18,7 @@ ln -sfn $dotslocation/spacebar ~/.config/spacebar
 ln -sfn $dotslocation/tmux ~/.config/tmux
 ln -sfn $dotslocation/yabai ~/.config/yabai
 ln -sfn $dotslocation/zsh ~/.config/zsh
+ln -sfn $dotslocation/karabiner ~/.config/karabiner
 
 # target: ~
 ln -sfn $dotslocation/.hammerspoon ~/.hammerspoon
