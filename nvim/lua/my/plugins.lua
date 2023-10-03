@@ -69,8 +69,6 @@ return packer.startup(function(use)
       require("my.configs.treesitter").setup()
     end,
     opts = function(_, opts)
-      opts.ignore_install = { 'help' }
-
       if type(opts.ensure_installed) == 'table' then
         vim.list_extend(opts.ensure_installed, {
           'dockerfile',
@@ -133,21 +131,53 @@ return packer.startup(function(use)
   -- Snippet engine
   use({ "L3MON4D3/LuaSnip" })
 
+  -- Visualize LSP Status
+  use {
+  'j-hui/fidget.nvim',
+  tag = 'legacy',
+  config = function()
+    require("fidget").setup {
+      -- options
+    }
+  end,
+}
+
   -- Utilities for better configuration of the neovim LSP
+  use {
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate",
+    event = "BufReadPre",
+    config = function()
+      require("mason").setup()
+    end,
+  }
+
+  use {
+    "williamboman/mason-lspconfig.nvim",
+    requires = {
+      "williamboman/mason.nvim",
+    },
+    after = "mason.nvim",
+    config = function()
+      require("mason-lspconfig").setup()
+    end,
+  }
+
   use({
     "neovim/nvim-lspconfig",
-    requires = { "hrsh7th/nvim-cmp" },
-    event = "BufRead",
+    requires = {
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp",
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "ibhagwan/fzf-lua",
+    },
+    after = {"mason.nvim", "mason-lspconfig.nvim", "cmp-nvim-lsp"},
+    -- event = "BufRead",
     config = function()
       require("my.configs.lsp").setup()
     end,
   })
-
-  use {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-  }
 
   -- -- Helper plugin to handle installing LSP servers
   -- use({
@@ -218,11 +248,11 @@ return packer.startup(function(use)
   --use { "mangeshrex/everblush.vim" }
 
   -- Colorscheme catppuccin
- use({
-   "catppuccin/nvim",
-   as = "catppuccin",
- })
- require("my.configs.catppuccin").setup()
+  use({
+    "catppuccin/nvim",
+    as = "catppuccin",
+  })
+   require("my.configs.catppuccin").setup()
 
   -- Styled component syntax highlighting
   use({ "styled-components/vim-styled-components", branch = "main" })
