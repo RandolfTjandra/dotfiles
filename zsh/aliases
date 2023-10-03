@@ -2,6 +2,7 @@
 alias dots="cd ${DOTS}"
 alias lg="gls -aFlh --group-directories-first --color"
 alias l="lsd -AFlh --group-directories-first"
+# alias l="ls -aFlh --color"
 alias matrix="cmatrix -absr"
 alias pipes="pipes.sh -p 3 -t 0 -R"
 alias vim="nvim"

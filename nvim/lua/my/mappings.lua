@@ -58,6 +58,9 @@ nmap({ "<Leader>y", '"+y', {} })
 nmap({ "<Leader>Y", '"+Y', {} })
 vmap({ "<Leader>y", '"+y', {} })
 
+-- -- Visual mode star
+-- vmap({ "<Leader>*", visual_star })
+
 -- fzf
 local fzf = require("fzf-lua")
 nmap({ "<Leader><Leader>", fzf.git_files })

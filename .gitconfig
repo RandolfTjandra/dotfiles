@@ -20,6 +20,7 @@
   co = checkout
   ci = commit
   di = diff
+  dic= diff --cached
   st = status -sb
   # Show the commits and content in this branch
   showbr = log --pretty=oneline trunk..
@@ -43,7 +44,7 @@
   coqa = "!f() { git checkout -b $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
 
   # Commits staged changes and force pushes them to origin
-  foobar = "!f() { git commit --amend; git push origin HEAD --force; };f"
+  foobar = "!f() { git commit --amend --no-edit; git push origin HEAD --force; };f"
 
   #test = "!f() { if false;then echo true;else echo false;fi; }; f"
   test= "!f() { git switch $(git rev-parse --abbrev-ref HEAD)-qa 2>/dev/null || git switch -c $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
@@ -170,9 +171,11 @@
 [url "ssh://git@github.com/"]
   insteadOf = https://github.com/
 
-[commit]
-  template = /Users/rtjandra/.gitmessage.txt
+; [commit]
+;   template = /Users/rtjandra/.gitmessage.txt
 [init]
 	templatedir = ~/.git-templates
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[commit]
+	template = /Users/randolf/.gitmessage

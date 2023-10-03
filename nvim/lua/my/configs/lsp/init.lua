@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup()
-  require("my.configs.lsp.installer").setup()
+  require("my.configs.lsp.minstaller").setup()
 
   local lspconfig = safe_require("lspconfig")
   if not lspconfig then

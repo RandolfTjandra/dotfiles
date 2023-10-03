@@ -4,10 +4,10 @@ source "$HOME/.config/zsh/tmux_start"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
+# source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 
 # Load version control information
@@ -24,7 +24,7 @@ PROMPT='%n in ${PWD/#$HOME/~} > '
 # right prompt
 export RPROMPT='${vcs_info_msg_0_}'
 
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -62,7 +62,7 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 # 1Password auto complete
 eval "$(op completion zsh)"; compdef _op op
-source /Users/randolftjandra/.config/op/plugins.sh
+source /Users/randolf/.config/op/plugins.sh
 
 export PATH="/usr/local/opt/php@7.4/bin:$PATH"
 export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
@@ -108,4 +108,19 @@ function get-ec2-ip {
 #  then use https://jenkins-build.ellationengc.cxc-mgmt.com/job/secure-payments-deploy-proto0/ to deploy
 export PATH=/opt/homebrew/bin:$PATH
 
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export PATH="$(yarn global bin):$PATH"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+
+# bun completions
+[ -s "/Users/randolf/.bun/_bun" ] && source "/Users/randolf/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PATH="$HOME/.local/bin:$PATH"

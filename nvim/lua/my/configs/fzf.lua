@@ -34,6 +34,7 @@ function M.setup()
 			["--prompt"] = "›",
 			["--pointer"] = "›",
 			["--marker"] = "›",
+
 		},
 
 		files = { prompt = "files › " },

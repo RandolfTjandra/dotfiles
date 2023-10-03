@@ -46,7 +46,6 @@ set.confirm = true -- Ask for confirmation when closing unsaved files
 -- cmd("colorscheme nordfox")
 
 -- Colorscheme catppuccin
--- let g:catppuccin_flavour = "dusk" " latte, frappe, macchiato, mocha
 g.catppuccin_flavour = "frappe"
 cmd("colorscheme catppuccin")
 

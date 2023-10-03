@@ -68,6 +68,20 @@ return packer.startup(function(use)
     config = function()
       require("my.configs.treesitter").setup()
     end,
+    opts = function(_, opts)
+      opts.ignore_install = { 'help' }
+
+      if type(opts.ensure_installed) == 'table' then
+        vim.list_extend(opts.ensure_installed, {
+          'dockerfile',
+          'git_config',
+          'jsdoc',
+          'make',
+          'toml',
+          'vimdoc',
+        })
+      end
+    end,
   })
 
   -- Colors
@@ -108,9 +122,12 @@ return packer.startup(function(use)
   use({
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
-    config = function()
-      require("my.configs.indent-blankline").setup()
-    end,
+    -- config = function()
+    --   require('ibl').setup {
+    --     char = '┊',
+    --     show_trailing_blankline_indent = false,
+    --   }
+    -- end,
   })
 
   -- Snippet engine
@@ -119,16 +136,23 @@ return packer.startup(function(use)
   -- Utilities for better configuration of the neovim LSP
   use({
     "neovim/nvim-lspconfig",
+    requires = { "hrsh7th/nvim-cmp" },
     event = "BufRead",
     config = function()
       require("my.configs.lsp").setup()
     end,
   })
 
-  -- Helper plugin to handle installing LSP servers
-  use({
-    "williamboman/nvim-lsp-installer",
-  })
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+  }
+
+  -- -- Helper plugin to handle installing LSP servers
+  -- use({
+  --   "williamboman/nvim-lsp-installer",
+  -- })
 
   -- Null language server, provides many formatting built-ins
   use({
@@ -194,11 +218,11 @@ return packer.startup(function(use)
   --use { "mangeshrex/everblush.vim" }
 
   -- Colorscheme catppuccin
-  use({
-    "catppuccin/nvim",
-    as = "catppuccin",
-  })
-  require("my.configs.catppuccin").setup()
+ use({
+   "catppuccin/nvim",
+   as = "catppuccin",
+ })
+ require("my.configs.catppuccin").setup()
 
   -- Styled component syntax highlighting
   use({ "styled-components/vim-styled-components", branch = "main" })
