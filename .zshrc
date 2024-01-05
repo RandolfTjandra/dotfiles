@@ -1,6 +1,8 @@
 # Start or continue tmux on new window
 source "$HOME/.config/zsh/tmux_start"
 
+source "$HOME/.config/zsh/save_tmux_history"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -8,7 +10,6 @@ source "$HOME/.config/zsh/tmux_start"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
 
 # Load version control information
 autoload -Uz vcs_info

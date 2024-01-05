@@ -1,0 +1,17 @@
+save_tmux_history() {
+    local histfile="${HOME}/.tmux_history/history-$(date +%Y%m%d%H%M%S)-${TMUX_PANE}"
+    fc -W "${histfile}"
+}
+
+# Append command history after each command
+setopt INC_APPEND_HISTORY
+
+# Create .tmux_history directory if it doesn't exist
+if [ ! -d "${HOME}/.tmux_history" ]; then
+    mkdir "${HOME}/.tmux_history"
+fi
+
+# If inside TMUX, save history when the pane is closed
+if [ -n "${TMUX}" ]; then
+    trap 'save_tmux_history' EXIT
+fi
