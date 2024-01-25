@@ -25,7 +25,11 @@ PROMPT='%n in ${PWD/#$HOME/~} > '
 # right prompt
 export RPROMPT='${vcs_info_msg_0_}'
 
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+# work laptop
+# source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+
+# home
+source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -63,7 +67,7 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 # 1Password auto complete
 eval "$(op completion zsh)"; compdef _op op
-source /Users/randolf/.config/op/plugins.sh
+source /Users/randolftjandra/.config/op/plugins.sh
 
 export PATH="/usr/local/opt/php@7.4/bin:$PATH"
 export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
@@ -114,14 +118,15 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
-export PATH="$(yarn global bin):$PATH"
+# Uncomment if working with JS
+# export PATH="$(yarn global bin):$PATH"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 
 # bun completions
-[ -s "/Users/randolf/.bun/_bun" ] && source "/Users/randolf/.bun/_bun"
+# [ -s "/Users/randolf/.bun/_bun" ] && source "/Users/randolf/.bun/_bun"
 
 # bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# export BUN_INSTALL="$HOME/.bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
