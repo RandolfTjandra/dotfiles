@@ -4,4 +4,4 @@
 # Also assumes you're using the standard gitmessage
 #
 # Converts branch name into Issue ticket
-sed -i.bak "s Issue: none Issue: $(git branch | grewp '*' | sed -E 's \* draft-//;s ([a-zA-Z]+-[0-9]+).*/\1 ' | tr '[:lower:]' '[:upper:]') " "$1"
+sed -i.bak "s/Issue: none/Issue: $(git branch | grep '*' | sed -E 's/\* //;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')/" "$1"
