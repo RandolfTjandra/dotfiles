@@ -1,11 +1,9 @@
 #!bin/sh
-if [ -z "$DOTS" ]; then
-  echo "where is dotfiles?"
-  read dotslocation
-  export DOTS=$dotslocation
-else
-  dotslocation=${DOTS}
+if [ -z "$DOTFILES" ]; then
+  echo "Setting DOTFILES=$(pwd)"
+  export DOTFILES=$(pwd)
 fi
+dotslocation=${DOTFILES}
 
 # target: ~/.config
 ln -sfn $dotslocation/lsd ~/.config
@@ -26,4 +24,5 @@ ln -sfn $dotslocation/.zprofile ~/.zprofile
 ln -sfn $dotslocation/.zshrc ~/.zshrc
 ln -sfn $dotslocation/.gitconfig ~/.gitconfig
 ln -sfn $dotslocation/.gitmessage ~/.gitmessage
+ln -sfn $dotslocation/.gitignore ~/.gitignore
 
