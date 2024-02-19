@@ -59,7 +59,8 @@ source "$HOME/.config/zsh/aliases"
 export WK_KEY="c030d600-1051-417f-84c2-fe0f5546d96d"
 
 # charmbracelet mods
-export OPENAI_API_KEY="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"
+# export OPENAI_API_KEY="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"
+export OPENAI_API_KEY='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'
 
 #export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/randolftjandra/.cargo/bin:/Applications/kitty.app/Contents/MacOS:/opt/homebrew/opt/fzf/bin
 
