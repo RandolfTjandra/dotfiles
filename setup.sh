@@ -25,4 +25,6 @@ ln -sfn $dotslocation/.zshrc ~/.zshrc
 ln -sfn $dotslocation/.gitconfig ~/.gitconfig
 ln -sfn $dotslocation/.gitmessage ~/.gitmessage
 ln -sfn $dotslocation/.gitignore ~/.gitignore
+ln -sfn $dotslocation/git/.git-templates ~/.git-templates
+ln -sfn $dotslocation/git/hooks ~/.git-hooks
 
