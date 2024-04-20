@@ -74,6 +74,7 @@
 
 [init]
   templatedir = ~/.git-templates
+	defaultBranch = main
 
 [core]
   excludesfile = ~/.gitignore
