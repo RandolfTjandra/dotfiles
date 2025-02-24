@@ -87,6 +87,9 @@ M.on_attach = function(client, bufnr)
 	if client.name == "tsserver" then
 		client.server_capabilities.document_formatting = false
 	end
+	if client.name == "eslint" then
+		client.server_capabilities.document_formatting = false
+	end
 	if client.name == "jsonls" then
 		client.server_capabilities.document_formatting = false
 	end

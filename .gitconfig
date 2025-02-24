@@ -6,14 +6,16 @@
   rebase = true
 
 [alias]
+  a = add
   gl = log --graph --oneline --decorate --branches --tags --remotes   
   br = branch -v
   brr = branch -vr
   co = checkout
   ci = commit
-  di = diff
-  dic= diff --cached
-  st = status -sb
+  d = diff
+  dc = diff --cached
+  s = status -sb
+  sh = stash
   # Show the commits and content in this branch
   showbr = log --pretty=oneline trunk..
   showallbr = log -U trunk ..

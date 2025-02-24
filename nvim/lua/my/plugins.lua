@@ -50,6 +50,27 @@ return packer.startup(function(use)
     end,
   })
 
+  -- Copilot
+  use {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
+  }
+
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  }
+
   -- Syntax aware
   use({
     "nvim-treesitter/nvim-treesitter",
@@ -133,14 +154,14 @@ return packer.startup(function(use)
 
   -- Visualize LSP Status
   use {
-  'j-hui/fidget.nvim',
-  tag = 'legacy',
-  config = function()
-    require("fidget").setup {
-      -- options
-    }
-  end,
-}
+    'j-hui/fidget.nvim',
+    tag = 'legacy',
+    config = function()
+      require("fidget").setup {
+        -- options
+      }
+    end,
+  }
 
   -- Utilities for better configuration of the neovim LSP
   use {
@@ -172,7 +193,7 @@ return packer.startup(function(use)
       "williamboman/mason-lspconfig.nvim",
       "ibhagwan/fzf-lua",
     },
-    after = {"mason.nvim", "mason-lspconfig.nvim", "cmp-nvim-lsp"},
+    after = { "mason.nvim", "mason-lspconfig.nvim", "cmp-nvim-lsp" },
     -- event = "BufRead",
     config = function()
       require("my.configs.lsp").setup()
@@ -185,12 +206,47 @@ return packer.startup(function(use)
   -- })
 
   -- Null language server, provides many formatting built-ins
+  -- use({
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   config = function()
+  --     require("my.configs.null-ls").setup()
+  --   end,
+  -- })
+
+  -- Conform
   use({
-    "jose-elias-alvarez/null-ls.nvim",
+    "stevearc/conform.nvim",
     config = function()
-      require("my.configs.null-ls").setup()
+      local jsformat = {
+        { "prettierd", "prettier" },
+        "biome-check",
+        "eslint_d",
+      }
+      require("conform").setup({
+        format_after_save = {
+          -- These options will be passed to conform.format()
+          timeout_ms = 1000,
+          lsp_fallback = true,
+        },
+
+        formatters_by_ft = {
+          lua = { "stylua" },
+          python = { "black", "isort" },
+          go = { "gofmt" },
+          sh = { "shfmt" },
+          rust = { "rustfmt" },
+          toml = { "taplo" },
+          javascript = jsformat,
+          javascriptreact = jsformat,
+          typescript = jsformat,
+          typescriptreact = jsformat,
+          jsonnet = { "jsonnetfmt" },
+        },
+      })
     end,
   })
+
+  -- prettier
   use("MunifTanjim/prettier.nvim")
 
   -- Autocompletion
@@ -252,7 +308,7 @@ return packer.startup(function(use)
     "catppuccin/nvim",
     as = "catppuccin",
   })
-   require("my.configs.catppuccin").setup()
+  require("my.configs.catppuccin").setup()
 
   -- Styled component syntax highlighting
   use({ "styled-components/vim-styled-components", branch = "main" })
@@ -263,7 +319,7 @@ return packer.startup(function(use)
     requires = {
       "kyazdani42/nvim-web-devicons", -- optional, for file icon
     },
-    tag = "nightly", -- optional, updated every week. (see issue #1193)
+    tag = "nightly",                  -- optional, updated every week. (see issue #1193)
   })
   require("my.configs.nvim-tree").setup()
 

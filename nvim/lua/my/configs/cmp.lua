@@ -17,6 +17,7 @@ function M.setup()
   end
 
   local kind_icons = {
+    Copilot = "",
     Text = "",
     Method = "",
     Function = "",
@@ -76,6 +77,7 @@ function M.setup()
       keyword_length = 1,
     },
     sources = {
+      { name = "copilot" },
       { name = "emoji" },
       { name = "nvim_lsp" },
       { name = "luasnip" },
