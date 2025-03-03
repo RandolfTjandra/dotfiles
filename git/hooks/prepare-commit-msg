@@ -4,4 +4,8 @@
 # Also assumes you're using the standard gitmessage
 #
 # Converts branch name into Issue ticket
-sed -i.bak "s/Issue: none/Issue: $(git branch | grep '*' | sed -E 's/\* //;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')/" "$1"
+# sed -i.bak "s/Issue: none/Issue: $(git branch | grep '*' | sed -E 's/\* //;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')/" "$1"
+
+# this one accounts for the slash / in the branch name
+sed -i.bak "s/Issue: none/Issue: $(git branch | grep '*' | sed -E 's/\* //;s|.*/([^/]+)|\1|;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')/" "$1"
+
