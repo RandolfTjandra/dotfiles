@@ -15,6 +15,7 @@ alias gocover="go test ./... -coverprofile cover.out && go tool cover -html=cove
 alias projects='cd /Users/randolftjandra/Dev'
 alias gogo='cd /Users/rtjandra/Dev/projects/cx-projects/golang/src/github.com'
 alias gocover="go test ./... -coverprofile cover.out && go tool cover -html=cover.out -o coverage.html && go tool cover -func cover.out | grep total"
+alias python3="python3.11"
 alias python="python3"
 
 alias office="yabai -m rule --add app="^Cron$" space=6;yabai -m rule --add app="^Slack$" space=6;yabai -m rule --add app="^Kitty$" space=2"
