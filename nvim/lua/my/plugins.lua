@@ -50,27 +50,6 @@ return packer.startup(function(use)
     end,
   })
 
-  -- Copilot
-  use {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-    end,
-  }
-
-  use {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua" },
-    config = function()
-      require("copilot_cmp").setup()
-    end
-  }
-
   -- Syntax aware
   use({
     "nvim-treesitter/nvim-treesitter",
@@ -90,14 +69,14 @@ return packer.startup(function(use)
       require("my.configs.treesitter").setup()
     end,
     opts = function(_, opts)
-      if type(opts.ensure_installed) == 'table' then
+      if type(opts.ensure_installed) == "table" then
         vim.list_extend(opts.ensure_installed, {
-          'dockerfile',
-          'git_config',
-          'jsdoc',
-          'make',
-          'toml',
-          'vimdoc',
+          "dockerfile",
+          "git_config",
+          "jsdoc",
+          "make",
+          "toml",
+          "vimdoc",
         })
       end
     end,
@@ -153,27 +132,27 @@ return packer.startup(function(use)
   use({ "L3MON4D3/LuaSnip" })
 
   -- Visualize LSP Status
-  use {
-    'j-hui/fidget.nvim',
-    tag = 'legacy',
+  use({
+    "j-hui/fidget.nvim",
+    tag = "legacy",
     config = function()
-      require("fidget").setup {
+      require("fidget").setup({
         -- options
-      }
+      })
     end,
-  }
+  })
 
   -- Utilities for better configuration of the neovim LSP
-  use {
+  use({
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
     event = "BufReadPre",
     config = function()
       require("mason").setup()
     end,
-  }
+  })
 
-  use {
+  use({
     "williamboman/mason-lspconfig.nvim",
     requires = {
       "williamboman/mason.nvim",
@@ -182,7 +161,7 @@ return packer.startup(function(use)
     config = function()
       require("mason-lspconfig").setup()
     end,
-  }
+  })
 
   use({
     "neovim/nvim-lspconfig",
@@ -218,7 +197,8 @@ return packer.startup(function(use)
     "stevearc/conform.nvim",
     config = function()
       local jsformat = {
-        { "prettierd", "prettier" },
+        "prettierd",
+        "prettier",
         "biome-check",
         "eslint_d",
       }
@@ -248,6 +228,40 @@ return packer.startup(function(use)
 
   -- prettier
   use("MunifTanjim/prettier.nvim")
+
+  -- Copilot
+  use({
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        panel = { enabled = false },
+        suggestion = { enabled = false },
+        filetypes = {
+          yaml = false,
+          markdown = false,
+          help = false,
+          gitcommit = false,
+          gitrebase = false,
+          hgcommit = false,
+          svn = false,
+          cvs = false,
+          ["."] = false,
+        },
+        copilot_node_command = "node", -- Node.js version must be > 18.x
+        server_opts_overrides = {},
+      })
+    end,
+  })
+
+  use({
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  })
 
   -- Autocompletion
   use({
@@ -319,7 +333,7 @@ return packer.startup(function(use)
     requires = {
       "kyazdani42/nvim-web-devicons", -- optional, for file icon
     },
-    tag = "nightly",                  -- optional, updated every week. (see issue #1193)
+    tag = "nightly", -- optional, updated every week. (see issue #1193)
   })
   require("my.configs.nvim-tree").setup()
 

@@ -16,6 +16,7 @@ function M.setup()
       "lua_ls",
       "sqlls",
       "tsserver",
+      "pyright",
     },
   })
 
@@ -46,6 +47,25 @@ function M.setup()
     -- ["rust_analyzer"] = function()
     --   require("rust-tools").setup({})
     -- end,
+
+    -- Dedicated handler for Pyright
+    -- This line works because it's pointing to the virtual env's install dir but this is specific for one project which is bad
+    -- pythonPath = "/Users/randolftjandra/Dev/dinari/flask-tutorial/.venv/lib/python3.11/site-packages",
+    ["pyright"] = function()
+      -- Add your custom python setup here, e.g. setting pythonPath for Pyright
+      lspconfig.pyright.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true, -- Allow automatic searching of paths
+              useLibraryCodeForTypes = true, -- Check library code for type info
+            },
+          },
+        },
+      })
+    end,
   })
 
   local signs = {
