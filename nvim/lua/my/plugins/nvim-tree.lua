@@ -2,7 +2,7 @@
 
 ---@type LazySpec
 local P = {
-  "kyazdani42/nvim-tree.lua",
+  "nvim-tree/nvim-tree.lua",
   version = "*",
   lazy = false,
   dependencies = {
@@ -11,53 +11,42 @@ local P = {
 }
 
 function P.config()
-  vim.g.nvim_tree_icons = {
-    default = "",
-    symlink = "",
-    git = {
-      unstaged = "",
-      staged = "S",
-      unmerged = "",
-      renamed = "➜",
-      deleted = "",
-      untracked = "U",
-      ignored = "◌",
-    },
-    folder = {
-      default = "",
-      open = "",
-      empty = "",
-      empty_open = "",
-      symlink = "",
-    },
-  }
+  -- vim.g.nvim_tree_icons = {
+  --   default = "",
+  --   symlink = "",
+  --   git = {
+  --     unstaged = "",
+  --     staged = "S",
+  --     unmerged = "",
+  --     renamed = "➜",
+  --     deleted = "",
+  --     untracked = "U",
+  --     ignored = "◌",
+  --   },
+  --   folder = {
+  --     default = "",
+  --     open = "",
+  --     empty = "",
+  --     empty_open = "",
+  --     symlink = "",
+  --   },
+  -- }
   require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
     auto_reload_on_write = true,
     disable_netrw = true,
     hijack_cursor = false,
     hijack_netrw = true,
     hijack_unnamed_buffer_when_opening = false,
-    ignore_buffer_on_setup = false,
-    open_on_setup = false,
-    open_on_setup_file = false,
     open_on_tab = false,
     sort_by = "name",
-    update_cwd = false,
     reload_on_bufenter = false,
     view = {
       width = 30,
-      hide_root_folder = false,
       side = "left",
       preserve_window_proportions = false,
       number = false,
       relativenumber = false,
       signcolumn = "yes",
-      mappings = {
-        custom_only = false,
-        list = {
-          -- user mappings go here
-        },
-      },
     },
     renderer = {
       indent_markers = {
@@ -79,10 +68,9 @@ function P.config()
     },
     update_focused_file = {
       enable = false,
-      update_cwd = false,
+      update_root = false,
       ignore_list = {},
     },
-    ignore_ft_on_setup = {},
     system_open = {
       cmd = "",
       args = {},
