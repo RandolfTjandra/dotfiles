@@ -6,7 +6,29 @@ local imap = map.imap
 local vmap = map.vmap
 local bmap = map.bmap
 
--- Close buffers / quit with ^q
+-- Remap ^c to be the same as escape without telling us to use :q to quit. the
+-- 'r' command is special cased to a NOP.
+nmap({ "r<C-c>", "<NOP>" })
+nmap({ "<C-c>", "<NOP>" })
+nmap({ "<C-c>", "<Esc>" })
+imap({ "<C-c>", "<Esc>" })
+
+-- Disable EX mode
+bmap({ "Q", "<Nop>" })
+
+-- Window movement
+nmap({ "<Tab>", "<C-W><C-w>" })
+nmap({ "<S-Tab>", "<C-W><S-W>" })
+
+-- bufferline: Buffer management
+nmap({ "<C-]>", "<cmd>bnext<CR>" })
+nmap({ "<Esc>", "<cmd>bprev<CR>" })
+function M.bufferline_mapping(bufferline)
+  nmap({ "<C-]>", "<cmd>bnext<CR>" })
+  nmap({ "<Esc>", "<cmd>bprev<CR>" })
+end
+
+-- bufdelete: Close buffers / quit with ^q
 nmap({
   "<C-q>",
   function()
@@ -29,23 +51,6 @@ nmap({
   end,
 })
 
--- Remap ^c to be the same as escape without telling us to use :q to quit. the
--- 'r' command is special cased to a NOP.
-nmap({ "r<C-c>", "<NOP>" })
-nmap({ "<C-c>", "<NOP>" })
-nmap({ "<C-c>", "<Esc>" })
-imap({ "<C-c>", "<Esc>" })
-
--- Disable EX mode
-bmap({ "Q", "<Nop>" })
-
--- Window movement
-nmap({ "<Tab>", "<C-W><C-w>" })
-nmap({ "<S-Tab>", "<C-W><S-W>" })
-
--- Buffer management
-nmap({ "<C-]>", "<cmd>bnext<CR>" })
-nmap({ "<Esc>", "<cmd>bprev<CR>" })
 
 -- Do not move cursor when using *
 nmap({
@@ -69,6 +74,14 @@ nmap({ "<Leader>b", fzf.buffers })
 nmap({ "<Leader>f", fzf.live_grep_native })
 nmap({ "<Leader>r", fzf.command_history })
 
+function M.fzf_mapping(fzf)
+  nmap({ "<Leader><Leader>", fzf.git_files })
+  nmap({ "<Leader>p", fzf.files })
+  nmap({ "<Leader>b", fzf.buffers })
+  nmap({ "<Leader>f", fzf.live_grep_native })
+  nmap({ "<Leader>r", fzf.command_history })
+end
+
 -- nvim-tree
 nmap({ "<Leader>t", "<cmd>NvimTreeFindFileToggle<CR>" })
 
@@ -85,6 +98,11 @@ local sub = require("substitute")
 nmap({ "s", sub.operator })
 nmap({ "ss", sub.line })
 nmap({ "S", sub.eol })
+function M.substitute_mapping(substitute)
+  nmap({ "s", substitute.operator })
+  nmap({ "ss", substitute.line })
+  nmap({ "S", substitute.eol })
+end
 
 -- Yank filepath into system clipboard
 nmap({

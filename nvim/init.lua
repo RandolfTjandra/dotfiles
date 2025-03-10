@@ -9,7 +9,8 @@ function _G.safe_require(module)
   return result
 end
 
-require("my.plugins")
+-- require("my.plugins")
 require("my.general")
 require("my.mappings")
 
+require("my.lazy")

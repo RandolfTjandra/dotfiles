@@ -1,4 +1,5 @@
 local fn = vim.fn
+
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 local packer_bootstrap = false
@@ -17,33 +18,33 @@ end
 local packer = require("packer")
 
 return packer.startup(function(use)
-  use({ "wbthomason/packer.nvim" })
+  use({ "wbthomason/packer.nvim" }) -- x
 
-  use({ "nvim-lua/plenary.nvim" })
+  use({ "nvim-lua/plenary.nvim" }) -- x
 
-  use({ "tpope/vim-rsi" })
-  use({ "tpope/vim-sleuth" })
-  use({ "tpope/vim-surround" })
-  use({ "tpope/vim-commentary" })
-  use({ "tpope/vim-unimpaired" })
-  use({ "tpope/vim-fugitive" })
-  use({ "tpope/vim-rhubarb" })
+  use({ "tpope/vim-rsi" }) -- o
+  use({ "tpope/vim-sleuth" }) -- o
+  use({ "tpope/vim-surround" }) -- o
+  use({ "tpope/vim-commentary" }) -- o
+  use({ "tpope/vim-unimpaired" }) -- o
+  use({ "tpope/vim-fugitive" }) -- o
+  use({ "tpope/vim-rhubarb" }) -- o
 
   -- Improve boot-time performance by replacing filetype.vim
-  use({ "nathom/filetype.nvim" })
+  use({ "nathom/filetype.nvim" }) -- o
 
   -- Automatically set the root directory
-  use({ "ygm2/rooter.nvim" })
+  use({ "ygm2/rooter.nvim" }) -- o
 
   -- Directory browsing
-  use({ "justinmk/vim-dirvish" })
+  use({ "justinmk/vim-dirvish" }) -- o
 
   -- Sudo write
-  use({ "lambdalisue/suda.vim" })
+  use({ "lambdalisue/suda.vim" }) -- o
 
   -- Fuzzy file / buffer / mru finder
   use({
-    "ibhagwan/fzf-lua",
+    "ibhagwan/fzf-lua", -- o
     requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
       require("my.configs.fzf").setup()
@@ -51,7 +52,7 @@ return packer.startup(function(use)
   })
 
   -- Syntax aware
-  use({
+  use({ -- o
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     event = "BufRead",
@@ -83,7 +84,7 @@ return packer.startup(function(use)
   })
 
   -- Colors
-  use({
+  use({ -- o
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("my.configs.colorizer").setup()
@@ -91,7 +92,7 @@ return packer.startup(function(use)
   })
 
   -- Icons
-  use({
+  use({ -- o
     "kyazdani42/nvim-web-devicons",
     config = function()
       require("my.configs.icons").setup()
@@ -99,7 +100,7 @@ return packer.startup(function(use)
   })
 
   -- Status line
-  use({
+  use({ -- o
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
@@ -108,7 +109,7 @@ return packer.startup(function(use)
   })
 
   -- Buffer line
-  use({
+  use({ -- o
     "akinsho/bufferline.nvim",
     requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
@@ -117,7 +118,7 @@ return packer.startup(function(use)
   })
 
   -- Show vertical lines for tab alignment
-  use({
+  use({ -- o
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
     -- config = function()
@@ -129,10 +130,10 @@ return packer.startup(function(use)
   })
 
   -- Snippet engine
-  use({ "L3MON4D3/LuaSnip" })
+  use({ "L3MON4D3/LuaSnip" }) -- o
 
   -- Visualize LSP Status
-  use({
+  use({ -- o
     "j-hui/fidget.nvim",
     tag = "legacy",
     config = function()
@@ -143,7 +144,7 @@ return packer.startup(function(use)
   })
 
   -- Utilities for better configuration of the neovim LSP
-  use({
+  use({ -- o
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
     event = "BufReadPre",
@@ -152,7 +153,7 @@ return packer.startup(function(use)
     end,
   })
 
-  use({
+  use({ -- o
     "williamboman/mason-lspconfig.nvim",
     requires = {
       "williamboman/mason.nvim",
@@ -163,7 +164,7 @@ return packer.startup(function(use)
     end,
   })
 
-  use({
+  use({ -- o
     "neovim/nvim-lspconfig",
     requires = {
       "hrsh7th/nvim-cmp",
@@ -193,7 +194,7 @@ return packer.startup(function(use)
   -- })
 
   -- Conform
-  use({
+  use({ -- o
     "stevearc/conform.nvim",
     config = function()
       local jsformat = {
@@ -226,11 +227,11 @@ return packer.startup(function(use)
     end,
   })
 
-  -- prettier
+  -- prettier -- o
   use("MunifTanjim/prettier.nvim")
 
   -- Copilot
-  use({
+  use({ -- o
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
@@ -255,7 +256,7 @@ return packer.startup(function(use)
     end,
   })
 
-  use({
+  use({ -- o
     "zbirenbaum/copilot-cmp",
     after = { "copilot.lua" },
     config = function()
@@ -264,7 +265,7 @@ return packer.startup(function(use)
   })
 
   -- Autocompletion
-  use({
+  use({ -- o TODO: incomplete
     "hrsh7th/nvim-cmp",
     config = function()
       require("my.configs.cmp").setup()
@@ -272,30 +273,30 @@ return packer.startup(function(use)
   })
 
   -- Completion source: buffer
-  use({
+  use({ -- o
     "hrsh7th/cmp-nvim-lsp",
     after = "nvim-cmp",
   })
 
   -- Completion source: buffer
-  use({
+  use({ -- o
     "hrsh7th/cmp-buffer",
     after = "nvim-cmp",
   })
 
-  use({
+  use({ -- x
     "hrsh7th/cmp-emoji",
     after = "nvim-cmp",
   })
 
   -- Completion source: snippet
-  use({
+  use({ -- o
     "saadparwaiz1/cmp_luasnip",
     after = "nvim-cmp",
   })
 
   -- Adds a range command for swapping with the yanked text
-  use({
+  use({ -- o
     "gbprod/substitute.nvim",
     config = function()
       require("my.configs.substitute").setup()
@@ -318,7 +319,7 @@ return packer.startup(function(use)
   --use { "mangeshrex/everblush.vim" }
 
   -- Colorscheme catppuccin
-  use({
+  use({ -- o
     "catppuccin/nvim",
     as = "catppuccin",
   })
@@ -328,7 +329,7 @@ return packer.startup(function(use)
   use({ "styled-components/vim-styled-components", branch = "main" })
 
   -- file explorer https://github.com/kyazdani42/nvim-tree.lua
-  use({
+  use({ -- o
     "kyazdani42/nvim-tree.lua",
     requires = {
       "kyazdani42/nvim-web-devicons", -- optional, for file icon
