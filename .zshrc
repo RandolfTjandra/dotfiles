@@ -21,15 +21,19 @@ zstyle ':vcs_info:git:*' formats '[%b]'
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
 PROMPT='%n in ${PWD/#$HOME/~} > '
-
 # right prompt
 export RPROMPT='${vcs_info_msg_0_}'
 
-# work laptop
+# python
+# Add these lines to prioritize the new Python version
+#export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+# export PATH="/usr/local/opt/python@3.11/bin:$PATH"
+
+# work laptop intel
 # source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # home
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -49,8 +53,6 @@ autoload -Uz compinit && compinit
 
 # maybe delete
 bindkey -e
-
-export PATH=~/Library/Python/2.7/bin:$PATH
 
 # Aliases
 source "$HOME/.config/zsh/aliases"
@@ -142,3 +144,11 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+#
+source ~/.config/op/plugins.sh
+
+
+setopt completealiases
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
