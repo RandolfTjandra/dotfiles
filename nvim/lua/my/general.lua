@@ -17,19 +17,6 @@ set.ignorecase = true -- Ignore case when searching
 set.smartcase = true -- Don't ignore case when using uppercase in a search
 set.confirm = true -- Ask for confirmation when closing unsaved files
 
--- colorscheme
--- exec(
---   [[
---   augroup user_colors
---     autocmd!
---     autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
---   augroup END
---   ]],
---   false
--- )
--- cmd("colorscheme gruvbox-flat")
--- g.gruvbox_flat_style = "dark"
---
 --use({
 --  "gbprod/substitute.nvim",
 --  config = function()
@@ -37,17 +24,9 @@ set.confirm = true -- Ask for confirmation when closing unsaved files
 --  end,
 --})
 
--- nord setup
--- require("nightfox").setup({
---   options = {
---     transparent = true, -- Disable setting background
---   },
--- })
--- cmd("colorscheme nordfox")
-
--- Colorscheme catppuccin
-g.catppuccin_flavour = "frappe"
-cmd("colorscheme catppuccin")
+-- Colorscheme catppuccin uncomment to use
+-- g.catppuccin_flavour = "frappe"
+-- cmd("colorscheme catppuccin")
 
 set.termguicolors = true
 set.background = "dark"

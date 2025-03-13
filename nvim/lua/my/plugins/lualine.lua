@@ -8,9 +8,10 @@ local P = {
 function P.config()
   local lualine = require("lualine")
 
+  -- theme = "catppuccin",
   local bubbles_config = {
     options = {
-      theme = "catppuccin",
+      theme = "dracula-nvim",
       component_separators = "|",
       section_separators = { left = "", right = "" },
 
@@ -41,13 +42,14 @@ function P.config()
   }
   -- random icons for reference
   -- 
-  
+
   -- This is the main one I use
   local powerlineish_config = {
     options = {
       -- theme = "gruvbox-flat",
       -- theme = "nord",
-      theme = "catppuccin",
+      -- theme = "catppuccin",
+      theme = "dracula-nvim",
       --theme = "everblush",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
