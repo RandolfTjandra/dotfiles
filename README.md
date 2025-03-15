@@ -2,7 +2,7 @@
 This is my personal dots repo. A lot of it is a mess right now so I wouldn't recommend copying any of it.
 Feel free to look around if you want though.
 
-## setup script wip
+## setup script - Creates symlinks to dots dir
 ./setup.sh
 
 ## tmux setup
