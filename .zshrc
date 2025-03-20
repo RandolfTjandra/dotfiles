@@ -115,6 +115,7 @@ function get-ec2-ip {
 #  ef-version secure-payments ami-id proto0 --set $(ef-version secure-payments ami-id prod --get) --commit  --noprecheck
 #  then use https://jenkins-build.ellationengc.cxc-mgmt.com/job/secure-payments-deploy-proto0/ to deploy
 export PATH=/opt/homebrew/bin:$PATH
+export PATH=/opt/homebrew/opt/postgresql@13/bin:$PATH
 
 export NVM_DIR="$HOME/.nvm"
   [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
@@ -132,7 +133,7 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 # export BUN_INSTALL="$HOME/.bun"
 # export PATH="$BUN_INSTALL/bin:$PATH"
 #
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+# source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
@@ -145,10 +146,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 #
-source ~/.config/op/plugins.sh
-
 
 setopt completealiases
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
+source /Users/randolftjandra/.config/op/plugins.sh

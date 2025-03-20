@@ -67,12 +67,12 @@ vmap({ "<Leader>y", '"+y', {} })
 -- vmap({ "<Leader>*", visual_star })
 
 -- fzf
-local fzf = require("fzf-lua")
-nmap({ "<Leader><Leader>", fzf.git_files })
-nmap({ "<Leader>p", fzf.files })
-nmap({ "<Leader>b", fzf.buffers })
-nmap({ "<Leader>f", fzf.live_grep_native })
-nmap({ "<Leader>r", fzf.command_history })
+-- local fzf = require("fzf-lua")
+-- nmap({ "<Leader><Leader>", fzf.git_files })
+-- nmap({ "<Leader>p", fzf.files })
+-- nmap({ "<Leader>b", fzf.buffers })
+-- nmap({ "<Leader>f", fzf.live_grep_native })
+-- nmap({ "<Leader>r", fzf.command_history })
 
 function M.fzf_mapping(fzf)
   nmap({ "<Leader><Leader>", fzf.git_files })
@@ -93,11 +93,11 @@ nmap({ "gb", ":Git blame<cr>" })
 nmap({ "gh", ":GBrowse!<cr>" })
 vmap({ "gh", ":'<'>GBrowse!<cr>" })
 
--- Substitute
-local sub = require("substitute")
-nmap({ "s", sub.operator })
-nmap({ "ss", sub.line })
-nmap({ "S", sub.eol })
+-- Substitute -- not set up yet
+-- local sub = require("substitute")
+-- nmap({ "s", sub.operator })
+-- nmap({ "ss", sub.line })
+-- nmap({ "S", sub.eol })
 function M.substitute_mapping(substitute)
   nmap({ "s", substitute.operator })
   nmap({ "ss", substitute.line })
@@ -118,6 +118,8 @@ nmap({ ",", "@@" })
 
 function M.lsp_mapping(bufnr)
   local fzf_conf = require("my.configs.fzf")
+
+  local fzf = require("fzf-lua")
 
   local function fzf_lsp(name, opts)
     local fn = fzf[string.format("lsp_%s", name)]

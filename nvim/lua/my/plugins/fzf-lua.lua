@@ -76,8 +76,8 @@ function P.config()
 
     fzf_opts = {
       ["--prompt"] = "›",
-      ["--pointer"] = "▋",
-      ["--marker"] = "▋",
+      ["--pointer"] = "›",
+      ["--marker"] = "›",
       ["--info"] = "default",
       ["--no-separator"] = "",
       ["--no-scrollbar"] = "",
@@ -86,15 +86,6 @@ function P.config()
     fzf_colors = {
       ["gutter"] = { "bg", "NormalFloat" },
       ["bg+"] = { "bg", "Normal" },
-    },
-
-    actions = {
-      files = {
-        ["default"] = fzf.actions.file_edit,
-        ["ctrl-s"] = fzf.actions.file_split,
-        ["ctrl-v"] = fzf.actions.file_vsplit,
-        ["alt-q"] = fzf.actions.file_sel_to_qf,
-      },
     },
 
     files = {
