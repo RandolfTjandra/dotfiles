@@ -11,7 +11,6 @@ function P.config()
   local jsformat = {
     "prettierd",
     "prettier",
-    "biome-check",
     "eslint_d",
   }
 
@@ -26,7 +25,7 @@ function P.config()
 
     formatters_by_ft = {
       lua = { "stylua" },
-      python = { "black", "isort" },
+      python = { "ruff_format" },
       go = { "gofmt" },
       sh = { "shfmt" },
       rust = { "rustfmt" },
@@ -37,6 +36,13 @@ function P.config()
       typescriptreact = jsformat,
       json = { "prettierd" },
       jsonnet = { "jsonnetfmt" },
+    },
+    formatters = {
+      ruff_format = {
+        command = "ruff",
+        args = { "format", "--stdin-filename", "$FILENAME", "-" },
+        stdin = true,
+      },
     },
   })
 end

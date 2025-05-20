@@ -1,6 +1,6 @@
 [user]
   name = Randolf Tjandra
-  email = randolftjandra@gmail.com
+  email = randolf@dinari.com
 
 [pull]
   rebase = true
@@ -11,6 +11,7 @@
   br = branch -v
   brr = branch -vr
   co = checkout
+  commit = commit -S
   ci = commit
   d = diff
   dc = diff --cached
@@ -26,6 +27,7 @@
 
   lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
   lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  lg3 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --author="$(git config user.name)" --all
   lg = !(git lg1)
 
   # Copies commit has into pb from git log
@@ -43,6 +45,24 @@
   #test = "!f() { if false;then echo true;else echo false;fi; }; f"
   test= "!f() { git switch $(git rev-parse --abbrev-ref HEAD)-qa 2>/dev/null || git switch -c $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
   #if [[]];then ;else;fi
+  #
+  create-branch = "!f() { \
+      url=\"$1\"; shift; \
+      context=\"$*\"; \
+      ticket=$(echo \"$url\" | grep -oE '[A-Z]+-[0-9]+'); \
+      if [ -z \"$ticket\" ]; then echo 'No ticket found in URL'; return 1; fi; \
+      ticket=$(echo \"$ticket\" | tr '[:upper:]' '[:lower:]'); \
+      user=$(git config user.name | tr '[:upper:]' '[:lower:]' | tr ' ' '-'); \
+      if [ -n \"$context\" ]; then \
+        slug=$(echo \"$context\" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/-+/-/g' | sed -E 's/^-|-$//g'); \
+        branch=\"$user/$ticket-$slug\"; \
+      else \
+        branch=\"$user/$ticket\"; \
+      fi; \
+      git checkout -b \"$branch\"; \
+    }; f"
+
+  cb = create-branch
 
 [log]
   date = relative
@@ -73,6 +93,7 @@
 
 [commit]
   template = ~/.gitmessage
+	gpgsign = true
 
 [init]
   templatedir = ~/.git-templates

@@ -1,11 +1,54 @@
 #!/bin/sh
 #
-# Assumes branches follow the format `draft-[project]-[ticket_number]`
-# Also assumes you're using the standard gitmessage
+# Assumes branches follow the format `[name]/[project]-[ticket_number]`
 #
 # Converts branch name into Issue ticket
-# sed -i.bak "s/Issue: none/Issue: $(git branch | grep '*' | sed -E 's/\* //;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')/" "$1"
 
-# this one accounts for the slash / in the branch name
-sed -i.bak "s/Issue: none/Issue: $(git branch | grep '*' | sed -E 's/\* //;s|.*/([^/]+)|\1|;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')/" "$1"
+# Old method
+# sed -i.bak "[$(git branch | grep '*' | sed -E 's/\* //;s|.*/([^/]+)|\1|;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')]/" "$1"
+
+# sed -i.bak "s/ISSUE-CODE/$(git branch | grep '*' | sed -E 's/\* //;s|.*/([^/]+)|\1|;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')/" "$1"
+#
+ISSUE_PREFIX="DSHARE"
+
+MSG_FILE="$1"
+COMMIT_SOURCE="$2"
+
+if [[ "$COMMIT_SOURCE" == "merge" || "$COMMIT_SOURCE" == "squash" ]]; then
+  exit 0
+fi
+
+# Get the current branch name
+BRANCH=$(git symbolic-ref --short HEAD)
+
+ISSUE_CODE=$(echo "$BRANCH" | grep -oiE "\\b${ISSUE_PREFIX}-[0-9]+\\b" | tr '[:lower:]' '[:upper:]')
+
+if [[ -z "$ISSUE_CODE" ]]; then
+  exit 0
+fi
+
+# Read the current commit message
+MSG=$(cat "$MSG_FILE")
+
+# Skip if it's a fixup commit
+if echo "$MSG" | grep -q '^fixup!'; then
+  exit 0
+fi
+
+# Don’t prepend if already present
+if echo "$MSG" | grep -q "^\[${ISSUE_CODE}\]"; then
+  exit 0
+fi
+
+# Prepend the issue code
+echo "[${ISSUE_CODE}] $MSG" > "$MSG_FILE"
+
+# if [[ "$COMMIT_SOURCE" == "" || "$COMMIT_SOURCE" == "message" ]]; then
+#   # This is a -m commit or similar, so just prepend the issue code
+#   MSG="$(cat "$MSG_FILE")"
+#   echo "[$ISSUE_CODE] $MSG" > "$MSG_FILE"
+# else
+#   # Interactive mode — replace ISSUE-CODE placeholder
+#   sed -i.bak "s/ISSUE-CODE/$ISSUE_CODE/" "$MSG_FILE"
+# fi
 

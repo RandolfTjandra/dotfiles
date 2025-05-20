@@ -3,6 +3,11 @@ source "$HOME/.config/zsh/tmux_start"
 
 source "$HOME/.config/zsh/save_tmux_history"
 
+# History Settings
+setopt HIST_IGNORE_ALL_DUPS
+HISTSIZE=50000
+SAVEHIST=50000
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.

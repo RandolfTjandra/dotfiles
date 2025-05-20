@@ -124,7 +124,7 @@ function M.lsp_mapping(bufnr)
   local function fzf_lsp(name, opts)
     local fn = fzf[string.format("lsp_%s", name)]
     return function()
-      fn(opts or { winopts = fzf_conf.winopts_bottom, jump_to_single_result = true })
+      fn(opts or { winopts = fzf_conf.winopts_bottom, jump1 = true })
     end
   end
 

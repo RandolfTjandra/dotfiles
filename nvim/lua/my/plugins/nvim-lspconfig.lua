@@ -22,6 +22,7 @@ function P.config()
       "ansiblels",
       "bashls",
       "basedpyright",
+      "ruff",
       "biome",
       "cssls",
       "dockerls",
@@ -55,6 +56,20 @@ function P.config()
     -- The first entry (without a key) will be the default handler and will be
     -- called for each installed server that doesn't have a dedicated handler.
     function(server_name)
+      -- Setup `basedpyright` specifically after other LSPs have been initialized
+      lspconfig.basedpyright.setup({
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",  -- Only type checking (no linting)
+              diagnosticMode = "openFilesOnly",
+              reportUnusedVariable = "none", -- Let Ruff handle this
+              reportUnusedCallResult = "none", -- Let Ruff handle this
+            },
+          },
+        },
+      })
+
       lspconfig[server_name].setup({
         on_attach = on_attach,
         capabilities = capabilities,
