@@ -1,0 +1,69 @@
+[alias]
+  # Add files to the staging area
+  a = add
+  # Show local branches with last commit
+  br = branch -v
+  # Show remote branches with last commit
+  brr = branch -vr
+  # Shortcut for create-branch alias (see below)
+  cb = create-branch
+  # Checkout a branch
+  co = checkout
+  # Create a new QA branch from the current branch
+  coqa = "!f() { git checkout -b $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
+  # Commit changes (default)
+  commit = commit
+  # Commit changes (shorthand)
+  ci = commit
+  # Create a new branch from a ticket URL and context (Jira-style)
+  create-branch = "!f() { \
+      url=\"$1\"; shift; \
+      context=\"$*\"; \
+      ticket=$(echo \"$url\" | grep -oE '[A-Z]+-[0-9]+'); \
+      if [ -z \"$ticket\" ]; then echo 'No ticket found in URL'; return 1; fi; \
+      ticket=$(echo \"$ticket\" | tr '[:upper:]' '[:lower:]'); \
+      user=$(git config user.name | tr '[:upper:]' '[:lower:]' | tr ' ' '-'); \
+      if [ -n \"$context\" ]; then \
+        slug=$(echo \"$context\" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/-+/-/g' | sed -E 's/^-|-$//g'); \
+        branch=\"$user/$ticket-$slug\"; \
+      else \
+        branch=\"$user/$ticket\"; \
+      fi; \
+      git checkout -b \"$branch\"; \
+    }; f"
+  # Show diff of working tree
+  d = diff
+  # Show diff of staged changes
+  dc = diff --cached
+  # Show the content of a git object
+  dump = cat-file -p
+  # Amend last commit and force push to origin
+  foobar = "!f() { git commit --amend; git push origin HEAD --force; };f"
+  # Copy commit hash from git log using gum and pbcopy
+  gh = "!git log --oneline | gum filter | cut -d' ' -f1 | pbcopy"
+  # Pretty log graph of all branches/tags/remotes
+  gl = log --graph --oneline --decorate --branches --tags --remotes
+  # Short log with date, subject, and author
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  # Format recent changes for Jira
+  jira-log = "!f() { A=$1; B=${2-origin/master}; git fetch origin; git log $A..$B --pretty=format:'%H%n%B%x0C' | tr -d \"\\r\" | perl -e '$/ = \"\\f\"; print \"||SHA||Summary||Issue ID||\\n\"; while(<>) { /\\s*(\\w+)\\s+([^\\n]+).*jira: ([^\\n]+)/si; print \"| $1 | $2 | $3 |\\n\"};';}; f"
+  # Log graph with custom formatting (see below for variants)
+  lg = !(git lg1)
+  # Log graph, relative date, custom format (all branches)
+  lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  # Log graph, absolute date, custom format (all branches)
+  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  # Log graph, relative date, only for current user (all branches)
+  lg3 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --author="$(git config user.name)" --all
+  # Short status output
+  s = status -sb
+  # Stash changes
+  sh = stash
+  # Show commits in this branch not in trunk
+  showbr = log --pretty=oneline trunk..
+  # Show changes in this branch not in trunk (with diff)
+  showallbr = log -U trunk ..
+  # Switch to or create a QA branch for the current branch
+  test = "!f() { git switch $(git rev-parse --abbrev-ref HEAD)-qa 2>/dev/null || git switch -c $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
+  # Show the type of a git object
+  type = cat-file -t

@@ -54,4 +54,12 @@ else
   echo "Warning: ${dotslocation}/git/hooks does not exist, skipping."
 fi
 
+# Symlink the gitconfig directory for environment-specific git configs
+if [ -d "${dotslocation}/gitconfig" ]; then
+  ln -sfn "${dotslocation}/gitconfig" "$HOME/.config/gitconfig"
+  echo "Linked ${dotslocation}/gitconfig -> $HOME/.config/gitconfig"
+else
+  echo "Warning: ${dotslocation}/gitconfig does not exist, skipping."
+fi
+
 echo "Dotfiles setup complete."
