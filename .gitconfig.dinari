@@ -1,0 +1,7 @@
+[user]
+    name = Randolf Tjandra
+    email = randolf@dinari.com
+    signingkey = # (add your GPG key ID here if needed)
+
+[commit]
+    gpgsign = true

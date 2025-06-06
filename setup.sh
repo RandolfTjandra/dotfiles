@@ -1,29 +1,57 @@
-#!bin/sh
+#!/bin/sh
+
+# Set DOTFILES variable if not already set
 if [ -z "$DOTFILES" ]; then
-  echo "Setting DOTFILES=$(pwd)"
-  export DOTFILES=$(pwd)
+  echo "Setting DOTFILES to current directory: $(pwd)"
+  export DOTFILES="$(pwd)"
 fi
-dotslocation=${DOTFILES}
+dotslocation="${DOTFILES}"
 
-# target: ~/.config
-ln -sfn $dotslocation/lsd ~/.config
-ln -sfn $dotslocation/kitty ~/.config
-ln -sfn $dotslocation/neofetch ~/.config
-ln -sfn $dotslocation/nvim ~/.config
-ln -sfn $dotslocation/sketchybar ~/.config
-ln -sfn $dotslocation/skhd ~/.config
-ln -sfn $dotslocation/spacebar ~/.config
-ln -sfn $dotslocation/tmux ~/.config
-ln -sfn $dotslocation/yabai ~/.config
-ln -sfn $dotslocation/zsh ~/.config
-ln -sfn $dotslocation/karabiner ~/.config
+# Ensure ~/.config exists
+if [ ! -d "$HOME/.config" ]; then
+  echo "Creating $HOME/.config directory"
+  mkdir -p "$HOME/.config"
+fi
 
-# target: ~
-ln -sfn $dotslocation/.hammerspoon ~/.hammerspoon
-ln -sfn $dotslocation/.zprofile ~/.zprofile
-ln -sfn $dotslocation/.zshrc ~/.zshrc
-ln -sfn $dotslocation/.gitconfig ~/.gitconfig
-ln -sfn $dotslocation/.gitmessage ~/.gitmessage
-ln -sfn $dotslocation/.gitignore ~/.gitignore
-ln -sfn $dotslocation/git/.git-templates ~/.git-templates
-ln -sfn $dotslocation/git/hooks ~/.git-hooks
+echo "Linking config directories..."
+
+for dir in lsd kitty neofetch nvim sketchybar skhd spacebar tmux yabai zsh karabiner; do
+  src="${dotslocation}/${dir}"
+  dest="$HOME/.config/${dir}"
+  if [ -e "$src" ]; then
+    ln -sfn "$src" "$dest"
+    echo "Linked $src -> $dest"
+  else
+    echo "Warning: $src does not exist, skipping."
+  fi
+done
+
+echo "Linking home files..."
+
+for file in .hammerspoon .zprofile .zshrc .gitconfig .gitmessage .gitignore; do
+  src="${dotslocation}/${file}"
+  dest="$HOME/${file}"
+  if [ -e "$src" ]; then
+    ln -sfn "$src" "$dest"
+    echo "Linked $src -> $dest"
+  else
+    echo "Warning: $src does not exist, skipping."
+  fi
+done
+
+# Link git templates and hooks if they exist
+if [ -e "${dotslocation}/git/.git-templates" ]; then
+  ln -sfn "${dotslocation}/git/.git-templates" "$HOME/.git-templates"
+  echo "Linked ${dotslocation}/git/.git-templates -> $HOME/.git-templates"
+else
+  echo "Warning: ${dotslocation}/git/.git-templates does not exist, skipping."
+fi
+
+if [ -e "${dotslocation}/git/hooks" ]; then
+  ln -sfn "${dotslocation}/git/hooks" "$HOME/.git-hooks"
+  echo "Linked ${dotslocation}/git/hooks -> $HOME/.git-hooks"
+else
+  echo "Warning: ${dotslocation}/git/hooks does not exist, skipping."
+fi
+
+echo "Dotfiles setup complete."

@@ -1,51 +1,22 @@
 [user]
-  name = Randolf Tjandra
-  email = randolf@dinari.com
+    name = Randolf Tjandra
+    email = randolftjandra@gmail.com
+
+[includeIf "hostname:d4i-Tjandra"]
+    path = ~/.gitconfig.dinari
 
 [pull]
   rebase = true
 
 [alias]
   a = add
-  gl = log --graph --oneline --decorate --branches --tags --remotes   
   br = branch -v
   brr = branch -vr
+  cb = create-branch
   co = checkout
-  commit = commit -S
-  ci = commit
-  d = diff
-  dc = diff --cached
-  s = status -sb
-  sh = stash
-  # Show the commits and content in this branch
-  showbr = log --pretty=oneline trunk..
-  showallbr = log -U trunk ..
-
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
-
-  lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-  lg3 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --author="$(git config user.name)" --all
-  lg = !(git lg1)
-
-  # Copies commit has into pb from git log
-  gh = "!git log --oneline | gum filter | cut -d' ' -f1 | pbcopy"
-
-  # Formats recent changes for jira
-  jira-log = "!f() { A=$1; B=${2-origin/master}; git fetch origin; git log $A..$B --pretty=format:'%H%n%B%x0C' | tr -d \"\\r\" | perl -e '$/ = \"\\f\"; print \"||SHA||Summary||Issue ID||\\n\"; while(<>) { /\\s*(\\w+)\\s+([^\\n]+).*jira: ([^\\n]+)/si; print \"| $1 | $2 | $3 |\\n\"};';}; f"
-
-  # create new qa branch form current branch
   coqa = "!f() { git checkout -b $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
-
-  # Commits staged changes and force pushes them to origin
-  foobar = "!f() { git commit --amend --no-edit; git push origin HEAD --force; };f"
-
-  #test = "!f() { if false;then echo true;else echo false;fi; }; f"
-  test= "!f() { git switch $(git rev-parse --abbrev-ref HEAD)-qa 2>/dev/null || git switch -c $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
-  #if [[]];then ;else;fi
-  #
+  commit = commit
+  ci = commit
   create-branch = "!f() { \
       url=\"$1\"; shift; \
       context=\"$*\"; \
@@ -61,8 +32,24 @@
       fi; \
       git checkout -b \"$branch\"; \
     }; f"
-
-  cb = create-branch
+  d = diff
+  dc = diff --cached
+  dump = cat-file -p
+  foobar = "!f() { git commit --amend; git push origin HEAD --force; };f"
+  gh = "!git log --oneline | gum filter | cut -d' ' -f1 | pbcopy"
+  gl = log --graph --oneline --decorate --branches --tags --remotes
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  jira-log = "!f() { A=$1; B=${2-origin/master}; git fetch origin; git log $A..$B --pretty=format:'%H%n%B%x0C' | tr -d \"\\r\" | perl -e '$/ = \"\\f\"; print \"||SHA||Summary||Issue ID||\\n\"; while(<>) { /\\s*(\\w+)\\s+([^\\n]+).*jira: ([^\\n]+)/si; print \"| $1 | $2 | $3 |\\n\"};';}; f"
+  lg = !(git lg1)
+  lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  lg3 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --author="$(git config user.name)" --all
+  s = status -sb
+  sh = stash
+  showbr = log --pretty=oneline trunk..
+  showallbr = log -U trunk ..
+  test = "!f() { git switch $(git rev-parse --abbrev-ref HEAD)-qa 2>/dev/null || git switch -c $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
+  type = cat-file -t
 
 [log]
   date = relative
@@ -73,7 +60,7 @@
 
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
+  path =
 
 [mergetool "sourcetree"]
   cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
@@ -93,7 +80,7 @@
 
 [commit]
   template = ~/.gitmessage
-	gpgsign = true
+	gpgsign = false
 
 [init]
   templatedir = ~/.git-templates
@@ -105,32 +92,11 @@
 [url "git@github.com:"]
   insteadOf = https://github.com/
 
-[alias]
-  gl = log --graph --oneline --decorate --branches --tags --remotes   
-  co = checkout
-  ci = commit
-  st = status -sb
-  br = branch -v
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
 
-  lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-  lg = !(git lg1)
-
-  gh = "!git log --oneline | gum filter | cut -d' ' -f1 | pbcopy"
-
-  # create new qa branch form current branch
-  coqa = "!f() { git checkout -b $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
-
-  foobar = "!f() { git commit --amend; git push origin HEAD --force; };f"
-
-  test= "!f() { git switch $(git rev-parse --abbrev-ref HEAD)-qa 2>/dev/null || git switch -c $(git rev-parse --abbrev-ref HEAD)-qa; }; f"
 
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
+  path =
 [mergetool "sourcetree"]
   cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
   trustExitCode = true
