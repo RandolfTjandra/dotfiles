@@ -12,4 +12,3 @@ function P.config()
 end
 
 return P
-

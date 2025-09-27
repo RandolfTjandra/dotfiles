@@ -61,7 +61,7 @@ function P.config()
         settings = {
           python = {
             analysis = {
-              typeCheckingMode = "basic",  -- Only type checking (no linting)
+              typeCheckingMode = "basic", -- Only type checking (no linting)
               diagnosticMode = "openFilesOnly",
               reportUnusedVariable = "none", -- Let Ruff handle this
               reportUnusedCallResult = "none", -- Let Ruff handle this
@@ -82,7 +82,6 @@ function P.config()
     -- ["rust_analyzer"] = function()
     --   require("rust-tools").setup({})
     -- end,
-
   })
 
   local signs = {

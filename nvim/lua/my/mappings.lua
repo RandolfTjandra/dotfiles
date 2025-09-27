@@ -99,7 +99,12 @@ function M.lsp_mapping(bufnr)
   local buf_opts = { buffer = bufnr }
 
   keymap("n", "gD", fzf_lsp("declarations"), buf_opts)
-  keymap("n", "gd", fzf_lsp("definitions"), vim.tbl_extend("force", buf_opts, { desc = "go to definition" }))
+  keymap(
+    "n",
+    "gd",
+    fzf_lsp("definitions"),
+    vim.tbl_extend("force", buf_opts, { desc = "go to definition" })
+  )
   keymap("n", "gr", fzf_lsp("references"), buf_opts)
   keymap("n", "ga", fzf_lsp("code_actions"), buf_opts)
   keymap("n", "gi", fzf_lsp("implementations"), buf_opts)
@@ -107,7 +112,10 @@ function M.lsp_mapping(bufnr)
   keymap(
     "n",
     "gs",
-    fzf_lsp("document_symbols", { winopts = fzf_conf.winopts_bottom, current_buffer_only = true }),
+    fzf_lsp(
+      "document_symbols",
+      { winopts = fzf_conf.winopts_bottom, current_buffer_only = true }
+    ),
     buf_opts
   )
 

@@ -21,7 +21,7 @@ function M.setup()
       symlink = "",
     },
   }
-  require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
+  require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
     auto_reload_on_write = true,
     disable_netrw = true,
     hijack_cursor = false,
@@ -137,7 +137,7 @@ function M.setup()
         profile = false,
       },
     },
-  } -- END_DEFAULT_OPTS
+  }) -- END_DEFAULT_OPTS
 end
 
 return M

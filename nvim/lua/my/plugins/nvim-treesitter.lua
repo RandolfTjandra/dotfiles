@@ -49,7 +49,7 @@ function P.config()
       "vimdoc",
     },
     sync_install = false,
-    ignore_install = { 'help' },
+    ignore_install = { "help" },
     highlight = {
       enable = true,
       additional_vim_regex_highlighting = false,
@@ -75,7 +75,7 @@ function P.config()
     },
     autotag = {
       enable = true,
-    }
+    },
   })
 end
 

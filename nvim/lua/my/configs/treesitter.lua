@@ -34,7 +34,7 @@ function M.setup()
       "vimdoc",
     },
     sync_install = false,
-    ignore_install = { 'help' },
+    ignore_install = { "help" },
     highlight = {
       enable = true,
       additional_vim_regex_highlighting = false,
