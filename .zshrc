@@ -1,5 +1,8 @@
 # Start or continue tmux on new window
-source "$HOME/.config/zsh/tmux_start"
+# Commented out for cursor
+# if [[ -o interactive ]]; then
+#   source "$HOME/.config/zsh/tmux_start"
+# fi
 
 source "$HOME/.config/zsh/save_tmux_history"
 
@@ -12,22 +15,28 @@ SAVEHIST=50000
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 # source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -o interactive ]]; then
+  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  fi
 fi
 
-# Load version control information
-autoload -Uz vcs_info
-precmd() { vcs_info }
+if [[ -o interactive ]]; then
+  # Load version control information
+  autoload -Uz vcs_info
+  precmd() { vcs_info }
 
-# Format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:git:*' formats '[%b]'
+  # Format the vcs_info_msg_0_ variable
+  zstyle ':vcs_info:git:*' formats '[%b]'
+fi
 
-# Set up the prompt (with git branch name)
-setopt PROMPT_SUBST
-PROMPT='%n in ${PWD/#$HOME/~} > '
-# right prompt
-export RPROMPT='${vcs_info_msg_0_}'
+if [[ -o interactive ]]; then
+  # Set up the prompt (with git branch name)
+  setopt PROMPT_SUBST
+  PROMPT='%n in ${PWD/#$HOME/~} > '
+  # right prompt
+  export RPROMPT='${vcs_info_msg_0_}'
+fi
 
 # python
 # Add these lines to prioritize the new Python version
@@ -38,16 +47,20 @@ export RPROMPT='${vcs_info_msg_0_}'
 # source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # home
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+if [[ -o interactive ]]; then
+  source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# only show current dir in prompt
-typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
+  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  # only show current dir in prompt
+  typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
+fi
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›"'
+if [[ -o interactive ]]; then
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  export FZF_DEFAULT_OPTS='--prompt="› " --pointer="›" --marker="›"'
+fi
 
 # Set neovim as default editor
 export EDITOR=nvim
@@ -75,8 +88,10 @@ fi
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 # 1Password auto complete
-eval "$(op completion zsh)"; compdef _op op
-source /Users/randolftjandra/.config/op/plugins.sh
+if [[ -o interactive ]]; then
+  eval "$(op completion zsh)"; compdef _op op
+  source /Users/randolftjandra/.config/op/plugins.sh
+fi
 
 export PATH="/usr/local/opt/php@7.4/bin:$PATH"
 export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
@@ -151,10 +166,8 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-#
 
 setopt completealiases
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
-source /Users/randolftjandra/.config/op/plugins.sh
