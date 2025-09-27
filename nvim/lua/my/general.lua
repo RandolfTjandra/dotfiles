@@ -1,4 +1,3 @@
-local exec = vim.api.nvim_exec
 local set = vim.opt
 local cmd = vim.cmd
 local g = vim.g
@@ -63,7 +62,7 @@ set.shiftwidth = 2
 
 -- Disable netrw
 g.loaded_netrwPlugin = false
-g.loaded_netrwSettngs = false
+g.loaded_netrwSettings = false
 g.loaded_netrwFileHandlers = false
 
 -- Enable spell check in git commit messages
