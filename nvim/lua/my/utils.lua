@@ -13,7 +13,7 @@ local make_map = function(mode)
       options = vim.tbl_extend("force", options, { desc = conf.desc })
     end
 
-    -- A lua funciton passed as the cmd argument goes into the callback
+    -- A lua function passed as the cmd argument goes into the callback
     if type(cmd) == "function" then
       options = vim.tbl_extend("force", options, { callback = cmd })
       cmd = ""
@@ -27,13 +27,16 @@ local make_map = function(mode)
   end
 end
 
--- Updates a highlight group
+-- Updates a highlight group.
 local update_hl = function(group, rules)
-  local hl = vim.api.nvim_get_hl_by_name(group, true)
-  for k, v in pairs(rules) do
-    hl[k] = v
+  local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, create = false })
+  if not ok then
+    vim.notify(string.format("Highlight group '%s' not found", group), vim.log.levels.WARN)
+    return
   end
-  vim.api.nvim_set_hl(0, "Comment", hl)
+
+  local merged = vim.tbl_extend("force", hl, rules)
+  vim.api.nvim_set_hl(0, group, merged)
 end
 
 M.map = {
