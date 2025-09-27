@@ -2,8 +2,7 @@ local set = vim.opt
 local cmd = vim.cmd
 local g = vim.g
 
-local hl = require("my.utils").hl
-local update_hl = hl.update_hl
+local update_hl = require("my.utils").update_hl
 
 set.number = true -- Show line numbers
 set.wrap = false -- Don't visually wrap lines

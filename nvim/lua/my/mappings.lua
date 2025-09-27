@@ -1,124 +1,92 @@
 local M = {}
 
-local map = require("my.utils").map
-local nmap = map.nmap
-local imap = map.imap
-local vmap = map.vmap
-local bmap = map.bmap
+local keymap = vim.keymap.set
 
--- Remap ^c to be the same as escape without telling us to use :q to quit. the
--- 'r' command is special cased to a NOP.
-nmap({ "r<C-c>", "<NOP>" })
-nmap({ "<C-c>", "<NOP>" })
-nmap({ "<C-c>", "<Esc>" })
-imap({ "<C-c>", "<Esc>" })
+-- Remap ^C to behave like <Esc> in normal/insert modes and ignore r<C-c>.
+keymap("n", "r<C-c>", "<Nop>")
+keymap({ "n", "i" }, "<C-c>", "<Esc>")
 
--- Disable EX mode
-bmap({ "Q", "<Nop>" })
+-- Disable EX mode.
+keymap("n", "Q", "<Nop>")
 
--- Window movement
-nmap({ "<Tab>", "<C-W><C-w>" })
-nmap({ "<S-Tab>", "<C-W><S-W>" })
+-- Window movement.
+keymap("n", "<Tab>", "<C-W><C-w>")
+keymap("n", "<S-Tab>", "<C-W><S-W>")
 
--- bufferline: Buffer management
-nmap({ "<C-]>", "<cmd>bnext<CR>" })
-nmap({ "<Esc>", "<cmd>bprev<CR>" })
-function M.bufferline_mapping(bufferline)
-  nmap({ "<C-]>", "<cmd>bnext<CR>" })
-  nmap({ "<Esc>", "<cmd>bprev<CR>" })
+-- bufferline: Buffer management.
+keymap("n", "<C-]>", "<cmd>bnext<CR>")
+keymap("n", "<Esc>", "<cmd>bprev<CR>")
+
+function M.bufferline_mapping()
+  keymap("n", "<C-]>", "<cmd>bnext<CR>")
+  keymap("n", "<Esc>", "<cmd>bprev<CR>")
 end
 
--- bufdelete: Close buffers / quit with ^q
-nmap({
-  "<C-q>",
-  function()
-    local buffers = {}
+-- bufdelete: Close buffers / quit with ^q.
+keymap("n", "<C-q>", function()
+  local buffers = {}
 
-    -- Get all buffers
-    for buffer = 1, vim.fn.bufnr("$") do
-      local is_listed = vim.fn.buflisted(buffer) == 1
-      if is_listed then
-        table.insert(buffers, buffer)
-      end
+  for buffer = 1, vim.fn.bufnr("$") do
+    if vim.fn.buflisted(buffer) == 1 then
+      table.insert(buffers, buffer)
     end
+  end
 
-    -- Quit if there is only an empty buffer
-    if #buffers == 1 then
-      vim.cmd("confirm quit")
-    else
-      vim.cmd("confirm Bdelete")
-    end
-  end,
-})
+  if #buffers == 1 then
+    vim.cmd("confirm quit")
+  else
+    vim.cmd("confirm Bdelete")
+  end
+end)
 
+-- Do not move cursor when using *.
+keymap("n", "*", "<cmd>let s = winsaveview()<CR>*<cmd>:call winrestview(s)<CR>")
 
--- Do not move cursor when using *
-nmap({
-  "*",
-  "<cmd>let s = winsaveview()<CR>*<cmd>:call winrestview(s)<CR>",
-})
+-- Quick system copy and paste.
+keymap("n", "<Leader>y", '"+y')
+keymap("n", "<Leader>Y", '"+Y')
+keymap("v", "<Leader>y", '"+y')
 
--- Quick system copy and paste
-nmap({ "<Leader>y", '"+y', {} })
-nmap({ "<Leader>Y", '"+Y', {} })
-vmap({ "<Leader>y", '"+y', {} })
-
--- -- Visual mode star
--- vmap({ "<Leader>*", visual_star })
-
--- fzf
--- local fzf = require("fzf-lua")
--- nmap({ "<Leader><Leader>", fzf.git_files })
--- nmap({ "<Leader>p", fzf.files })
--- nmap({ "<Leader>b", fzf.buffers })
--- nmap({ "<Leader>f", fzf.live_grep_native })
--- nmap({ "<Leader>r", fzf.command_history })
-
+-- fzf mappings will be registered when the plugin loads.
 function M.fzf_mapping(fzf)
-  nmap({ "<Leader><Leader>", fzf.git_files })
-  nmap({ "<Leader>p", fzf.files })
-  nmap({ "<Leader>b", fzf.buffers })
-  nmap({ "<Leader>f", fzf.live_grep_native })
-  nmap({ "<Leader>r", fzf.command_history })
+  keymap("n", "<Leader><Leader>", fzf.git_files)
+  keymap("n", "<Leader>p", fzf.files)
+  keymap("n", "<Leader>b", fzf.buffers)
+  keymap("n", "<Leader>f", fzf.live_grep_native)
+  keymap("n", "<Leader>r", fzf.command_history)
 end
 
--- nvim-tree
-nmap({ "<Leader>t", "<cmd>NvimTreeFindFileToggle<CR>" })
+-- nvim-tree.
+keymap("n", "<Leader>t", "<cmd>NvimTreeFindFileToggle<CR>")
 
--- Toggle spelling
-nmap({ "<Leader>s", "<cmd>set spell!<CR>" })
+-- Toggle spelling.
+keymap("n", "<Leader>s", "<cmd>set spell!<CR>")
 
--- Git
-nmap({ "gb", ":Git blame<cr>" })
-nmap({ "gh", ":GBrowse!<cr>" })
-vmap({ "gh", ":'<'>GBrowse!<cr>" })
+-- Git integrations.
+keymap("n", "gb", ":Git blame<CR>")
+keymap("n", "gh", ":GBrowse!<CR>")
+keymap("v", "gh", ":'<'>GBrowse!<CR>")
 
--- Substitute -- not set up yet
--- local sub = require("substitute")
--- nmap({ "s", sub.operator })
--- nmap({ "ss", sub.line })
--- nmap({ "S", sub.eol })
 function M.substitute_mapping(substitute)
-  nmap({ "s", substitute.operator })
-  nmap({ "ss", substitute.line })
-  nmap({ "S", substitute.eol })
+  keymap("n", "s", substitute.operator)
+  keymap("n", "ss", substitute.line)
+  keymap("n", "S", substitute.eol)
 end
 
--- Yank filepath into system clipboard
-nmap({
-  "<Leader>yp",
-  ":let @+ = expand('%:p')<CR>:echom 'Path copied to system clipboard'<CR>",
-})
+-- Yank filepath into system clipboard.
+keymap("n", "<Leader>yp", function()
+  vim.fn.setreg("+", vim.fn.expand("%:p"))
+  vim.api.nvim_echo({ { "Path copied to system clipboard", "None" } }, false, {})
+end)
 
--- Clear search
-nmap({ "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>" })
+-- Clear search.
+keymap("n", "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>")
 
--- Repeat the last execuded macro
-nmap({ ",", "@@" })
+-- Repeat the last executed macro.
+keymap("n", ",", "@@")
 
 function M.lsp_mapping(bufnr)
   local fzf_conf = require("my.configs.fzf")
-
   local fzf = require("fzf-lua")
 
   local function fzf_lsp(name, opts)
@@ -128,45 +96,30 @@ function M.lsp_mapping(bufnr)
     end
   end
 
-  -- fzf lsp triggers
-  map.nmap({ "gD", fzf_lsp("declarations"), bufnr = bufnr })
-  map.nmap({ "gd", fzf_lsp("definitions"), bufnr = bufnr, desc = "go to definition" })
-  map.nmap({ "gr", fzf_lsp("references"), bufnr = bufnr })
-  map.nmap({ "ga", fzf_lsp("code_actions"), bufnr = bufnr })
-  map.nmap({ "gi", fzf_lsp("implementations"), bufnr = bufnr })
+  local buf_opts = { buffer = bufnr }
 
-  map.nmap({
+  keymap("n", "gD", fzf_lsp("declarations"), buf_opts)
+  keymap("n", "gd", fzf_lsp("definitions"), vim.tbl_extend("force", buf_opts, { desc = "go to definition" }))
+  keymap("n", "gr", fzf_lsp("references"), buf_opts)
+  keymap("n", "ga", fzf_lsp("code_actions"), buf_opts)
+  keymap("n", "gi", fzf_lsp("implementations"), buf_opts)
+
+  keymap(
+    "n",
     "gs",
-    fzf_lsp(
-      "document_symbols",
-      { winopts = fzf_conf.winopts_bottom, current_buffer_only = true }
-    ),
-    bufnr = bufnr,
-  })
+    fzf_lsp("document_symbols", { winopts = fzf_conf.winopts_bottom, current_buffer_only = true }),
+    buf_opts
+  )
 
-  map.nmap({
-    "<space>",
-    function()
-      vim.lsp.buf.hover()
-    end,
-    bufnr = bufnr,
-  })
+  keymap("n", "<space>", vim.lsp.buf.hover, buf_opts)
 
-  map.nmap({
-    "<C-p>",
-    function()
-      vim.diagnostic.goto_prev({ border = "rounded" })
-    end,
-    bufnr = bufnr,
-  })
+  keymap("n", "<C-p>", function()
+    vim.diagnostic.goto_prev({ border = "rounded" })
+  end, buf_opts)
 
-  map.nmap({
-    "<C-n>",
-    function()
-      vim.diagnostic.goto_next({ border = "rounded" })
-    end,
-    bufnr = bufnr,
-  })
+  keymap("n", "<C-n>", function()
+    vim.diagnostic.goto_next({ border = "rounded" })
+  end, buf_opts)
 end
 
 return M

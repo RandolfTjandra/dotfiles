@@ -41,46 +41,24 @@ function M.setup()
 end
 
 local function lsp_keymaps(bufnr)
-	local map = require("my.utils").map
+	local opts = { buffer = bufnr }
 
-	map.nmap({
-		"gD",
-		"<cmd>lua vim.lsp.buf.declaration()<CR>",
-		bufnr = bufnr,
-	})
-	map.nmap({
-		"gd",
-		"<cmd>lua vim.lsp.buf.definition()<CR>",
-		bufnr = bufnr,
-	})
+	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+	vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+	vim.keymap.set("n", "<space>", vim.lsp.buf.hover, opts)
 
-	map.nmap({
-		"gi",
-		"<cmd>lua vim.lsp.buf.implementation()<CR>",
-		bufnr = bufnr,
-	})
-	map.nmap({
-		"gr",
-		"<cmd>lua vim.lsp.buf.references()<CR>",
-		bufnr = bufnr,
-	})
-	map.nmap({
-		"<space>",
-		"<cmd>lua vim.lsp.buf.hover()<CR>",
-		bufnr = bufnr,
-	})
-	map.nmap({
-		"<C-p>",
-		'<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>',
-		bufnr = bufnr,
-	})
-	map.nmap({
-		"<C-n>",
-		'<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>',
-		bufnr = bufnr,
-	})
+	vim.keymap.set("n", "<C-p>", function()
+		vim.diagnostic.goto_prev({ border = "rounded" })
+	end, opts)
+	vim.keymap.set("n", "<C-n>", function()
+		vim.diagnostic.goto_next({ border = "rounded" })
+	end, opts)
 
-	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+	vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
+		vim.lsp.buf.formatting()
+	end, { desc = "Format the current buffer with LSP" })
 end
 
 M.on_attach = function(client, bufnr)
