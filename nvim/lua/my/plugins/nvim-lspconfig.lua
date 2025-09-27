@@ -22,7 +22,6 @@ function P.config()
       "ansiblels",
       "bashls",
       "basedpyright",
-      "ruff",
       "biome",
       "cssls",
       "dockerls",
@@ -30,11 +29,12 @@ function P.config()
       "gopls",
       "jsonls",
       "lua_ls",
+      "pyright",
+      "ruff",
       "rust_analyzer",
       "sqlls",
       "ts_ls",
       "yamlls",
-      "pyright",
     },
   })
 
@@ -52,36 +52,32 @@ function P.config()
 
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+  local function configure(server_name, opts)
+    opts = opts or {}
+    opts.on_attach = on_attach
+    opts.capabilities = capabilities
+
+    lspconfig[server_name].setup(opts)
+  end
+
   masonLspconfig.setup_handlers({
-    -- The first entry (without a key) will be the default handler and will be
-    -- called for each installed server that doesn't have a dedicated handler.
     function(server_name)
-      -- Setup `basedpyright` specifically after other LSPs have been initialized
-      lspconfig.basedpyright.setup({
+      configure(server_name)
+    end,
+    basedpyright = function()
+      configure("basedpyright", {
         settings = {
           python = {
             analysis = {
-              typeCheckingMode = "basic", -- Only type checking (no linting)
+              typeCheckingMode = "basic",
               diagnosticMode = "openFilesOnly",
-              reportUnusedVariable = "none", -- Let Ruff handle this
-              reportUnusedCallResult = "none", -- Let Ruff handle this
+              reportUnusedVariable = "none",
+              reportUnusedCallResult = "none",
             },
           },
         },
       })
-
-      lspconfig[server_name].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
     end,
-    -- Server customizations
-    -- You can provide a dedicated handler for specific servers. For example, a
-    -- handler override for the `rust_analyzer`:
-    --
-    -- ["rust_analyzer"] = function()
-    --   require("rust-tools").setup({})
-    -- end,
   })
 
   local signs = {
