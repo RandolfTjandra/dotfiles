@@ -61,8 +61,6 @@ function P.config()
     --   }
     -- end,
   })
-
-  vim.cmd.colorscheme("dracula-soft")
 end
 
 return P

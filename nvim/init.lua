@@ -14,3 +14,13 @@ require("my.general")
 require("my.mappings")
 
 require("my.lazy")
+
+-- local colorscheme = vim.g.my_colorscheme or "dracula-soft"
+local colorscheme = vim.g.my_colorscheme or "catppuccin"
+local ok, err = pcall(vim.cmd.colorscheme, colorscheme)
+if not ok then
+  vim.notify(
+    string.format("Failed to load colorscheme '%s': %s", colorscheme, err),
+    vim.log.levels.WARN
+  )
+end
