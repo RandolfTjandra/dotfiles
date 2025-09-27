@@ -2,6 +2,15 @@ local M = {}
 
 local keymap = vim.keymap.set
 
+local fzf_winopts_bottom = {
+  height = 0.3,
+  width = 1,
+  row = 1,
+  col = 0,
+  border = { "", "─", "", "", "", "", "", "" },
+  preview = { horizontal = "right:50%" },
+}
+
 -- Remap ^C to behave like <Esc> in normal/insert modes and ignore r<C-c>.
 keymap("n", "r<C-c>", "<Nop>")
 keymap({ "n", "i" }, "<C-c>", "<Esc>")
@@ -86,13 +95,12 @@ keymap("n", "<C-l>", ":nohlsearch<CR>:call clearmatches()<CR>")
 keymap("n", ",", "@@")
 
 function M.lsp_mapping(bufnr)
-  local fzf_conf = require("my.configs.fzf")
   local fzf = require("fzf-lua")
 
   local function fzf_lsp(name, opts)
     local fn = fzf[string.format("lsp_%s", name)]
     return function()
-      fn(opts or { winopts = fzf_conf.winopts_bottom, jump1 = true })
+      fn(opts or { winopts = fzf_winopts_bottom, jump1 = true })
     end
   end
 
@@ -114,7 +122,7 @@ function M.lsp_mapping(bufnr)
     "gs",
     fzf_lsp(
       "document_symbols",
-      { winopts = fzf_conf.winopts_bottom, current_buffer_only = true }
+      { winopts = fzf_winopts_bottom, current_buffer_only = true }
     ),
     buf_opts
   )
