@@ -15,6 +15,10 @@ set.list = true -- Show non-printable characters
 set.hlsearch = true -- Highlight searched text
 set.ignorecase = true -- Ignore case when searching
 set.smartcase = true -- Don't ignore case when using uppercase in a search
+set.wildignore:append({ -- Skip mypy cache directories in globbing/completion
+  ".mypy_cache",
+  "*/.mypy_cache/*",
+})
 set.confirm = true -- Ask for confirmation when closing unsaved files
 
 --use({

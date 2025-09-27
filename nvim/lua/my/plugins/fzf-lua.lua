@@ -6,6 +6,7 @@ local P = {
 }
 
 local grep_ignored = {
+  "**/.mypy_cache/**",
   "static/dist/**/*",
   "CHANGES",
   "stats.json",
