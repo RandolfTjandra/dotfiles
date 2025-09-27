@@ -1,5 +1,10 @@
 vim.opt.directory = vim.fn.expand("$XDG_CACHE_HOME/nvim")
 
+local python3_host = vim.fn.exepath("python3")
+if python3_host ~= "" then
+  vim.g.python3_host_prog = python3_host
+end
+
 function _G.safe_require(module)
   local ok, result = pcall(require, module)
   if not ok then
