@@ -1,6 +1,21 @@
 #!/usr/bin/env sh
-#key=${WK_KEY}
-key="c030d600-1051-417f-84c2-fe0f5546d96d"
+
+ENV_FILE="$HOME/.config/sketchybar/.env"
+
+if [ -f "$ENV_FILE" ]; then
+  # shellcheck disable=SC1090
+  set -a
+  . "$ENV_FILE"
+  set +a
+fi
+
+key="${WK_API_KEY:-${WK_KEY:-}}"
+
+if [ -z "$key" ]; then
+  sketchybar --set $NAME icon="wk" label="no api key"
+  exit 0
+fi
+
 response=$(curl "https://api.wanikani.com/v2/summary" \
   -H "Authorization: Bearer ${key}" \
   -H 'Wanikani-Revision: 20170710')

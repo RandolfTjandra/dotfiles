@@ -12,6 +12,6 @@ if [ "$RUNNING" = "0" ]; then
     sketchybar --set $NAME label="$COUNT" icon=$MAIL_OPEN
   fi
 else
-  sketchybar --set $NAME label="!" icon=$MAIL
+  sketchybar --set $NAME label="!test" icon=$MAIL
 fi
 

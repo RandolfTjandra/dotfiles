@@ -1,14 +1,18 @@
 #!/usr/bin/env sh
 
-sketchybar --add item mailIndicator right \
-	--set mailIndicator update_freq=30 \
-	script="$PLUGIN_DIR/mailIndicator.sh" \
-	background.padding_left=10 \
-	icon.font="$FONT:Bold:13.0" \
-	icon=$MAIL \
-	icon.color=$BLUE \
-	label=! \
-	--add item calendar.time right \
+# The mail indicator depends on applescript reading from the Mail app, which I don't use cuz Apple sucks.
+# If you do want mail indicator, add this back in.
+
+#sketchybar --add item mailIndicator right \
+#	--set mailIndicator update_freq=30 \
+#	script="$PLUGIN_DIR/mailIndicator.sh" \
+#	background.padding_left=10 \
+#	icon.font="$FONT:Bold:13.0" \
+#	icon=$MAIL \
+#	icon.color=$BLUE \
+#	label=! \
+
+sketchybar --add item calendar.time right \
 	--set calendar.time update_freq=15 \
 	icon.drawing=off \
 	label.color=$BLACK \
