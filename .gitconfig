@@ -30,10 +30,15 @@
   date = relative
 
 [core]
-  pager = less -FRSX
+  ; pager = less -FRSMX
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
   excludesfile = ~/.gitignore
   ; hooksPath = ~/.git-hooks
+  ; diff-so-fancy
+  pager="diff-so-fancy | less --tabs=4 -RF"
+[interactive]
+  diffFilter="diff-so-fancy --patch"
+
 
 [url "ssh://git@github.com/"]
   insteadOf = https://github.com/

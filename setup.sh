@@ -57,6 +57,21 @@ else
   echo "Warning: $agents_src does not exist, skipping."
 fi
 
+echo "Linking binaries..."
+
+mkdir -p "$HOME/.local/bin"
+
+for bin in diff-so-fancy; do
+  src="${dotslocation}/${bin}"
+  dest="$HOME/.local/bin/${bin}"
+  if [ -e "$src" ]; then
+    ln -sfn "$src" "$dest"
+    echo "Linked $src -> $dest"
+  else
+    echo "Warning: $src does not exist, skipping."
+  fi
+done
+
 # Link git templates and hooks if they exist
 if [ -e "${dotslocation}/git/.git-templates" ]; then
   ln -sfn "${dotslocation}/git/.git-templates" "$HOME/.git-templates"
