@@ -76,6 +76,7 @@ When I add or remove Homebrew packages on my main machine, I refresh the tracked
 - `setup.sh` uses `ln -sfn`, so existing files are replaced with symlinks—back up anything custom first.
 - Most CLI tools and desktop apps are captured in `Brewfile`; install them with `brew bundle --file Brewfile`.
 - Neovim expects `python3`, `node`, `npm`, and `stylua` in `PATH`; those are included in `Brewfile`, though I still use `pyenv`/`nvm` in shell config too.
+- The WaniKani SketchyBar token is loaded at shell startup from `op` when `op` is installed and signed in.
 - Kitty themes include a bundled Dracula pack (`kitty/themes/kitty-master/`).
 - macOS automation tools (Yabai, SKHD, Sketchybar, Karabiner, Hammerspoon) need permissions; follow their docs.
 - Git configs support multiple environments (`gitconfig/environments/`).
