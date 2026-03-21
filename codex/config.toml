@@ -1,0 +1,12 @@
+# Model Context Protocol (MCP) server manifest for this dotfiles project.
+# Replace the example server definition with the actual MCP server(s) you plan to run.
+version = 1
+
+[[servers]]
+id = "example"
+name = "Example MCP Server"
+transport = "stdio"
+command = ["echo", "Replace this with your MCP server command"]
+
+[servers.env]
+PROJECT_ROOT = "$DOTFILES"

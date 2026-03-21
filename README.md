@@ -12,9 +12,10 @@ Personal macOS configuration: Neovim (Lazy), Zsh, Tmux, Kitty, plus window-manag
 - **Tmux** – theme, scripts, bindings
 - **Window manager** – Yabai, SKHD, Sketchybar widgets
 - **Automation** – Hammerspoon, Karabiner, assorted scripts for Kitty, Sketchybar
-- **Other** – Git hooks/config, LSD, Neofetch, scripts like `setup.sh` and `symlink-gitconfigs.sh`
+- **Packages** – Homebrew manifest in `Brewfile` for formulae, casks, VS Code extensions, and other bundle-managed tools
+- **Other** – Git hooks/config, LSD, Neofetch, scripts like `setup.sh`, `symlink-gitconfigs.sh`, and `scripts/update-brewfile.sh`
 
-Dependencies + fonts live in `requirements.md`.
+Manual notes live in `requirements.md`.
 
 ---
 
@@ -23,6 +24,9 @@ Dependencies + fonts live in `requirements.md`.
 ```bash
 git clone https://github.com/randolftjandra/dotfiles ~/Dev/dotfiles
 cd ~/Dev/dotfiles
+
+# Install packages/apps from Homebrew Bundle
+brew bundle --file Brewfile
 
 # Optional: keep DOTFILES handy for scripts
 export DOTFILES=$(pwd)
@@ -42,6 +46,12 @@ nvim -c "checkhealth" -c qa
 
 The scripts are idempotent; rerun them after pulling updates. I keep the repo in place and commit changes directly.
 
+When I add or remove Homebrew packages on my main machine, I refresh the tracked manifest with:
+
+```bash
+./scripts/update-brewfile.sh
+```
+
 ---
 
 ## Directory map
@@ -56,14 +66,16 @@ The scripts are idempotent; rerun them after pulling updates. I keep the repo in
 | `sketchybar/` | Menu bar widgets and scripts |
 | `karabiner/` | Keyboard remaps + backups |
 | `git/`, `gitconfig/` | Git hooks and environment-specific configs |
-| `requirements.md` | External dependencies |
+| `Brewfile` | Homebrew bundle manifest for packages/apps/extensions |
+| `requirements.md` | Manual setup notes not captured by Homebrew |
 
 ---
 
 ## Notes
 
 - `setup.sh` uses `ln -sfn`, so existing files are replaced with symlinks—back up anything custom first.
-- Neovim expects `python3`, `node`, `npm`, and `stylua` in `PATH`; install via Homebrew/pyenv/nvm as needed.
+- Most CLI tools and desktop apps are captured in `Brewfile`; install them with `brew bundle --file Brewfile`.
+- Neovim expects `python3`, `node`, `npm`, and `stylua` in `PATH`; those are included in `Brewfile`, though I still use `pyenv`/`nvm` in shell config too.
 - Kitty themes include a bundled Dracula pack (`kitty/themes/kitty-master/`).
 - macOS automation tools (Yabai, SKHD, Sketchybar, Karabiner, Hammerspoon) need permissions; follow their docs.
 - Git configs support multiple environments (`gitconfig/environments/`).

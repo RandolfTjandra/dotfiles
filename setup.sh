@@ -39,6 +39,15 @@ for file in .hammerspoon .zprofile .zshrc .gitconfig .gitmessage .gitignore; do
   fi
 done
 
+codex_src="${dotslocation}/codex"
+codex_dest="$HOME/.codex"
+if [ -d "$codex_src" ]; then
+  ln -sfn "$codex_src" "$codex_dest"
+  echo "Linked $codex_src -> $codex_dest"
+else
+  echo "Warning: $codex_src does not exist, skipping."
+fi
+
 # Link git templates and hooks if they exist
 if [ -e "${dotslocation}/git/.git-templates" ]; then
   ln -sfn "${dotslocation}/git/.git-templates" "$HOME/.git-templates"

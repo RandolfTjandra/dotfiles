@@ -1,5 +1,21 @@
 # Requirements
-I want this to be a lock file or something. But basically I should start listing all the packages/libraries I use
 
-- https://github.com/charmbracelet/gum
-- https://github.com/FelixKratz/SketchyBar
+Most installable dependencies now live in `Brewfile`.
+
+Use:
+
+```bash
+brew bundle --file Brewfile
+```
+
+Refresh the manifest after package changes with:
+
+```bash
+./scripts/update-brewfile.sh
+```
+
+Keep this file for setup details that Homebrew cannot express cleanly, such as:
+
+- macOS permissions needed for Yabai, SKHD, SketchyBar, Karabiner, and Hammerspoon
+- Environment-specific tools or credentials that should not be tracked in the repo
+- Manual post-install steps for apps that need extra configuration
