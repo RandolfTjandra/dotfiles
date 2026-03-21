@@ -10,6 +10,8 @@ alias vim="nvim"
 alias dev="cd ~/Dev"
 alias gocover="go test ./... -coverprofile cover.out && go tool cover -html=cover.out -o coverage.html && go tool cover -func cover.out | grep total"
 
+alias python="python3.12"
+
 
 # Work related
 alias projects='cd /Users/randolftjandra/Dev'
