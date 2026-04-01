@@ -20,8 +20,7 @@ require("my.mappings")
 
 require("my.lazy")
 
--- local colorscheme = vim.g.my_colorscheme or "dracula-soft"
-local colorscheme = vim.g.my_colorscheme or "catppuccin"
+local colorscheme = vim.g.my_colorscheme or "dracula"
 local ok, err = pcall(vim.cmd.colorscheme, colorscheme)
 if not ok then
   vim.notify(

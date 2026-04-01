@@ -8,9 +8,9 @@ local P = {
   { "styled-components/vim-styled-components", enabled = false },
   { "hrsh7th/cmp-emoji", enabled = false },
   { "b4winckler/vim-angry", enabled = false },
-  { "EdenEast/nightfox.nvim", enabled = false },
-  { "eddyekofo94/gruvbox-flat.nvim", enabled = false },
-  { "mangeshrex/everblush.vim", enabled = false },
+  { "EdenEast/nightfox.nvim" },
+  { "eddyekofo94/gruvbox-flat.nvim" },
+  { "mangeshrex/everblush.vim" },
 }
 
 return P
