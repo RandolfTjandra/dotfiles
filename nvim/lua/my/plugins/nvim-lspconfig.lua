@@ -74,6 +74,22 @@ function P.config()
           },
         },
       })
+    elseif server_name == "biome" then
+      configure("biome", {
+        -- Keep biome on the web stack, but let jsonls handle plain JSON files.
+        filetypes = {
+          "astro",
+          "css",
+          "graphql",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "svelte",
+          "typescript",
+          "typescriptreact",
+          "vue",
+        },
+      })
     else
       configure(server_name)
     end
