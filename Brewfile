@@ -1,9 +1,3 @@
-# Homebrew bundle manifest for this machine.
-# Install on a new Mac with:
-#   brew bundle --file ~/Dev/dotfiles/Brewfile
-# Refresh after package changes with:
-#   ./scripts/update-brewfile.sh
-
 tap "1password/tap"
 tap "charmbracelet/tap"
 tap "cmacrae/formulae"
