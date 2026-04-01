@@ -3,7 +3,6 @@
 ---@type LazySpec
 local P = {
   "williamboman/mason.nvim",
-  build = ":MasonUpdate",
   cmd = {
     "Mason",
     "MasonInstall",

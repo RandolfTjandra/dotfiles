@@ -16,30 +16,29 @@ P.dependencies = {
 
 function P.config()
   local masonLspconfig = require("mason-lspconfig")
+  local servers = {
+    "ansiblels",
+    "bashls",
+    "basedpyright",
+    "biome",
+    "cssls",
+    "dockerls",
+    "eslint",
+    "gopls",
+    "jsonls",
+    "lua_ls",
+    "pyright",
+    "ruff",
+    "rust_analyzer",
+    "sqlls",
+    "ts_ls",
+    "yamlls",
+  }
 
   masonLspconfig.setup({
-    ensure_installed = {
-      "ansiblels",
-      "bashls",
-      "basedpyright",
-      "biome",
-      "cssls",
-      "dockerls",
-      "eslint",
-      "gopls",
-      "jsonls",
-      "lua_ls",
-      "pyright",
-      "ruff",
-      "rust_analyzer",
-      "sqlls",
-      "ts_ls",
-      "yamlls",
-    },
+    ensure_installed = servers,
+    automatic_enable = false,
   })
-
-  -- Order matters. lspconfig should load after mason-lspconfig
-  local lspconfig = require("lspconfig")
 
   require("lspconfig.ui.windows").default_options.border = "rounded"
 
@@ -57,14 +56,12 @@ function P.config()
     opts.on_attach = on_attach
     opts.capabilities = capabilities
 
-    lspconfig[server_name].setup(opts)
+    vim.lsp.config(server_name, opts)
+    vim.lsp.enable(server_name)
   end
 
-  masonLspconfig.setup_handlers({
-    function(server_name)
-      configure(server_name)
-    end,
-    basedpyright = function()
+  for _, server_name in ipairs(servers) do
+    if server_name == "basedpyright" then
       configure("basedpyright", {
         settings = {
           python = {
@@ -77,8 +74,10 @@ function P.config()
           },
         },
       })
-    end,
-  })
+    else
+      configure(server_name)
+    end
+  end
 
   local signs = {
     { name = "DiagnosticSignError", text = "━" },

@@ -2,7 +2,7 @@
 
 ---@type LazySpec
 local P = {
-  "kyazdani42/nvim-web-devicons",
+  "nvim-tree/nvim-web-devicons",
 }
 
 function P.config()
