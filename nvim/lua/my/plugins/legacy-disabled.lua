@@ -8,6 +8,7 @@ local P = {
   { "styled-components/vim-styled-components", enabled = false },
   { "hrsh7th/cmp-emoji", enabled = false },
   { "b4winckler/vim-angry", enabled = false },
+  { "nathom/filetype.nvim", enabled = false },
   { "EdenEast/nightfox.nvim" },
   { "eddyekofo94/gruvbox-flat.nvim" },
   { "mangeshrex/everblush.vim" },
