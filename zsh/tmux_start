@@ -1,11 +1,24 @@
 # Start or continue tmux on new window
+tmux_resurrect_last_file() {
+  if [ -d "$HOME/.tmux/resurrect" ]; then
+    echo "$HOME/.tmux/resurrect/last"
+  else
+    echo "${XDG_DATA_HOME:-$HOME/.local/share}/tmux/resurrect/last"
+  fi
+}
+
 if [ -z "$TMUX" ]; then
-  echo "Select a tmux session or Action..."
   SESSIONS=()
   while IFS= read -r line; do
-    SESSIONS+=("$line")  # Preserve spaces in session names
-  done < <(tmux ls -F "#S")
+    [ -n "$line" ] && SESSIONS+=("$line")  # Preserve spaces in session names
+  done < <(tmux ls -F "#S" 2>/dev/null || true)
 
+  if [ ${#SESSIONS[@]} -eq 0 ] && [ -f "$(tmux_resurrect_last_file)" ]; then
+    echo "Restoring saved tmux sessions..."
+    exec tmux new-session
+  fi
+
+  echo "Select a tmux session or Action..."
   SESSIONS+=("Create a new session" "Exit")
   SESSION=$(gum choose ${SESSIONS[@]} --cursor "  " --cursor.foreground "#CA9EE6")
   if [[ $SESSION == 'Exit' ]]; then
