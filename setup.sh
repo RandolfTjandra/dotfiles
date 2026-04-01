@@ -48,6 +48,15 @@ else
   echo "Warning: $codex_src does not exist, skipping."
 fi
 
+agents_src="${dotslocation}/.agents"
+agents_dest="$HOME/.agents"
+if [ -d "$agents_src" ]; then
+  ln -sfn "$agents_src" "$agents_dest"
+  echo "Linked $agents_src -> $agents_dest"
+else
+  echo "Warning: $agents_src does not exist, skipping."
+fi
+
 # Link git templates and hooks if they exist
 if [ -e "${dotslocation}/git/.git-templates" ]; then
   ln -sfn "${dotslocation}/git/.git-templates" "$HOME/.git-templates"
