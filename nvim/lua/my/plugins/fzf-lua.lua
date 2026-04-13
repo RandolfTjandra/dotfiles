@@ -46,6 +46,12 @@ end
 
 function P.config()
   local fzf = require("fzf-lua")
+  local plain_file_picker = {
+    file_icons = false,
+    git_icons = false,
+    formatter = false,
+    path_shorten = false,
+  }
 
   local winopts_bottom = {
     height = 0.3,
@@ -89,13 +95,9 @@ function P.config()
       ["bg+"] = { "bg", "Normal" },
     },
 
-    files = {
+    files = vim.tbl_extend("force", plain_file_picker, {
       prompt = "files › ",
-      file_icons = false,
-      git_icons = false,
-      formatter = false,
-      path_shorten = false,
-    },
+    }),
 
     buffers = {
       -- previewer = false,
@@ -103,15 +105,11 @@ function P.config()
     },
 
     git = {
-      files = {
+      files = vim.tbl_extend("force", plain_file_picker, {
         previewer = false,
         prompt = "tree › ",
         cmd = "git ls-files --exclude-standard --cached --other",
-        file_icons = false,
-        git_icons = false,
-        formatter = false,
-        path_shorten = false,
-      },
+      }),
     },
 
     grep = {
