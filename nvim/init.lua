@@ -1,5 +1,13 @@
 vim.opt.directory = vim.fn.expand("$XDG_CACHE_HOME/nvim")
 
+-- Give Neovim and plugins a stable writable runtime dir for RPC sockets.
+local state_home = vim.env.XDG_STATE_HOME or vim.fn.expand("~/.local/state")
+local runtime_dir = vim.fs.normalize(state_home .. "/nvim/run")
+if vim.fn.isdirectory(runtime_dir) == 0 then
+  vim.fn.mkdir(runtime_dir, "p")
+end
+vim.env.XDG_RUNTIME_DIR = runtime_dir
+
 local python3_host = vim.fn.exepath("python3")
 if python3_host ~= "" then
   vim.g.python3_host_prog = python3_host
