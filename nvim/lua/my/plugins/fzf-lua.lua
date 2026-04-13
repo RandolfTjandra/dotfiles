@@ -90,8 +90,11 @@ function P.config()
     },
 
     files = {
-      cmd = "rg --files --hidden --glob '!.git'",
       prompt = "files › ",
+      file_icons = false,
+      git_icons = false,
+      formatter = false,
+      path_shorten = false,
     },
 
     buffers = {
@@ -104,6 +107,10 @@ function P.config()
         previewer = false,
         prompt = "tree › ",
         cmd = "git ls-files --exclude-standard --cached --other",
+        file_icons = false,
+        git_icons = false,
+        formatter = false,
+        path_shorten = false,
       },
     },
 
