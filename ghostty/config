@@ -1,5 +1,8 @@
 font-size = 13
-theme = One Dark
+# theme = One Dark
+# theme = Cyberpunk
+# theme = Catppuccin Frappe
+theme = Dracula
 scrollback-limit = 100000
 split-divider-color = #3e4451
 working-directory = ~/Dev
