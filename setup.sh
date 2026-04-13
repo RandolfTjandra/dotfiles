@@ -15,7 +15,7 @@ fi
 
 echo "Linking config directories..."
 
-for dir in lsd kitty neofetch nvim sketchybar skhd spacebar tmux yabai zsh karabiner; do
+for dir in cmux ghostty lsd kitty neofetch nvim sketchybar skhd spacebar tmux yabai zsh karabiner; do
   src="${dotslocation}/${dir}"
   dest="$HOME/.config/${dir}"
   if [ -e "$src" ]; then

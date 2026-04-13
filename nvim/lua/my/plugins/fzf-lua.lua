@@ -90,7 +90,7 @@ function P.config()
     },
 
     files = {
-      -- previewer = false,
+      cmd = "rg --files --hidden --glob '!.git'",
       prompt = "files › ",
     },
 
