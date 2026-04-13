@@ -75,13 +75,6 @@ bindkey -e
 # Aliases
 source "$HOME/.config/zsh/aliases"
 
-# Wk
-if [[ -z "${WK_KEY:-}" ]] && command -v op >/dev/null 2>&1; then
-  wk_key="$(op read 'op://Personal/Wanikani API key/password' 2>/dev/null || true)"
-  [[ -n "$wk_key" ]] && export WK_KEY="$wk_key"
-  unset wk_key
-fi
-
 # Load local secrets (API keys, etc) if present
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"

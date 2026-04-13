@@ -11,6 +11,10 @@ fi
 
 key="${WK_API_KEY:-${WK_KEY:-}}"
 
+if [ -z "$key" ] && command -v op >/dev/null 2>&1; then
+  key="$(op read 'op://Personal/Wanikani API key/password' 2>/dev/null || true)"
+fi
+
 if [ -z "$key" ]; then
   sketchybar --set $NAME icon="wk" label="no api key"
   exit 0
