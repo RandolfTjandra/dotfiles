@@ -49,29 +49,45 @@
   //     "showSSH" : true
   //   },
 
-  //   "workspaceColors" : {
-  //     "colors" : {
-  //       "Amber" : "#7D6608",
-  //       "Aqua" : "#0E6B8C",
-  //       "Blue" : "#1565C0",
-  //       "Brown" : "#7B3F00",
-  //       "Charcoal" : "#3E4B5E",
-  //       "Crimson" : "#922B21",
-  //       "Green" : "#196F3D",
-  //       "Indigo" : "#283593",
-  //       "Magenta" : "#AD1457",
-  //       "Navy" : "#1A5276",
-  //       "Olive" : "#4A5C18",
-  //       "Orange" : "#A04000",
-  //       "Purple" : "#6A1B9A",
-  //       "Red" : "#C0392B",
-  //       "Rose" : "#880E4F",
-  //       "Teal" : "#006B6B"
-  //     },
-  //     "indicatorStyle" : "leftRail",
-  //     "notificationBadgeColor" : null,
-  //     "selectionColor" : null
-  //   },
+  "workspaceColors": {
+    "colors": {
+      // "Amber": "#7D6608",
+      "Amber": "#F1FA8C",
+      // "Aqua": "#0E6B8C",
+      "Aqua": "#8BE9FD",
+      // "Blue": "#1565C0",
+      "Blue": "#6272A4",
+      // "Brown": "#7B3F00",
+      "Brown": "#BD93F9",
+      // "Charcoal": "#3E4B5E",
+      "Charcoal": "#44475A",
+      // "Crimson": "#922B21",
+      "Crimson": "#FF5555",
+      // "Green": "#196F3D",
+      "Green": "#50FA7B",
+      // "Indigo": "#283593",
+      "Indigo": "#9580FF",
+      // "Magenta": "#AD1457",
+      "Magenta": "#FF79C6",
+      // "Navy": "#1A5276",
+      "Navy": "#6272A4",
+      // "Olive": "#4A5C18",
+      "Olive": "#F1FA8C",
+      // "Orange": "#A04000",
+      "Orange": "#FFB86C",
+      // "Purple": "#6A1B9A",
+      "Purple": "#BD93F9",
+      // "Red": "#C0392B",
+      "Red": "#FF5555",
+      // "Rose": "#880E4F",
+      "Rose": "#FF79C6",
+      // "Teal": "#006B6B",
+      "Teal": "#8BE9FD"
+    },
+    "indicatorStyle": "leftRail",
+    "notificationBadgeColor": null,
+    "selectionColor": null
+  }
 
   //   "sidebarAppearance" : {
   //     "darkModeTintColor" : null,
@@ -92,14 +108,14 @@
 
   //   "customCommands" : {
   //     "trustedDirectories" : [
-  // 
+  //
   //     ]
   //   },
 
   //   "browser" : {
   //     "defaultSearchEngine" : "google",
   //     "hostsToOpenInEmbeddedBrowser" : [
-  // 
+  //
   //     ],
   //     "insecureHttpHostsAllowedInEmbeddedBrowser" : [
   //       "localhost",
@@ -115,7 +131,7 @@
   //     "showSearchSuggestions" : true,
   //     "theme" : "system",
   //     "urlsToAlwaysOpenExternally" : [
-  // 
+  //
   //     ]
   //   },
 
