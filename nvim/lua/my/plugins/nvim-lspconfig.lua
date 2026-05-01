@@ -15,6 +15,7 @@ P.dependencies = {
 }
 
 function P.config()
+  local lspconfig = require("lspconfig")
   local masonLspconfig = require("mason-lspconfig")
   local lspconfig_configs = require("lspconfig.configs")
   local servers = {
@@ -57,10 +58,16 @@ function P.config()
     opts.on_attach = on_attach
     opts.capabilities = capabilities
 
-    if lspconfig_configs[server_name] == nil then
-      lspconfig_configs[server_name] = require("lspconfig.configs." .. server_name)
+    -- if lspconfig_configs[server_name] == nil then
+    --   lspconfig_configs[server_name] = require("lspconfig.configs." .. server_name)
+    -- end
+    -- lspconfig_configs[server_name].setup(opts)
+    if vim.lsp.config and vim.lsp.enable then
+      vim.lsp.config(server_name, opts)
+      vim.lsp.enable(server_name)
+    else
+      lspconfig[server_name].setup(opts)
     end
-    lspconfig_configs[server_name].setup(opts)
   end
 
   for _, server_name in ipairs(servers) do
