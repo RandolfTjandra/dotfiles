@@ -1,81 +1,96 @@
 ---@module "lazy"
 
+local parsers = {
+  "bash",
+  "c",
+  "cpp",
+  "css",
+  "dockerfile",
+  "go",
+  "gomod",
+  "gosum",
+  "html",
+  "javascript",
+  "jq",
+  "json",
+  "lua",
+  "markdown",
+  "php",
+  "python",
+  "query",
+  "regex",
+  "rust",
+  "scss",
+  "sql",
+  "toml",
+  "tsx",
+  "typescript",
+  "vim",
+  "vimdoc",
+}
+
+local filetypes = {
+  "bash",
+  "c",
+  "cpp",
+  "css",
+  "dockerfile",
+  "go",
+  "gomod",
+  "gosum",
+  "html",
+  "javascript",
+  "javascriptreact",
+  "jq",
+  "json",
+  "lua",
+  "markdown",
+  "php",
+  "python",
+  "query",
+  "regex",
+  "rust",
+  "scss",
+  "sql",
+  "toml",
+  "typescript",
+  "typescriptreact",
+  "vim",
+  "vimdoc",
+}
+
 ---@type LazySpec
 local P = {
   "nvim-treesitter/nvim-treesitter",
+  branch = "main",
+  lazy = false,
   build = ":TSUpdate",
-  event = "BufRead",
-  cmd = {
-    "TSInstall",
-    "TSInstallInfo",
-    "TSInstallSync",
-    "TSUninstall",
-    "TSUpdate",
-    "TSUpdateSync",
-    "TSDisableAll",
-    "TSEnableAll",
+  dependencies = {
+    "neovim-treesitter/treesitter-parser-registry",
   },
 }
 
 function P.config()
-  local treesitter = require("nvim-treesitter.configs")
+  local treesitter = require("nvim-treesitter")
+  local group = vim.api.nvim_create_augroup("MyTreesitter", { clear = true })
 
   treesitter.setup({
-    ensure_installed = {
-      "bash",
-      "c",
-      "cpp",
-      "css",
-      "dockerfile",
-      "go",
-      "gomod",
-      "gosum",
-      "html",
-      "javascript",
-      "jq",
-      "json",
-      "lua",
-      "markdown",
-      "php",
-      "python",
-      "regex",
-      "rust",
-      "scss",
-      "sql",
-      "toml",
-      "tsx",
-      "typescript",
-      "vim",
-      "vimdoc",
-    },
-    sync_install = false,
-    ignore_install = { "help" },
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = false,
-    },
-    context_commentstring = {
-      enable = true,
-      enable_autocmd = false,
-    },
-    autopairs = {
-      enable = true,
-    },
-    incremental_selection = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-    },
-    rainbow = {
-      enable = true,
-      disable = { "html" },
-      extended_mode = false,
-      max_file_lines = nil,
-    },
-    autotag = {
-      enable = true,
-    },
+    install_dir = vim.fn.stdpath("data") .. "/site",
+  })
+
+  treesitter.install(parsers)
+
+  vim.api.nvim_create_autocmd("FileType", {
+    group = group,
+    pattern = filetypes,
+    callback = function(args)
+      local ok = pcall(vim.treesitter.start, args.buf)
+      if not ok then
+        return
+      end
+
+      vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
   })
 end
 
