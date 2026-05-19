@@ -30,7 +30,7 @@ Those skills regenerate this file after each mutation.
 
 ## Backlog
 
-- `DOT-001` Clean up repository top-level files (medium)
+No issues.
 
 ## Active
 
@@ -38,4 +38,4 @@ No issues.
 
 ## Done
 
-No issues.
+- `DOT-001` Clean up repository top-level files (medium)

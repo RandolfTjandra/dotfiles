@@ -1,6 +1,6 @@
 ---
 name: issue-tracker
-description: Use when Codex needs to create, update, triage, or summarize repo-local Markdown issues under a standard `planning/` tracker. Bootstrap the tracker on first use, keep one file per issue, treat folder location as the status source of truth, and regenerate `planning/README.md` after each mutation.
+description: Use when Codex needs to create, update, triage, resolve, close, or summarize repo-local Markdown issues under a standard `planning/` tracker. Bootstrap the tracker on first use, keep one file per issue, treat folder location as the status source of truth, and regenerate `planning/README.md` after each mutation.
 ---
 
 # Issue Tracker
@@ -22,6 +22,7 @@ Use this skill for repo-local issue tracking in any project. The standard tracke
 - After creating, updating, moving, or closing an issue, inspect `git status` and commit the affected tracker files unless the user asked not to commit or the issue change belongs in a broader in-progress code commit.
 - For pure planning or triage, prefer a small separate commit.
 - For implementation work, include issue updates in the same commit when they tell one coherent story with the code change.
+- When a commit or completed change resolves an issue, move that issue to `planning/done/`, update its acceptance criteria or notes with the resolution context, refresh `planning/README.md`, and commit the tracker update if it was not included in the resolving commit.
 - Start commit messages with the relevant issue ID, for example `[DOT-001] Track repository top-level cleanup` or `[DOT-001] Move repository cleanup to active`.
 - Avoid committing README/config churn unless the issue state or tracker metadata actually changed.
 
