@@ -1,0 +1,6 @@
+interface:
+  display_name: "Issue Create"
+  short_description: "Create a new repo-local issue"
+  default_prompt: "Use $issue-create to add a new implementation-ready issue to the current repo's planning tracker."
+policy:
+  allow_implicit_invocation: false

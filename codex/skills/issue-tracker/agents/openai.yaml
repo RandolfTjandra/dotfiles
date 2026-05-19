@@ -1,0 +1,6 @@
+interface:
+  display_name: "Issue Tracker"
+  short_description: "Manage repo-local Markdown issues"
+  default_prompt: "Use $issue-tracker to bootstrap or manage the standard planning tracker in the current repo."
+policy:
+  allow_implicit_invocation: true

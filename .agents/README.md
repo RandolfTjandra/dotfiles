@@ -10,4 +10,5 @@ Shared agent configuration and repo-local skills.
 
 - This directory is intended to stay agent-agnostic where possible.
 - `setup.sh` symlinks this directory to `~/.agents`.
-- Codex skills should live under `.agents/skills/<skill-name>/SKILL.md`.
+- Repo-local shared agent skills can live under `.agents/skills/<skill-name>/SKILL.md`.
+- Codex-managed global skills in this repo live under `codex/skills/` and are symlinked into `~/.codex/skills` by `setup.sh`.

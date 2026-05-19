@@ -1,0 +1,6 @@
+interface:
+  display_name: "Downloads Cleanup Assistant"
+  short_description: "Propose and apply safe Downloads cleanup"
+  default_prompt: "Use $downloads-cleanup-assistant to scan ~/Downloads, propose a safe reorganization, and only apply changes after my confirmation."
+policy:
+  allow_implicit_invocation: true

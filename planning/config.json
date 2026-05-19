@@ -1,0 +1,11 @@
+{
+  "tracker_version": 1,
+  "project_name": "dotfiles",
+  "project_prefix": "DOT",
+  "next_issue_number": 1,
+  "statuses": [
+    "backlog",
+    "active",
+    "done"
+  ]
+}

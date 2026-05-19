@@ -73,12 +73,26 @@ local P = {
 function P.config()
   local treesitter = require("nvim-treesitter")
   local group = vim.api.nvim_create_augroup("MyTreesitter", { clear = true })
+  local install_dir = vim.fs.normalize(vim.fn.stdpath("data") .. "/site")
+
+  if not vim.list_contains(vim.opt.runtimepath:get(), install_dir) then
+    vim.opt.runtimepath:prepend(install_dir)
+  end
 
   treesitter.setup({
-    install_dir = vim.fn.stdpath("data") .. "/site",
+    install_dir = install_dir,
   })
 
-  treesitter.install(parsers)
+  if vim.fn.executable("tree-sitter") == 0 then
+    vim.notify(
+      "nvim-treesitter main requires tree-sitter-cli on PATH; install it to build parsers",
+      vim.log.levels.WARN
+    )
+  elseif type(treesitter.install) == "function" then
+    treesitter.install(parsers)
+  else
+    vim.notify("nvim-treesitter main install API not found", vim.log.levels.WARN)
+  end
 
   vim.api.nvim_create_autocmd("FileType", {
     group = group,

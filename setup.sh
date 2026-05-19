@@ -39,13 +39,28 @@ for file in .hammerspoon .zprofile .zshrc .gitconfig .gitmessage .gitignore; do
   fi
 done
 
-codex_src="${dotslocation}/codex"
-codex_dest="$HOME/.codex"
-if [ -d "$codex_src" ]; then
-  ln -sfn "$codex_src" "$codex_dest"
-  echo "Linked $codex_src -> $codex_dest"
+codex_root_dest="$HOME/.codex"
+if [ ! -d "$codex_root_dest" ]; then
+  echo "Creating $codex_root_dest directory"
+  mkdir -p "$codex_root_dest"
+fi
+
+codex_config_src="${dotslocation}/codex/config.toml"
+codex_config_dest="${codex_root_dest}/config.toml"
+if [ -e "$codex_config_src" ]; then
+  ln -sfn "$codex_config_src" "$codex_config_dest"
+  echo "Linked $codex_config_src -> $codex_config_dest"
 else
-  echo "Warning: $codex_src does not exist, skipping."
+  echo "Warning: $codex_config_src does not exist, skipping."
+fi
+
+codex_skills_src="${dotslocation}/codex/skills"
+codex_skills_dest="${codex_root_dest}/skills"
+if [ -d "$codex_skills_src" ]; then
+  ln -sfn "$codex_skills_src" "$codex_skills_dest"
+  echo "Linked $codex_skills_src -> $codex_skills_dest"
+else
+  echo "Warning: $codex_skills_src does not exist, skipping."
 fi
 
 agents_src="${dotslocation}/.agents"
