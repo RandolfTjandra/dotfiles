@@ -26,11 +26,11 @@ Those skills regenerate this file after each mutation.
 
 - Project: `dotfiles`
 - Prefix: `DOT`
-- Next issue number: `1`
+- Next issue number: `2`
 
 ## Backlog
 
-No issues.
+- `DOT-001` Clean up repository top-level files (medium)
 
 ## Active
 
