@@ -13,9 +13,9 @@ Personal macOS configuration: Neovim (Lazy), Zsh, Tmux, Kitty, plus window-manag
 - **Window manager** – Yabai, SKHD, Sketchybar widgets
 - **Automation** – Hammerspoon, Karabiner, assorted scripts for Kitty, Sketchybar
 - **Packages** – Homebrew manifest in `Brewfile` for formulae, casks, VS Code extensions, and other bundle-managed tools
-- **Other** – Git hooks/config, LSD, Neofetch, scripts like `setup.sh`, `symlink-gitconfigs.sh`, and `scripts/update-brewfile.sh`
+- **Other** – Git hooks/config, LSD, Neofetch, home dotfiles under `home/`, local binaries under `bin/`, and scripts like `setup.sh` and `scripts/update-brewfile.sh`
 
-Manual notes live in `requirements.md`.
+Manual notes live in `docs/requirements.md`.
 
 ---
 
@@ -33,9 +33,6 @@ export DOTFILES=$(pwd)
 
 # Symlink configs into $HOME and ~/.config
 ./setup.sh
-
-# Optional: environment-specific git configs
-./symlink-gitconfigs.sh
 
 # First-time Neovim plugin install
 nvim +"Lazy sync" +qa
@@ -66,8 +63,10 @@ When I add or remove Homebrew packages on my main machine, I refresh the tracked
 | `sketchybar/` | Menu bar widgets and scripts |
 | `karabiner/` | Keyboard remaps + backups |
 | `git/`, `gitconfig/` | Git hooks and environment-specific configs |
+| `home/` | Dotfiles linked into `$HOME` |
+| `bin/` | Local executables linked into `$HOME/.local/bin` |
+| `docs/` | Manual setup notes and examples |
 | `Brewfile` | Homebrew bundle manifest for packages/apps/extensions |
-| `requirements.md` | Manual setup notes not captured by Homebrew |
 
 ---
 
@@ -79,7 +78,7 @@ When I add or remove Homebrew packages on my main machine, I refresh the tracked
 - The WaniKani SketchyBar token is loaded at shell startup from `op` when `op` is installed and signed in.
 - Kitty themes include a bundled Dracula pack (`kitty/themes/kitty-master/`).
 - macOS automation tools (Yabai, SKHD, Sketchybar, Karabiner, Hammerspoon) need permissions; follow their docs.
-- Git configs support multiple environments (`gitconfig/environments/`).
+- Git configs support multiple environments (`gitconfig/environments/`) and are linked by `setup.sh`.
 
 ---
 

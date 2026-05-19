@@ -28,8 +28,8 @@ done
 
 echo "Linking home files..."
 
-for file in .hammerspoon .zprofile .zshrc .gitconfig .gitmessage .gitignore; do
-  src="${dotslocation}/${file}"
+for file in .bashrc .fzf.bash .fzf.zsh .gitconfig .gitmessage .p10k.zsh .screenrc .zprofile .zshrc; do
+  src="${dotslocation}/home/${file}"
   dest="$HOME/${file}"
   if [ -e "$src" ]; then
     ln -sfn "$src" "$dest"
@@ -38,6 +38,24 @@ for file in .hammerspoon .zprofile .zshrc .gitconfig .gitmessage .gitignore; do
     echo "Warning: $src does not exist, skipping."
   fi
 done
+
+gitignore_src="${dotslocation}/.gitignore"
+gitignore_dest="$HOME/.gitignore"
+if [ -e "$gitignore_src" ]; then
+  ln -sfn "$gitignore_src" "$gitignore_dest"
+  echo "Linked $gitignore_src -> $gitignore_dest"
+else
+  echo "Warning: $gitignore_src does not exist, skipping."
+fi
+
+hammerspoon_src="${dotslocation}/hammerspoon"
+hammerspoon_dest="$HOME/.hammerspoon"
+if [ -d "$hammerspoon_src" ]; then
+  ln -sfn "$hammerspoon_src" "$hammerspoon_dest"
+  echo "Linked $hammerspoon_src -> $hammerspoon_dest"
+else
+  echo "Warning: $hammerspoon_src does not exist, skipping."
+fi
 
 codex_root_dest="$HOME/.codex"
 if [ ! -d "$codex_root_dest" ]; then
@@ -77,7 +95,7 @@ echo "Linking binaries..."
 mkdir -p "$HOME/.local/bin"
 
 for bin in diff-so-fancy; do
-  src="${dotslocation}/${bin}"
+  src="${dotslocation}/bin/${bin}"
   dest="$HOME/.local/bin/${bin}"
   if [ -e "$src" ]; then
     ln -sfn "$src" "$dest"
