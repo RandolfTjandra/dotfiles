@@ -16,6 +16,15 @@ Use this skill for repo-local issue tracking in any project. The standard tracke
 - Keep issue IDs monotonic and never reuse them.
 - Regenerate `planning/README.md` after every mutation.
 
+## Version Control
+
+- Issue tracker mutations are repo state changes and should usually be committed.
+- After creating, updating, moving, or closing an issue, inspect `git status` and commit the affected tracker files unless the user asked not to commit or the issue change belongs in a broader in-progress code commit.
+- For pure planning or triage, prefer a small separate commit.
+- For implementation work, include issue updates in the same commit when they tell one coherent story with the code change.
+- Start commit messages with the relevant issue ID, for example `[DOT-001] Track repository top-level cleanup` or `[DOT-001] Move repository cleanup to active`.
+- Avoid committing README/config churn unless the issue state or tracker metadata actually changed.
+
 ## Prefix Rule
 
 - If `planning/config.json` already exists, reuse its `project_prefix`.
@@ -36,7 +45,7 @@ Each issue file must include:
 2. If `planning/` is missing, bootstrap it.
 3. If `planning/` exists but `planning/config.json` is missing, stop and propose migration instead of overwriting custom files.
 4. Use `scripts/issue_tracker.py` for bootstrap, create, triage, summary, and README refresh operations.
-5. After each mutation, confirm the exact issue ID, file path, and resulting status.
+5. After each mutation, confirm the exact issue ID, file path, resulting status, and whether the tracker changes were committed.
 
 ## Commands
 
