@@ -10,3 +10,7 @@ command = ["echo", "Replace this with your MCP server command"]
 
 [servers.env]
 PROJECT_ROOT = "$DOTFILES"
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir", "git-branch", "branch-changes", "run-state", "context-remaining", "five-hour-limit", "weekly-limit", "fast-mode", "task-progress"]
+status_line_use_colors = true
