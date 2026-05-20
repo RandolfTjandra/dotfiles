@@ -2,6 +2,8 @@
 # Replace the example server definition with the actual MCP server(s) you plan to run.
 version = 1
 
+notify = ["/Users/randolftjandra/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+
 [[servers]]
 id = "example"
 name = "Example MCP Server"
@@ -20,3 +22,63 @@ status_line_use_colors = true
 
 [projects."/Users/randolftjandra/Dev/dotfiles"]
 trust_level = "trusted"
+
+[projects."/Users/randolftjandra/Documents/japanese"]
+trust_level = "trusted"
+
+[projects."/Users/randolftjandra/Dev/my-inventory"]
+trust_level = "trusted"
+
+[projects."/Users/randolftjandra/Dev/nice-jp"]
+trust_level = "trusted"
+
+[marketplaces.openai-bundled]
+last_updated = "2026-05-20T07:39:14Z"
+source_type = "local"
+source = "/Users/randolftjandra/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-05-20T08:02:20Z"
+source_type = "local"
+source = "/Users/randolftjandra/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."linear@openai-curated"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."notion@openai-curated"]
+enabled = true
+
+[plugins."google-calendar@openai-curated"]
+enabled = true
+
+[plugins."google-drive@openai-curated"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[plugins."figma@openai-curated"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[mcp_servers.stash]
+url = "http://127.0.0.1:8000"
+http_headers = { "X-API-Key" = "3e152b8b-ca36-4f22-a2e2-1f0f51f863ad" }
+# http_headers = { "Authorization" = "Bearer YOUR_API_TOKEN", "X-API-Key" = "3e152b8b-ca36-4f22-a2e2-1f0f51f863ad" }
