@@ -90,7 +90,22 @@ else
   echo "Warning: $agents_src does not exist, skipping."
 fi
 
-claude_skills_dest="$HOME/.claude/skills"
+claude_root_dest="$HOME/.claude"
+if [ ! -d "$claude_root_dest" ]; then
+  echo "Creating $claude_root_dest directory"
+  mkdir -p "$claude_root_dest"
+fi
+
+claude_settings_src="${dotslocation}/claude/settings.json"
+claude_settings_dest="${claude_root_dest}/settings.json"
+if [ -e "$claude_settings_src" ]; then
+  ln -sfn "$claude_settings_src" "$claude_settings_dest"
+  echo "Linked $claude_settings_src -> $claude_settings_dest"
+else
+  echo "Warning: $claude_settings_src does not exist, skipping."
+fi
+
+claude_skills_dest="${claude_root_dest}/skills"
 mkdir -p "$claude_skills_dest"
 agents_skills_src="${dotslocation}/.agents/skills"
 if [ -d "$agents_skills_src" ]; then
