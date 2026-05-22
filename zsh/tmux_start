@@ -7,6 +7,13 @@ tmux_resurrect_last_file() {
   fi
 }
 
+# Unset TMUX if we're not actually inside a tmux client (stale inherited env)
+if [ -n "$TMUX" ]; then
+  if [[ ! -S "${TMUX%%,*}" ]] || ! tmux display-message -p '' &>/dev/null; then
+    unset TMUX
+  fi
+fi
+
 if [ -z "$TMUX" ]; then
   SESSIONS=()
   while IFS= read -r line; do
@@ -20,13 +27,13 @@ if [ -z "$TMUX" ]; then
 
   echo "Select a tmux session or Action..."
   SESSIONS+=("Create a new session" "Exit")
-  SESSION=$(gum choose ${SESSIONS[@]} --cursor "  " --cursor.foreground "#CA9EE6")
-  if [[ $SESSION == 'Exit' ]]; then
+  SESSION=$(TERM=xterm-256color gum choose ${SESSIONS[@]} --cursor "  " --cursor.foreground "#CA9EE6")
+  if [[ -z "$SESSION" || $SESSION == 'Exit' ]]; then
     echo 'starting without tmux'
   else
     if [[ $SESSION == 'Create a new session' ]]; then
-      SESSION=$(gum input --placeholder "Enter new session name" --prompt " ❯ ")
+      SESSION=$(TERM=xterm-256color gum input --placeholder "Enter new session name" --prompt " ❯ ")
     fi
-    exec tmux new-session -A -s "$SESSION"
+    [[ -n "$SESSION" ]] && exec tmux new-session -A -s "$SESSION"
   fi
 fi
