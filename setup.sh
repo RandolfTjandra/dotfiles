@@ -15,7 +15,7 @@ fi
 
 echo "Linking config directories..."
 
-for dir in cmux ghostty lsd kitty neofetch nvim sketchybar skhd spacebar tmux yabai zsh karabiner; do
+for dir in cmux fzf ghostty lsd kitty neofetch nvim sketchybar skhd spacebar tmux yabai zsh karabiner; do
   src="${dotslocation}/${dir}"
   dest="$HOME/.config/${dir}"
   if [ -e "$src" ]; then
@@ -88,6 +88,19 @@ if [ -d "$agents_src" ]; then
   echo "Linked $agents_src -> $agents_dest"
 else
   echo "Warning: $agents_src does not exist, skipping."
+fi
+
+claude_skills_dest="$HOME/.claude/skills"
+mkdir -p "$claude_skills_dest"
+agents_skills_src="${dotslocation}/.agents/skills"
+if [ -d "$agents_skills_src" ]; then
+  for skill_dir in "$agents_skills_src"/*/; do
+    skill_name="$(basename "$skill_dir")"
+    ln -sfn "$skill_dir" "${claude_skills_dest}/${skill_name}"
+    echo "Linked $skill_dir -> ${claude_skills_dest}/${skill_name}"
+  done
+else
+  echo "Warning: $agents_skills_src does not exist, skipping."
 fi
 
 echo "Linking binaries..."
