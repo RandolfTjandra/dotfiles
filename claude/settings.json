@@ -22,29 +22,6 @@
     ]
   },
   "model": "opus",
-  "enabledPlugins": {
-    "frontend-design@claude-plugins-official": true,
-    "vercel@claude-plugins-official": false,
-    "superpowers@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "claude-plugins-official": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/claude-plugins-official"
-      }
-    }
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "input=$(cat); cwd=$(echo \"$input\" | jq -r '.cwd'); model=$(echo \"$input\" | jq -r '.model.display_name // empty'); effort=$(echo \"$input\" | jq -r '.effort.level // empty'); short=$(echo \"$cwd\" | sed \"s|^$HOME|~|\"); user=$(whoami); branch=$(git -C \"$cwd\" branch --show-current 2>/dev/null); if [ -n \"$effort\" ]; then prefix=\"$model $effort\"; else prefix=\"$model\"; fi; if [ -n \"$branch\" ]; then stat=$(git -C \"$cwd\" diff HEAD --numstat 2>/dev/null | awk '{a+=$1; d+=$2} END {printf \"%d %d\", a, d}'); added=${stat% *}; removed=${stat#* }; printf '%s │ %s in %s │ %s \\033[32m+%s\\033[0m \\033[31m-%s\\033[0m\\n' \"$prefix\" \"$user\" \"$short\" \"$branch\" \"$added\" \"$removed\"; else printf '%s │ %s in %s\\n' \"$prefix\" \"$user\" \"$short\"; fi"
-  },
-  "theme": "dark-ansi",
-  "editorMode": "normal",
-  "verbose": false,
-  "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
   "hooks": {
     "Notification": [
       {
@@ -68,5 +45,28 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); cwd=$(echo \"$input\" | jq -r '.cwd'); model=$(echo \"$input\" | jq -r '.model.display_name // empty'); effort=$(echo \"$input\" | jq -r '.effort.level // empty'); short=$(echo \"$cwd\" | sed \"s|^$HOME|~|\"); user=$(whoami); branch=$(git -C \"$cwd\" branch --show-current 2>/dev/null); if [ -n \"$effort\" ]; then prefix=\"$model $effort\"; else prefix=\"$model\"; fi; if [ -n \"$branch\" ]; then stat=$(git -C \"$cwd\" diff HEAD --numstat 2>/dev/null | awk '{a+=$1; d+=$2} END {printf \"%d %d\", a, d}'); added=${stat% *}; removed=${stat#* }; printf '%s │ %s in %s │ %s \\033[32m+%s\\033[0m \\033[31m-%s\\033[0m\\n' \"$prefix\" \"$user\" \"$short\" \"$branch\" \"$added\" \"$removed\"; else printf '%s │ %s in %s\\n' \"$prefix\" \"$user\" \"$short\"; fi"
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "vercel@claude-plugins-official": false,
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  },
+  "theme": "custom:my-theme",
+  "editorMode": "normal",
+  "verbose": false,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true
 }
