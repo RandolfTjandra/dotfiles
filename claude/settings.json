@@ -52,7 +52,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "terminal-notifier -title \"🔔 Claude Code\" -message \"Claude needs your input\""
+            "command": "/Users/randolftjandra/Dev/dotfiles/claude/hooks/notify.sh"
           }
         ]
       }
@@ -63,7 +63,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "terminal-notifier -title \"✅ Claude Code\" -message \"The task has been completed\""
+            "command": "/Users/randolftjandra/Dev/dotfiles/claude/hooks/notify.sh"
           }
         ]
       }
