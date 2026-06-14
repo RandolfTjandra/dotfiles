@@ -3,3 +3,5 @@ nvim/plugin/packer_compiled.lua
 sketchybar/.env
 *.nvimlog
 nvim.log
+
+**/.claude/settings.local.json
