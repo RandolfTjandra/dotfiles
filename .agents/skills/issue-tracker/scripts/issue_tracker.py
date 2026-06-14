@@ -115,9 +115,28 @@ def parse_frontmatter(text: str) -> tuple[dict, str]:
         value = value.strip()
         if value.startswith("["):
             meta[key] = json.loads(value)
+        elif value.startswith('"') and value.endswith('"') and len(value) >= 2:
+            # Strip YAML double-quotes and unescape
+            meta[key] = value[1:-1].replace('\\"', '"').replace("\\\\", "\\")
+        elif value.startswith("'") and value.endswith("'") and len(value) >= 2:
+            meta[key] = value[1:-1].replace("''", "'")
         else:
             meta[key] = value
     return meta, body
+
+
+def yaml_quote(s: str) -> str:
+    """Return s as a YAML scalar, double-quoting it when necessary."""
+    # Characters/patterns that make a bare YAML string ambiguous or invalid:
+    # a colon anywhere means "key: value" ambiguity; leading special chars
+    # trigger other YAML interpretations.
+    needs_quoting = (
+        ":" in s
+        or s.startswith(("#", "&", "*", "?", "|", "-", "<", ">", "=", "!", "%", "@", "`", "'", '"', "{", "}", "[", "]"))
+    )
+    if needs_quoting:
+        return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    return s
 
 
 def serialize_frontmatter(meta: dict) -> str:
@@ -127,7 +146,7 @@ def serialize_frontmatter(meta: dict) -> str:
         if isinstance(value, list):
             rendered = json.dumps(value)
         else:
-            rendered = str(value)
+            rendered = yaml_quote(str(value))
         lines.append(f"{key}: {rendered}")
     lines.append("---")
     return "\n".join(lines)

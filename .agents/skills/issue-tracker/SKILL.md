@@ -40,6 +40,15 @@ Each issue file must include:
 - frontmatter keys: `id`, `title`, `status`, `priority`, `created`, `updated`, `related`, `blocked_by`
 - sections: `Problem`, `Goal`, `Acceptance Criteria`, `Notes`, `Execution Hints`
 
+### YAML quoting rule
+
+Frontmatter string values that contain a colon (`:`) — or start with a YAML-special character such as `#`, `&`, `*`, `[`, `{`, `|`, etc. — **must be double-quoted**. The `serialize_frontmatter` helper in `issue_tracker.py` does this automatically. If you ever write frontmatter by hand, follow the same rule:
+
+```yaml
+title: "Build MapView component: dot grid + decorative continent blobs"  ✅
+title: Build MapView component: dot grid + decorative continent blobs    ❌  (invalid YAML)
+```
+
 ## Workflow
 
 1. Resolve the repo root from the current working directory.

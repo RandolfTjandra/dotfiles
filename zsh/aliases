@@ -1,4 +1,5 @@
 # Aliases
+alias rp="rplanning"
 alias dots="cd ${DOTS}"
 alias lg="gls -aFlh --group-directories-first --color"
 alias l="lsd -AFlh --group-directories-first"
