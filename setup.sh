@@ -105,6 +105,15 @@ else
   echo "Warning: $claude_settings_src does not exist, skipping."
 fi
 
+claude_themes_src="${dotslocation}/claude/themes"
+claude_themes_dest="${claude_root_dest}/themes"
+if [ -d "$claude_themes_src" ]; then
+  ln -sfn "$claude_themes_src" "$claude_themes_dest"
+  echo "Linked $claude_themes_src -> $claude_themes_dest"
+else
+  echo "Warning: $claude_themes_src does not exist, skipping."
+fi
+
 claude_skills_dest="${claude_root_dest}/skills"
 mkdir -p "$claude_skills_dest"
 agents_skills_src="${dotslocation}/.agents/skills"

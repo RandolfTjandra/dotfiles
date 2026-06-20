@@ -1,0 +1,62 @@
+{
+  "name": "tokyo-night",
+  "base": "dark-ansi",
+  "overrides": {
+    "text": "rgb(192,202,245)",
+    "inverseText": "rgb(26,27,38)",
+    "inactive": "rgb(86,95,137)",
+    "inactiveShimmer": "rgb(116,125,167)",
+    "subtle": "rgb(86,95,137)",
+    "background": "rgb(125,207,255)",
+
+    "claude": "rgb(255,158,100)",
+    "claudeShimmer": "rgb(255,188,140)",
+    "claudeBlue_FOR_SYSTEM_SPINNER": "rgb(187,154,247)",
+    "claudeBlueShimmer_FOR_SYSTEM_SPINNER": "rgb(217,184,255)",
+
+    "autoAccept": "rgb(187,154,247)",
+    "autoAcceptShimmer": "rgb(217,184,255)",
+    "skill": "rgb(187,154,247)",
+    "merged": "rgb(187,154,247)",
+    "effortUltra": "rgb(187,154,247)",
+    "remember": "rgb(187,154,247)",
+
+    "permission": "rgb(187,154,247)",
+    "permissionShimmer": "rgb(217,184,255)",
+    "suggestion": "rgb(86,95,137)",
+
+    "planMode": "rgb(125,207,255)",
+    "ide": "rgb(125,207,255)",
+
+    "bashBorder": "rgb(247,118,142)",
+    "promptBorder": "rgb(86,95,137)",
+    "promptBorderShimmer": "rgb(116,125,167)",
+
+    "success": "rgb(158,206,106)",
+    "error": "rgb(247,118,142)",
+    "warning": "rgb(224,175,104)",
+    "warningShimmer": "rgb(254,205,134)",
+
+    "fastMode": "rgb(255,158,100)",
+    "fastModeShimmer": "rgb(255,188,140)",
+
+    "diffAdded": "rgb(32,50,40)",
+    "diffRemoved": "rgb(58,34,42)",
+    "diffAddedDimmed": "rgb(40,48,44)",
+    "diffRemovedDimmed": "rgb(50,40,44)",
+    "diffAddedWord": "rgb(158,206,106)",
+    "diffRemovedWord": "rgb(247,118,142)",
+
+    "selectionBg": "rgb(41,46,66)",
+    "userMessageBackground": "rgb(41,46,66)",
+    "userMessageBackgroundHover": "rgb(61,66,86)",
+    "bashMessageBackgroundColor": "rgb(36,32,52)",
+    "memoryBackgroundColor": "rgb(30,38,60)",
+
+    "rate_limit_fill": "rgb(187,154,247)",
+    "rate_limit_empty": "rgb(41,46,66)",
+
+    "briefLabelYou": "rgb(125,207,255)",
+    "briefLabelClaude": "rgb(255,158,100)"
+  }
+}

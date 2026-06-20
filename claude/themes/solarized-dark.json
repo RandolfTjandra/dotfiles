@@ -1,0 +1,62 @@
+{
+  "name": "solarized-dark",
+  "base": "dark-ansi",
+  "overrides": {
+    "text": "rgb(131,148,150)",
+    "inverseText": "rgb(0,43,54)",
+    "inactive": "rgb(88,110,117)",
+    "inactiveShimmer": "rgb(118,140,147)",
+    "subtle": "rgb(88,110,117)",
+    "background": "rgb(42,161,152)",
+
+    "claude": "rgb(203,75,22)",
+    "claudeShimmer": "rgb(233,105,52)",
+    "claudeBlue_FOR_SYSTEM_SPINNER": "rgb(108,113,196)",
+    "claudeBlueShimmer_FOR_SYSTEM_SPINNER": "rgb(138,143,226)",
+
+    "autoAccept": "rgb(108,113,196)",
+    "autoAcceptShimmer": "rgb(138,143,226)",
+    "skill": "rgb(108,113,196)",
+    "merged": "rgb(108,113,196)",
+    "effortUltra": "rgb(108,113,196)",
+    "remember": "rgb(108,113,196)",
+
+    "permission": "rgb(108,113,196)",
+    "permissionShimmer": "rgb(138,143,226)",
+    "suggestion": "rgb(88,110,117)",
+
+    "planMode": "rgb(42,161,152)",
+    "ide": "rgb(42,161,152)",
+
+    "bashBorder": "rgb(211,54,130)",
+    "promptBorder": "rgb(88,110,117)",
+    "promptBorderShimmer": "rgb(118,140,147)",
+
+    "success": "rgb(133,153,0)",
+    "error": "rgb(220,50,47)",
+    "warning": "rgb(181,137,0)",
+    "warningShimmer": "rgb(211,167,30)",
+
+    "fastMode": "rgb(203,75,22)",
+    "fastModeShimmer": "rgb(233,105,52)",
+
+    "diffAdded": "rgb(10,55,40)",
+    "diffRemoved": "rgb(60,40,40)",
+    "diffAddedDimmed": "rgb(15,52,46)",
+    "diffRemovedDimmed": "rgb(52,44,44)",
+    "diffAddedWord": "rgb(133,153,0)",
+    "diffRemovedWord": "rgb(220,50,47)",
+
+    "selectionBg": "rgb(7,54,66)",
+    "userMessageBackground": "rgb(7,54,66)",
+    "userMessageBackgroundHover": "rgb(27,74,86)",
+    "bashMessageBackgroundColor": "rgb(20,50,55)",
+    "memoryBackgroundColor": "rgb(10,48,62)",
+
+    "rate_limit_fill": "rgb(108,113,196)",
+    "rate_limit_empty": "rgb(7,54,66)",
+
+    "briefLabelYou": "rgb(42,161,152)",
+    "briefLabelClaude": "rgb(203,75,22)"
+  }
+}
