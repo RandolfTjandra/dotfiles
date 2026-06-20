@@ -1,0 +1,62 @@
+{
+  "name": "dracula",
+  "base": "dark-ansi",
+  "overrides": {
+    "text": "rgb(248,248,242)",
+    "inverseText": "rgb(40,42,54)",
+    "inactive": "rgb(98,114,164)",
+    "inactiveShimmer": "rgb(128,144,194)",
+    "subtle": "rgb(98,114,164)",
+    "background": "rgb(139,233,253)",
+
+    "claude": "rgb(255,184,108)",
+    "claudeShimmer": "rgb(255,214,158)",
+    "claudeBlue_FOR_SYSTEM_SPINNER": "rgb(189,147,249)",
+    "claudeBlueShimmer_FOR_SYSTEM_SPINNER": "rgb(219,187,255)",
+
+    "autoAccept": "rgb(189,147,249)",
+    "autoAcceptShimmer": "rgb(219,187,255)",
+    "skill": "rgb(189,147,249)",
+    "merged": "rgb(189,147,249)",
+    "effortUltra": "rgb(189,147,249)",
+    "remember": "rgb(189,147,249)",
+
+    "permission": "rgb(189,147,249)",
+    "permissionShimmer": "rgb(219,187,255)",
+    "suggestion": "rgb(98,114,164)",
+
+    "planMode": "rgb(139,233,253)",
+    "ide": "rgb(139,233,253)",
+
+    "bashBorder": "rgb(255,121,198)",
+    "promptBorder": "rgb(98,114,164)",
+    "promptBorderShimmer": "rgb(128,144,194)",
+
+    "success": "rgb(80,250,123)",
+    "error": "rgb(255,85,85)",
+    "warning": "rgb(241,250,140)",
+    "warningShimmer": "rgb(255,255,190)",
+
+    "fastMode": "rgb(255,184,108)",
+    "fastModeShimmer": "rgb(255,214,158)",
+
+    "diffAdded": "rgb(35,68,46)",
+    "diffRemoved": "rgb(74,38,46)",
+    "diffAddedDimmed": "rgb(45,58,48)",
+    "diffRemovedDimmed": "rgb(58,45,48)",
+    "diffAddedWord": "rgb(80,250,123)",
+    "diffRemovedWord": "rgb(255,85,85)",
+
+    "selectionBg": "rgb(68,71,90)",
+    "userMessageBackground": "rgb(68,71,90)",
+    "userMessageBackgroundHover": "rgb(88,91,110)",
+    "bashMessageBackgroundColor": "rgb(58,49,68)",
+    "memoryBackgroundColor": "rgb(45,55,75)",
+
+    "rate_limit_fill": "rgb(189,147,249)",
+    "rate_limit_empty": "rgb(68,71,90)",
+
+    "briefLabelYou": "rgb(139,233,253)",
+    "briefLabelClaude": "rgb(255,184,108)"
+  }
+}

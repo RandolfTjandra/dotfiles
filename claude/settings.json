@@ -19,7 +19,11 @@
       "Bash(touch *)",
       "Bash(pwd)",
       "Bash(echo *)"
-    ]
+    ],
+    "attribution": {
+      "commit": "",
+      "pr": ""
+    }
   },
   "model": "opus",
   "hooks": {
@@ -63,7 +67,7 @@
       }
     }
   },
-  "theme": "custom:my-theme",
+  "theme": "custom:dracula",
   "editorMode": "normal",
   "verbose": false,
   "inputNeededNotifEnabled": true,
