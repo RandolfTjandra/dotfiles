@@ -48,8 +48,8 @@
     "diffRemovedWord": "rgb(255,85,85)",
 
     "selectionBg": "rgb(68,71,90)",
-    "userMessageBackground": "rgb(68,71,90)",
-    "userMessageBackgroundHover": "rgb(88,91,110)",
+    "userMessageBackground": "rgb(98,101,122)",
+    "userMessageBackgroundHover": "rgb(118,121,142)",
     "bashMessageBackgroundColor": "rgb(58,49,68)",
     "memoryBackgroundColor": "rgb(45,55,75)",
 
