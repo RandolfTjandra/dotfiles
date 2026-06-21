@@ -7,7 +7,7 @@
     "inactive": "#6272A4",
     "inactiveShimmer": "#8090C2",
     "subtle": "#6272A4",
-    "background": "#8BE9FD",
+    "background": "#FF0000",
 
     "claude": "#FFB86C",
     "claudeShimmer": "#FFD69E",
@@ -25,7 +25,7 @@
     "permissionShimmer": "#DBBBFF",
     "suggestion": "#BD93F9",
 
-    "planMode": "#8BE9FD",
+    "planMode": "#00FF00",
     "ide": "#BD93F9",
 
     "bashBorder": "#FF79C6",
@@ -56,7 +56,7 @@
     "rate_limit_fill": "#BD93F9",
     "rate_limit_empty": "#44475A",
 
-    "briefLabelYou": "#8BE9FD",
+    "briefLabelYou": "#FFFF00",
     "briefLabelClaude": "#FFB86C"
   }
 }
