@@ -28,6 +28,15 @@
     "planMode": "#88C0D0",
     "ide": "#88C0D0",
 
+    "red_FOR_SUBAGENTS_ONLY": "#BF616A",
+    "blue_FOR_SUBAGENTS_ONLY": "#5E81AC",
+    "green_FOR_SUBAGENTS_ONLY": "#A3BE8C",
+    "yellow_FOR_SUBAGENTS_ONLY": "#EBCB8B",
+    "purple_FOR_SUBAGENTS_ONLY": "#B48EAD",
+    "orange_FOR_SUBAGENTS_ONLY": "#D08770",
+    "pink_FOR_SUBAGENTS_ONLY": "#B48EAD",
+    "cyan_FOR_SUBAGENTS_ONLY": "#88C0D0",
+
     "bashBorder": "#81A1C1",
     "promptBorder": "#4C566A",
     "promptBorderShimmer": "#6A7488",
