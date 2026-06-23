@@ -57,6 +57,9 @@
     "diffRemovedWord": "#FF5555",
 
     "selectionBg": "#44475A",
+
+    "clawd_body": "#BD93F9",
+    "clawd_background": "#000",
     "userMessageBackground": "#62657A",
     "userMessageBackgroundHover": "#76798E",
     "bashMessageBackgroundColor": "#3A3144",
