@@ -2,13 +2,11 @@
 #
 # Assumes branches follow the format `[name]/[project]-[ticket_number]`
 #
-# Converts branch name into Issue ticket
+# 1. On a normal editor commit, optionally asks a headless Claude to read the
+#    staged diff and pre-fill a single-line commit subject (interactive, opt-in
+#    per commit, never blocks a commit on failure).
+# 2. Prepends an issue code `[PREFIX-NN]` derived from the current branch name.
 
-# Old method
-# sed -i.bak "[$(git branch | grep '*' | sed -E 's/\* //;s|.*/([^/]+)|\1|;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')]/" "$1"
-
-# sed -i.bak "s/ISSUE-CODE/$(git branch | grep '*' | sed -E 's/\* //;s|.*/([^/]+)|\1|;s/([a-zA-Z]+-[0-9]+).*/\1/' | tr '[:lower:]' '[:upper:]')/" "$1"
-#
 ISSUE_PREFIX="DSHARE"
 
 MSG_FILE="$1"
@@ -18,6 +16,51 @@ if [[ "$COMMIT_SOURCE" == "merge" || "$COMMIT_SOURCE" == "squash" ]]; then
   exit 0
 fi
 
+# --- Claude-generated subject (gated) ---------------------------------------
+# Only on a normal editor commit (empty source) or template source, with an
+# interactive terminal, staged changes, and the claude CLI available.
+case "$COMMIT_SOURCE" in
+  ""|template)
+    if [ -e /dev/tty ] && command -v claude >/dev/null 2>&1 && ! git diff --cached --quiet; then
+      printf 'Generate commit message with Claude? [Y/n] ' > /dev/tty
+      read answer < /dev/tty
+      case "$answer" in
+        [Nn]*) ;;
+        *)
+          # Bounded staged diff: stat summary + capped patch, for speed.
+          diff=$(
+            printf '%s\n\n' "$(git diff --cached --stat)"
+            git diff --cached | head -n 300
+          )
+
+          if command -v timeout >/dev/null 2>&1; then
+            TIMEOUT="timeout 45"
+          elif command -v gtimeout >/dev/null 2>&1; then
+            TIMEOUT="gtimeout 45"
+          else
+            TIMEOUT=""
+          fi
+
+          instruction='Write ONE concise git commit subject line in imperative mood (max 60 chars) summarizing the following staged diff. Output ONLY the subject line: no quotes, no trailing period, no body, no markdown, no explanation.'
+
+          subject=$(printf '%s\n' "$diff" \
+            | $TIMEOUT claude -p --model claude-haiku-4-5 "$instruction" 2>/dev/null \
+            | head -n 1 \
+            | sed -E 's/^[[:space:]]*//; s/[[:space:]]*$//; s/^["`'"'"']//; s/["`'"'"']$//' \
+            | cut -c1-72)
+
+          # On empty/failed generation, leave the buffer as-is (editor opens).
+          if [ -n "$subject" ]; then
+            tmp=$(mktemp) && printf '%s\n\n' "$subject" > "$tmp" \
+              && cat "$MSG_FILE" >> "$tmp" && mv "$tmp" "$MSG_FILE"
+          fi
+          ;;
+      esac
+    fi
+    ;;
+esac
+
+# --- Issue code prepend (existing behavior) ---------------------------------
 # Get the current branch name
 BRANCH=$(git symbolic-ref --short HEAD)
 
@@ -42,13 +85,3 @@ fi
 
 # Prepend the issue code
 echo "[${ISSUE_CODE}] $MSG" > "$MSG_FILE"
-
-# if [[ "$COMMIT_SOURCE" == "" || "$COMMIT_SOURCE" == "message" ]]; then
-#   # This is a -m commit or similar, so just prepend the issue code
-#   MSG="$(cat "$MSG_FILE")"
-#   echo "[$ISSUE_CODE] $MSG" > "$MSG_FILE"
-# else
-#   # Interactive mode — replace ISSUE-CODE placeholder
-#   sed -i.bak "s/ISSUE-CODE/$ISSUE_CODE/" "$MSG_FILE"
-# fi
-
