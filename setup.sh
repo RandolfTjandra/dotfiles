@@ -119,12 +119,25 @@ mkdir -p "$claude_skills_dest"
 agents_skills_src="${dotslocation}/.agents/skills"
 if [ -d "$agents_skills_src" ]; then
   for skill_dir in "$agents_skills_src"/*/; do
+    [ -d "$skill_dir" ] || continue
     skill_name="$(basename "$skill_dir")"
     ln -sfn "$skill_dir" "${claude_skills_dest}/${skill_name}"
     echo "Linked $skill_dir -> ${claude_skills_dest}/${skill_name}"
   done
 else
   echo "Warning: $agents_skills_src does not exist, skipping."
+fi
+
+claude_skills_src="${dotslocation}/claude/skills"
+if [ -d "$claude_skills_src" ]; then
+  for skill_dir in "$claude_skills_src"/*/; do
+    [ -d "$skill_dir" ] || continue
+    skill_name="$(basename "$skill_dir")"
+    ln -sfn "$skill_dir" "${claude_skills_dest}/${skill_name}"
+    echo "Linked $skill_dir -> ${claude_skills_dest}/${skill_name}"
+  done
+else
+  echo "Warning: $claude_skills_src does not exist, skipping."
 fi
 
 echo "Linking binaries..."
