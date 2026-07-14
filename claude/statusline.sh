@@ -2,6 +2,29 @@
 # Claude Code status line.
 # Reads the status JSON on stdin and prints a single-line status.
 # Segments: <model> <effort> │ <user> in <dir> │ <branch> +added -removed · ctx NN%
+#
+# Available input fields (Claude Code v2.1.x), for adding more segments later.
+# All are already on stdin every render -- just pull with jq, no extra data source:
+#   .cwd                                   working directory
+#   .model.id / .model.display_name        e.g. "claude-opus-4-8" / "Opus 4.8"
+#   .effort.level                          reasoning effort, e.g. "high"
+#   .fast_mode                             bool -- fast mode on
+#   .thinking.enabled                      bool -- extended thinking on
+#   .context_window.used_percentage        context used %, scaled to real window
+#   .context_window.remaining_percentage   context left %
+#   .context_window.context_window_size    200000 or 1000000
+#   .rate_limits.five_hour.used_percentage rolling 5h quota used %
+#   .rate_limits.seven_day.used_percentage rolling 7d quota used %
+#   .cost.total_cost_usd                   session spend, USD
+#   .cost.total_duration_ms                session wall-clock time, ms
+#   .cost.total_lines_added / _removed     lines changed this session
+#   .pr.number / .pr.url                   PR for the current branch, if any
+#   .session_id / .session_name            session identifiers
+#   .transcript_path                       path to this session's JSONL transcript
+#   .workspace.project_dir                 repo root; .workspace.repo.{host,owner,name}
+#   .version                               Claude Code version
+# Capture a live sample to inspect: point the statusLine command at a wrapper
+# that tees stdin to a file, then read it.
 
 input=$(cat)
 
