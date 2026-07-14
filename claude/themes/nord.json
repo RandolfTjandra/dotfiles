@@ -1,6 +1,6 @@
 {
   "name": "nord",
-  "base": "dark-ansi",
+  "base": "dark",
   "overrides": {
     "text": "#D8DEE9",
     "inverseText": "#2E3440",

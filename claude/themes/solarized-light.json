@@ -1,6 +1,6 @@
 {
   "name": "solarized-light",
-  "base": "light-ansi",
+  "base": "light",
   "overrides": {
     "text": "#657B83",
     "inverseText": "#FDF6E3",

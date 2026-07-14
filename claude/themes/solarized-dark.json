@@ -1,6 +1,6 @@
 {
   "name": "solarized-dark",
-  "base": "dark-ansi",
+  "base": "dark",
   "overrides": {
     "text": "#839496",
     "inverseText": "#002B36",

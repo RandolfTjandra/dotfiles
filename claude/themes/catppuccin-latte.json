@@ -1,6 +1,6 @@
 {
   "name": "catppuccin-latte",
-  "base": "light-ansi",
+  "base": "light",
   "overrides": {
     "text": "#4C4F69",
     "inverseText": "#EFF1F5",

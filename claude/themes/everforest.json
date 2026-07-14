@@ -1,6 +1,6 @@
 {
   "name": "everforest",
-  "base": "dark-ansi",
+  "base": "dark",
   "overrides": {
     "text": "#D3C6AA",
     "inverseText": "#2D353B",

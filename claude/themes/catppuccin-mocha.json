@@ -1,6 +1,6 @@
 {
   "name": "catppuccin-mocha",
-  "base": "dark-ansi",
+  "base": "dark",
   "overrides": {
     "text": "#CDD6F4",
     "inverseText": "#1E1E2E",

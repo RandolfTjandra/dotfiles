@@ -1,6 +1,6 @@
 {
   "name": "dracula",
-  "base": "dark-ansi",
+  "base": "dark",
   "overrides": {
     "text": "#F8F8F2",
     "inverseText": "#282A36",
@@ -23,7 +23,7 @@
 
     "permission": "#BD93F9",
     "permissionShimmer": "#DBBBFF",
-    "suggestion": "rgb(189,147,249)",
+    "suggestion": "#BD93F9",
 
     "planMode": "#8BE9FD",
     "ide": "#8BE9FD",
@@ -41,9 +41,9 @@
     "promptBorder": "#6272A4",
     "promptBorderShimmer": "#8090C2",
 
-    "success": "rgb(80,250,123)",
+    "success": "#50FA7B",
     "error": "#FF5555",
-    "warning": "rgb(241,250,140)",
+    "warning": "#F1FA8C",
     "warningShimmer": "#FFFFBE",
 
     "fastMode": "#FFB86C",

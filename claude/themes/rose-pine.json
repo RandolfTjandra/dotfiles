@@ -1,6 +1,6 @@
 {
   "name": "rose-pine",
-  "base": "dark-ansi",
+  "base": "dark",
   "overrides": {
     "text": "#E0DEF4",
     "inverseText": "#191724",
