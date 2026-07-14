@@ -23,7 +23,7 @@
 
     "permission": "#BD93F9",
     "permissionShimmer": "#DBBBFF",
-    "suggestion": "#BD93F9",
+    "suggestion": "rgb(189,147,249)",
 
     "planMode": "#8BE9FD",
     "ide": "#8BE9FD",
@@ -41,9 +41,9 @@
     "promptBorder": "#6272A4",
     "promptBorderShimmer": "#8090C2",
 
-    "success": "#50FA7B",
+    "success": "rgb(80,250,123)",
     "error": "#FF5555",
-    "warning": "#F1FA8C",
+    "warning": "rgb(241,250,140)",
     "warningShimmer": "#FFFFBE",
 
     "fastMode": "#FFB86C",
