@@ -105,6 +105,15 @@ else
   echo "Warning: $claude_settings_src does not exist, skipping."
 fi
 
+claude_statusline_src="${dotslocation}/claude/statusline.sh"
+claude_statusline_dest="${claude_root_dest}/statusline.sh"
+if [ -e "$claude_statusline_src" ]; then
+  ln -sfn "$claude_statusline_src" "$claude_statusline_dest"
+  echo "Linked $claude_statusline_src -> $claude_statusline_dest"
+else
+  echo "Warning: $claude_statusline_src does not exist, skipping."
+fi
+
 claude_themes_src="${dotslocation}/claude/themes"
 claude_themes_dest="${claude_root_dest}/themes"
 if [ -d "$claude_themes_src" ]; then
