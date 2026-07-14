@@ -8,7 +8,9 @@ input=$(cat)
 cwd=$(printf '%s' "$input" | jq -r '.cwd // empty')
 model=$(printf '%s' "$input" | jq -r '.model.display_name // empty')
 effort=$(printf '%s' "$input" | jq -r '.effort.level // empty')
-transcript=$(printf '%s' "$input" | jq -r '.transcript_path // empty')
+# Context usage: Claude Code reports it directly, already scaled to the real
+# window (200k or 1m), so it matches /context. Round to an integer.
+ctx=$(printf '%s' "$input" | jq -r '.context_window.used_percentage // empty | if . == "" then "" else (.|round) end')
 
 short=$(printf '%s' "$cwd" | sed "s|^$HOME|~|")
 user=$(whoami)
@@ -18,38 +20,6 @@ if [ -n "$effort" ]; then
   prefix="$model $effort"
 else
   prefix="$model"
-fi
-
-# Context usage: last main-chain assistant message's prompt size / 200k window.
-ctx=""
-if [ -n "$transcript" ] && [ -f "$transcript" ]; then
-  ctx=$(python3 - "$transcript" <<'PY' 2>/dev/null
-import sys, json
-last = None
-try:
-    with open(sys.argv[1]) as fh:
-        for line in fh:
-            try:
-                o = json.loads(line)
-            except Exception:
-                continue
-            if o.get("isSidechain"):
-                continue
-            msg = o.get("message") or {}
-            if msg.get("role") != "assistant":
-                continue
-            u = msg.get("usage")
-            if u:
-                last = u
-except Exception:
-    pass
-if last:
-    used = (last.get("input_tokens", 0)
-            + last.get("cache_creation_input_tokens", 0)
-            + last.get("cache_read_input_tokens", 0))
-    print(round(used * 100 / 200000))
-PY
-)
 fi
 
 # Color the context segment by how full it is.
