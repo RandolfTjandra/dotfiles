@@ -55,16 +55,51 @@ if [ -n "$ctx" ]; then
   else
     color=32   # green
   fi
-  ctx_seg=$(printf ' \033[90m\xc2\xb7 ctx\033[0m \033[%sm%s%%\033[0m' "$color" "$ctx")
+  ctx_seg=$(printf '\033[90mctx\033[0m \033[%sm%s%%\033[0m' "$color" "$ctx")
 fi
+
+# Build the segments as parallel arrays: the colored text we print, the plain
+# text we measure (ANSI codes have no width), and the separator that precedes
+# the segment when it shares a line with the one before it.
+colored=() plain=() sep=()
+
+add_seg() { colored+=("$1"); plain+=("$2"); sep+=("$3"); }
+
+add_seg "$(printf '\033[35m%s\033[0m' "$prefix")" "$prefix" ""
+add_seg "$(printf '\033[36m%s\033[0m in \033[33m%s\033[0m' "$user" "$short")" \
+        "$user in $short" ' │ '
 
 if [ -n "$branch" ]; then
   stat=$(git -C "$cwd" diff HEAD --numstat 2>/dev/null | awk '{a+=$1; d+=$2} END {printf "%d %d", a, d}')
   added=${stat% *}
   removed=${stat#* }
-  printf '\033[35m%s\033[0m \xe2\x94\x82 \033[36m%s\033[0m in \033[33m%s\033[0m \xe2\x94\x82 %s \033[32m+%s\033[0m \033[31m-%s\033[0m%s\n' \
-    "$prefix" "$user" "$short" "$branch" "$added" "$removed" "$ctx_seg"
-else
-  printf '\033[35m%s\033[0m \xe2\x94\x82 \033[36m%s\033[0m in \033[33m%s\033[0m%s\n' \
-    "$prefix" "$user" "$short" "$ctx_seg"
+  add_seg "$(printf '%s \033[32m+%s\033[0m \033[31m-%s\033[0m' "$branch" "$added" "$removed")" \
+          "$branch +$added -$removed" ' │ '
 fi
+
+[ -n "$ctx_seg" ] && add_seg "$ctx_seg" "ctx $ctx%" ' · '
+
+# Pack segments into lines no wider than the terminal. Claude Code exports
+# COLUMNS before running the status line (v2.1.153+); each printed line renders
+# as its own status row, so overflow wraps instead of being cut off.
+width=${COLUMNS:-80}
+line="" line_len=0
+
+for i in "${!plain[@]}"; do
+  if [ -z "$line" ]; then
+    line=${colored[$i]}
+    line_len=${#plain[$i]}
+    continue
+  fi
+  want=$(( line_len + ${#sep[$i]} + ${#plain[$i]} ))
+  if [ "$want" -le "$width" ]; then
+    line="$line${sep[$i]}${colored[$i]}"
+    line_len=$want
+  else
+    printf '%s\n' "$line"
+    line=${colored[$i]}
+    line_len=${#plain[$i]}
+  fi
+done
+
+[ -n "$line" ] && printf '%s\n' "$line"
