@@ -9,33 +9,6 @@
       "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
       "installedAt": "2026-04-25T03:51:48.185Z",
       "updatedAt": "2026-05-19T14:56:33.493Z"
-    },
-    "hello-skill": {
-      "source": "randolftjandra/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/randolftjandra/skills.git",
-      "skillPath": "skills/hello-skill/SKILL.md",
-      "skillFolderHash": "ec0bc5af90b1de3cd8580755866b217dc230e12e",
-      "installedAt": "2026-06-20T22:19:29.745Z",
-      "updatedAt": "2026-06-20T22:35:21.116Z"
-    },
-    "r-hello-skill": {
-      "source": "randolftjandra/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/randolftjandra/skills.git",
-      "skillPath": "skills/r-hello-skill/SKILL.md",
-      "skillFolderHash": "6c1b5ed4128596726d7bf93749fd9da4d464f419",
-      "installedAt": "2026-06-20T22:38:31.117Z",
-      "updatedAt": "2026-06-20T22:59:58.188Z"
-    },
-    "r-downloads-cleanup-assistant": {
-      "source": "randolftjandra/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/randolftjandra/skills.git",
-      "skillPath": "skills/r-downloads-cleanup-assistant/SKILL.md",
-      "skillFolderHash": "45c01042e88ff86173bc2d814b2519e405108f16",
-      "installedAt": "2026-06-20T22:59:58.185Z",
-      "updatedAt": "2026-06-20T22:59:58.185Z"
     }
   },
   "dismissed": {
