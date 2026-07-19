@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stash Belongings"
+  short_description: "Manage physical belongings and storage using stash"
+  default_prompt: "Use stash as the source of truth to find or update my belongings and storage locations."

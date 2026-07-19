@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Claude Code status line.
-# Reads the status JSON on stdin and prints a single-line status.
-# Segments: <model> <effort> │ <user> in <dir> │ <branch> +added -removed · ctx NN%
+# Reads the status JSON on stdin and prints a status line, wrapped across as
+# many rows as the terminal width needs.
+# Segments: <model> <effort> │ <user> in <dir> │ <branch> +added -removed
+#           · ctx NN% · 5h NN% (reset) · wk NN% (reset)
 #
 # Available input fields (Claude Code v2.1.x), for adding more segments later.
 # All are already on stdin every render -- just pull with jq, no extra data source:
@@ -15,6 +17,10 @@
 #   .context_window.context_window_size    200000 or 1000000
 #   .rate_limits.five_hour.used_percentage rolling 5h quota used %
 #   .rate_limits.seven_day.used_percentage rolling 7d quota used %
+#   .rate_limits.{five_hour,seven_day}.resets_at  window reset, unix epoch secs
+#     rate_limits is present only for Claude.ai subscribers (Pro/Max), and only
+#     after the first API response of the session. On API-key billing it is
+#     absent entirely, which is how the quota segments below self-suppress.
 #   .cost.total_cost_usd                   session spend, USD
 #   .cost.total_duration_ms                session wall-clock time, ms
 #   .cost.total_lines_added / _removed     lines changed this session
@@ -45,18 +51,48 @@ else
   prefix="$model"
 fi
 
-# Color the context segment by how full it is.
+# Green under 50% used, yellow to 80, red above.
+pct_color() {
+  if [ "$1" -ge 80 ]; then printf '31'
+  elif [ "$1" -ge 50 ]; then printf '33'
+  else printf '32'
+  fi
+}
+
+# Epoch seconds -> compact time remaining, e.g. "4h12m", "2d3h", "38m".
+until_reset() {
+  local left=$(( $1 - $(date +%s) ))
+  [ "$left" -le 0 ] && { printf 'now'; return; }
+  if [ "$left" -ge 86400 ]; then
+    printf '%dd%dh' $(( left / 86400 )) $(( left % 86400 / 3600 ))
+  elif [ "$left" -ge 3600 ]; then
+    printf '%dh%dm' $(( left / 3600 )) $(( left % 3600 / 60 ))
+  else
+    printf '%dm' $(( left / 60 ))
+  fi
+}
+
 ctx_seg=""
 if [ -n "$ctx" ]; then
-  if [ "$ctx" -ge 80 ]; then
-    color=31   # red
-  elif [ "$ctx" -ge 50 ]; then
-    color=33   # yellow
-  else
-    color=32   # green
-  fi
-  ctx_seg=$(printf '\033[90mctx\033[0m \033[%sm%s%%\033[0m' "$color" "$ctx")
+  ctx_seg=$(printf '\033[90mctx\033[0m \033[%sm%s%%\033[0m' "$(pct_color "$ctx")" "$ctx")
 fi
+
+# Subscription quota windows. Absent on API billing, and each window can be
+# absent independently, so build whatever is actually present.
+quota_colored=() quota_plain=()
+add_quota() { # label, jq path
+  local label=$1 path=$2 used resets rel=""
+  used=$(printf '%s' "$input" | jq -r "$path.used_percentage // empty | if . == \"\" then \"\" else (.|round) end")
+  [ -n "$used" ] || return
+  resets=$(printf '%s' "$input" | jq -r "$path.resets_at // empty")
+  [ -n "$resets" ] && rel=" ($(until_reset "$resets"))"
+  quota_plain+=("$label $used%$rel")
+  quota_colored+=("$(printf '\033[90m%s\033[0m \033[%sm%s%%\033[0m\033[90m%s\033[0m' \
+    "$label" "$(pct_color "$used")" "$used" "$rel")")
+}
+
+add_quota 5h .rate_limits.five_hour
+add_quota wk .rate_limits.seven_day
 
 # Build the segments as parallel arrays: the colored text we print, the plain
 # text we measure (ANSI codes have no width), and the separator that precedes
@@ -78,6 +114,10 @@ if [ -n "$branch" ]; then
 fi
 
 [ -n "$ctx_seg" ] && add_seg "$ctx_seg" "ctx $ctx%" ' · '
+
+for i in "${!quota_plain[@]}"; do
+  add_seg "${quota_colored[$i]}" "${quota_plain[$i]}" ' · '
+done
 
 # Pack segments into lines no wider than the terminal. Claude Code exports
 # COLUMNS before running the status line (v2.1.153+); each printed line renders
