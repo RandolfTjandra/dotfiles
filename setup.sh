@@ -81,13 +81,47 @@ else
   echo "Warning: $codex_skills_src does not exist, skipping."
 fi
 
-agents_src="${dotslocation}/.agents"
-agents_dest="$HOME/.agents"
-if [ -d "$agents_src" ]; then
-  ln -sfn "$agents_src" "$agents_dest"
-  echo "Linked $agents_src -> $agents_dest"
+# ~/.agents is a real directory, not a symlink to this repo. Tools that write
+# there (skills CLI, plugins CLI) keep their state local; we link in only the
+# individual components this repo owns.
+agents_root_dest="$HOME/.agents"
+if [ -L "$agents_root_dest" ]; then
+  echo "Removing legacy symlink $agents_root_dest"
+  rm "$agents_root_dest"
+fi
+if [ ! -d "$agents_root_dest" ]; then
+  echo "Creating $agents_root_dest directory"
+  mkdir -p "$agents_root_dest"
+fi
+
+agents_lock_src="${dotslocation}/agents/.skill-lock.json"
+agents_lock_dest="${agents_root_dest}/.skill-lock.json"
+if [ -e "$agents_lock_src" ]; then
+  ln -sfn "$agents_lock_src" "$agents_lock_dest"
+  echo "Linked $agents_lock_src -> $agents_lock_dest"
 else
-  echo "Warning: $agents_src does not exist, skipping."
+  echo "Warning: $agents_lock_src does not exist, skipping."
+fi
+
+agents_skills_dest="${agents_root_dest}/skills"
+mkdir -p "$agents_skills_dest"
+agents_skills_src="${dotslocation}/agents/skills"
+if [ -d "$agents_skills_src" ]; then
+  for skill_dir in "$agents_skills_src"/*/; do
+    [ -d "$skill_dir" ] || continue
+    skill_name="$(basename "$skill_dir")"
+    dest="${agents_skills_dest}/${skill_name}"
+    # ln -sfn links *inside* a real directory rather than replacing it, so an
+    # existing non-symlink here would silently nest. Warn instead of deleting.
+    if [ -d "$dest" ] && [ ! -L "$dest" ]; then
+      echo "Warning: $dest is a real directory (locally installed?), skipping."
+      continue
+    fi
+    ln -sfn "${skill_dir%/}" "$dest"
+    echo "Linked ${skill_dir%/} -> $dest"
+  done
+else
+  echo "Warning: $agents_skills_src does not exist, skipping."
 fi
 
 claude_root_dest="$HOME/.claude"
@@ -125,29 +159,27 @@ fi
 
 claude_skills_dest="${claude_root_dest}/skills"
 mkdir -p "$claude_skills_dest"
-agents_skills_src="${dotslocation}/.agents/skills"
-if [ -d "$agents_skills_src" ]; then
-  for skill_dir in "$agents_skills_src"/*/; do
-    [ -d "$skill_dir" ] || continue
-    skill_name="$(basename "$skill_dir")"
-    ln -sfn "$skill_dir" "${claude_skills_dest}/${skill_name}"
-    echo "Linked $skill_dir -> ${claude_skills_dest}/${skill_name}"
-  done
-else
-  echo "Warning: $agents_skills_src does not exist, skipping."
-fi
 
-claude_skills_src="${dotslocation}/claude/skills"
-if [ -d "$claude_skills_src" ]; then
+# Agent-agnostic skills first, then Claude-specific ones. Both link into the
+# same destination, so a name present in both means claude/skills wins.
+for claude_skills_src in "${dotslocation}/agents/skills" "${dotslocation}/claude/skills"; do
+  if [ ! -d "$claude_skills_src" ]; then
+    echo "Warning: $claude_skills_src does not exist, skipping."
+    continue
+  fi
   for skill_dir in "$claude_skills_src"/*/; do
     [ -d "$skill_dir" ] || continue
     skill_name="$(basename "$skill_dir")"
-    ln -sfn "$skill_dir" "${claude_skills_dest}/${skill_name}"
-    echo "Linked $skill_dir -> ${claude_skills_dest}/${skill_name}"
+    dest="${claude_skills_dest}/${skill_name}"
+    # See note above: ln -sfn would nest inside an existing real directory.
+    if [ -d "$dest" ] && [ ! -L "$dest" ]; then
+      echo "Warning: $dest is a real directory (locally installed?), skipping."
+      continue
+    fi
+    ln -sfn "${skill_dir%/}" "$dest"
+    echo "Linked ${skill_dir%/} -> $dest"
   done
-else
-  echo "Warning: $claude_skills_src does not exist, skipping."
-fi
+done
 
 echo "Linking binaries..."
 
