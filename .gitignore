@@ -7,3 +7,7 @@ nvim.log
 # Local Claude Code state for this repo (worktrees, local settings).
 # The tracked `claude/` directory holds the config that gets symlinked out.
 .claude/
+
+# Codex owns ~/.codex/config.toml and writes machine state and MCP credentials
+# into it. Only codex/dots.config.toml (the portable profile) is tracked.
+codex/config.toml

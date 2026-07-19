@@ -63,13 +63,17 @@ if [ ! -d "$codex_root_dest" ]; then
   mkdir -p "$codex_root_dest"
 fi
 
-codex_config_src="${dotslocation}/codex/config.toml"
-codex_config_dest="${codex_root_dest}/config.toml"
-if [ -e "$codex_config_src" ]; then
-  ln -sfn "$codex_config_src" "$codex_config_dest"
-  echo "Linked $codex_config_src -> $codex_config_dest"
+# ~/.codex/config.toml is deliberately NOT tracked or linked. Codex owns it and
+# writes machine state into it (project trust entries, absolute paths,
+# marketplace timestamps, MCP credentials). Instead we link a profile that
+# Codex layers on top of it via `codex -p dots`.
+codex_profile_src="${dotslocation}/codex/dots.config.toml"
+codex_profile_dest="${codex_root_dest}/dots.config.toml"
+if [ -e "$codex_profile_src" ]; then
+  ln -sfn "$codex_profile_src" "$codex_profile_dest"
+  echo "Linked $codex_profile_src -> $codex_profile_dest"
 else
-  echo "Warning: $codex_config_src does not exist, skipping."
+  echo "Warning: $codex_profile_src does not exist, skipping."
 fi
 
 # ~/.codex/skills is a real directory, not a symlink to this repo. Codex vendors

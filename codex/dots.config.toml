@@ -1,0 +1,38 @@
+# Portable Codex settings, layered over the local ~/.codex/config.toml.
+#
+# setup.sh symlinks this to ~/.codex/dots.config.toml. Activate it with
+# `codex -p dots`; the zsh alias in zsh/ does that automatically.
+#
+# The base config.toml is NOT tracked: Codex owns it and continuously writes
+# machine state into it (project trust entries, absolute paths, marketplace
+# timestamps, MCP credentials). Only settings that are true on any machine
+# belong here.
+#
+# Layering is a deep merge, so keys set here override the base while leaving
+# sibling keys in the same table intact.
+#
+# Note: `-p` is a CLI flag. The Codex desktop app does not take one, so
+# desktop-only settings ([desktop.*]) are deliberately left in the base config
+# where the app itself manages them.
+
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
+
+[tui]
+status_line = [
+  "model-with-reasoning",
+  "current-dir",
+  "git-branch",
+  "branch-changes",
+  "run-state",
+  "context-remaining",
+  "five-hour-limit",
+  "weekly-limit",
+  "fast-mode",
+  "task-progress",
+]
+status_line_use_colors = true
+
+[features]
+js_repl = false
+hooks = true

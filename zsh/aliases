@@ -29,3 +29,8 @@ function jira() {
     python -mwebbrowser https://jira.tenkasu.net/browse/$(git branch | grep '*' | sed -E 's/\* draft-//;s/([a-zA-Z]+-[0-9]+).*/\1/')
 }
 
+
+# Codex loads ~/.codex/config.toml (local, untracked) and layers the tracked
+# dots profile on top. A default profile in config.toml is no longer supported,
+# so -p has to be passed on every invocation.
+alias codex="codex -p dots"
