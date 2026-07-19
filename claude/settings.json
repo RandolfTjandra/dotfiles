@@ -10,7 +10,6 @@
       "Read(//Users/randolftjandra/.claude/agents/**)",
       "Read(//Users/randolftjandra/.claude/commands/**)",
       "Read(**/planning/**)",
-      "Write(**/planning/**)",
       "Edit(**/planning/**)",
       "Bash(ls *)",
       "Bash(ls)",
@@ -145,7 +144,8 @@
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
     "superpowers@claude-plugins-official": false,
-    "vercel@claude-plugins-official": false
+    "vercel@claude-plugins-official": false,
+    "pyright-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
