@@ -4,4 +4,6 @@ sketchybar/.env
 *.nvimlog
 nvim.log
 
-**/.claude/settings.local.json
+# Local Claude Code state for this repo (worktrees, local settings).
+# The tracked `claude/` directory holds the config that gets symlinked out.
+.claude/
