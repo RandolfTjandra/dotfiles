@@ -72,11 +72,32 @@ else
   echo "Warning: $codex_config_src does not exist, skipping."
 fi
 
-codex_skills_src="${dotslocation}/codex/skills"
+# ~/.codex/skills is a real directory, not a symlink to this repo. Codex vendors
+# its own built-ins into .system/ there; those stay local and out of git. Only
+# the skills this repo owns are linked in, one at a time.
 codex_skills_dest="${codex_root_dest}/skills"
+if [ -L "$codex_skills_dest" ]; then
+  echo "Removing legacy symlink $codex_skills_dest"
+  rm "$codex_skills_dest"
+fi
+mkdir -p "$codex_skills_dest"
+
+codex_skills_src="${dotslocation}/codex/skills"
 if [ -d "$codex_skills_src" ]; then
-  ln -sfn "$codex_skills_src" "$codex_skills_dest"
-  echo "Linked $codex_skills_src -> $codex_skills_dest"
+  for skill_dir in "$codex_skills_src"/*/; do
+    [ -d "$skill_dir" ] || continue
+    # Skip incomplete directories; a skill is defined by its SKILL.md.
+    [ -f "${skill_dir}SKILL.md" ] || continue
+    skill_name="$(basename "$skill_dir")"
+    dest="${codex_skills_dest}/${skill_name}"
+    # ln -sfn links inside a real directory rather than replacing it.
+    if [ -d "$dest" ] && [ ! -L "$dest" ]; then
+      echo "Warning: $dest is a real directory (locally installed?), skipping."
+      continue
+    fi
+    ln -sfn "${skill_dir%/}" "$dest"
+    echo "Linked ${skill_dir%/} -> $dest"
+  done
 else
   echo "Warning: $codex_skills_src does not exist, skipping."
 fi

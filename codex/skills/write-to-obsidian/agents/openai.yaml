@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write to Obsidian"
+  short_description: "Create and update notes in your Obsidian vault"
+  default_prompt: "Use $write-to-obsidian to save this as a note in my Obsidian vault."

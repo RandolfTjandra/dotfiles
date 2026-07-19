@@ -1,0 +1,4 @@
+interface:
+  display_name: "Parcel Pending QR"
+  short_description: "Save new Parcel Pending QR codes"
+  default_prompt: "Use $parcel-pending-qr to save new Parcel Pending QR codes to my Obsidian vault."
