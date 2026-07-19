@@ -3,7 +3,7 @@
 # Reads the status JSON on stdin and prints a status line, wrapped across as
 # many rows as the terminal width needs.
 # Segments: <model> <effort> │ <user> in <dir> │ <branch> +added -removed
-#           · ctx NN% · 5h NN% (reset) · wk NN% (reset)
+#           │ ctx NN% · 5h NN% (reset) · wk NN% (reset)
 #
 # Available input fields (Claude Code v2.1.x), for adding more segments later.
 # All are already on stdin every render -- just pull with jq, no extra data source:
@@ -113,16 +113,40 @@ if [ -n "$branch" ]; then
           "$branch +$added -$removed" ' │ '
 fi
 
-[ -n "$ctx_seg" ] && add_seg "$ctx_seg" "ctx $ctx%" ' · '
+width=${COLUMNS:-80}
 
+# Context and the quota windows are one group: dot-joined, and kept on the same
+# row so they move to the next line together. Pre-joining them into a single
+# segment is what enforces that -- the packer below has no notion of groups.
+# If the whole group cannot fit a row on its own, fall back to loose segments
+# so it wraps internally instead of overflowing.
+metric_colored=() metric_plain=()
+[ -n "$ctx_seg" ] && { metric_colored+=("$ctx_seg"); metric_plain+=("ctx $ctx%"); }
 for i in "${!quota_plain[@]}"; do
-  add_seg "${quota_colored[$i]}" "${quota_plain[$i]}" ' · '
+  metric_colored+=("${quota_colored[$i]}")
+  metric_plain+=("${quota_plain[$i]}")
 done
+
+if [ "${#metric_plain[@]}" -gt 0 ]; then
+  joined_c=${metric_colored[0]} joined_p=${metric_plain[0]}
+  for i in "${!metric_plain[@]}"; do
+    [ "$i" -eq 0 ] && continue
+    joined_c="$joined_c · ${metric_colored[$i]}"
+    joined_p="$joined_p · ${metric_plain[$i]}"
+  done
+  if [ "${#joined_p}" -le "$width" ]; then
+    add_seg "$joined_c" "$joined_p" ' │ '
+  else
+    for i in "${!metric_plain[@]}"; do
+      [ "$i" -eq 0 ] && sub_sep=' │ ' || sub_sep=' · '
+      add_seg "${metric_colored[$i]}" "${metric_plain[$i]}" "$sub_sep"
+    done
+  fi
+fi
 
 # Pack segments into lines no wider than the terminal. Claude Code exports
 # COLUMNS before running the status line (v2.1.153+); each printed line renders
 # as its own status row, so overflow wraps instead of being cut off.
-width=${COLUMNS:-80}
 line="" line_len=0
 
 for i in "${!plain[@]}"; do
