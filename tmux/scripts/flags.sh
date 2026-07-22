@@ -13,15 +13,17 @@ set -e
 
 option="\#{window_flags}"
 
-# Glyphs use the Font Awesome range (U+F0xx), which is stable across
-# Nerd Font versions. Reference (name / codepoint):
-#   *  ->    circle        U+F111
-#   -  ->    undo/back     U+F0E2
-#   #  ->    bolt          U+F0E7
-#   !  ->    bell          U+F0F3
-#   ~  ->    bell-slash    U+F1F6
-#   M  ->    bookmark      U+F02E
-#   Z  ->    expand        U+F065
+# Glyphs used by the substitutions below; codepoints and names were
+# verified against FiraCodeNerdFont-Regular.ttf. All sit in the Font Awesome
+# range (U+F0xx) except Z, which uses a Material Design glyph (U+F004C).
+# Reference (glyph / name / codepoint):
+#   *  ->     fa-map_marker        U+F041
+#   -  ->     fa-undo              U+F0E2
+#   #  ->     fa-flash             U+F0E7
+#   !  ->     fa-bell              U+F0F3
+#   ~  ->     fa-bell_slash        U+F1F6
+#   M  ->     fa-bookmark          U+F02E
+#   Z  ->  󰁌   md-arrow_expand_all  U+F004C
 
 while IFS=\n read value; do
     mappings+=($value)
@@ -34,7 +36,7 @@ s/~//
 s/M//
 s/Z/󰁌/
 EOM
-# cool zoom alternative: 
+# cool zoom alternative:   fa-expand  U+F065
 
 sed_script="$(
     IFS=';'
