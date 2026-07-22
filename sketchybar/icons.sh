@@ -28,6 +28,13 @@ GIT_INDICATOR=􀂓
 # Music Icons
 MUSIC=􀑪
 
+# Volume Icons
+VOLUME_100=􀊩
+VOLUME_66=􀊧
+VOLUME_33=􀊥
+VOLUME_10=􀊡
+VOLUME_0=􀊣
+
 # Spotify Icons
 SPOTIFY_BACK=􀊎
 SPOTIFY_PLAY_PAUSE=􀊈
