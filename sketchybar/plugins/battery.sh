@@ -1,38 +1,38 @@
 #!/usr/bin/env sh
-PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
-CHARGING=$(pmset -g batt | grep 'AC Power')
 
-if [ $PERCENTAGE = "" ]; then
+# Icons are SF Symbols, matching the rest of the config. These only render in
+# "SF Pro" -- the Nerd Font glyphs this script used to carry are absent from it,
+# which is why the battery icon rendered as an empty box.
+. "$HOME/.config/sketchybar/icons.sh"
+
+BATT=$(pmset -g batt)
+PERCENTAGE=$(echo "$BATT" | grep -Eo "\d+%" | cut -d% -f1)
+CHARGING=$(echo "$BATT" | grep 'AC Power')
+
+if [ -z "$PERCENTAGE" ]; then
 	exit 0
 fi
 
 case ${PERCENTAGE} in
 9[0-9] | 100)
-	ICON=""
+	ICON=$BATTERY_100
 	;;
 [6-8][0-9])
-	ICON=""
+	ICON=$BATTERY_75
 	;;
 [3-5][0-9])
-	ICON=""
+	ICON=$BATTERY_50
 	;;
 [1-2][0-9])
-	ICON=""
+	ICON=$BATTERY_25
 	;;
-*) ICON="" ;;
+*) ICON=$BATTERY_0 ;;
 esac
 
-if [[ $CHARGING != "" ]]; then
-	ICON=""
+if [ -n "$CHARGING" ]; then
+	ICON=$BATTERY_CHARGING
 fi
 
 # The item invoking this script (name $NAME) will get its icon and label
 # updated with the current battery status
 sketchybar --set $NAME icon="$ICON" label="${PERCENTAGE}%"
-
-#DETAILS="$(pmset -g batt)"
-## SOURCE="$(echo "$DETAILS" | grep -o "\'.*\'" | sed "s/'//g")"
-#PERCENT="$(echo "$DETAILS" | grep -o "\d*\%")"
-#REMAINING="$(echo "$DETAILS" | grep -o " \d*:\d* ")"
-
-#sketchybar --set $NAME icon="$PERCENT" label="$REMAINING"

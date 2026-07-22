@@ -10,6 +10,14 @@ MAIL_OPEN=􀍜
 BELL=􀋚
 BELL_DOT=􀝗
 
+# Battery Icons
+BATTERY_100=􀛨
+BATTERY_75=􀺸
+BATTERY_50=􀺶
+BATTERY_25=􀛩
+BATTERY_0=􀛪
+BATTERY_CHARGING=􀢋
+
 # Git Icons
 GIT_ISSUE=􀍷
 GIT_DISCUSSION=􀒤
