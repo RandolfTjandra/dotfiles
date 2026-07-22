@@ -11,3 +11,5 @@ nvim.log
 # Codex owns ~/.codex/config.toml and writes machine state and MCP credentials
 # into it. Only codex/dots.config.toml (the portable profile) is tracked.
 codex/config.toml
+
+.rScripts
