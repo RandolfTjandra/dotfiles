@@ -6,11 +6,10 @@
 #   - music_change : Music.app broadcasts com.apple.iTunes.playerInfo on every
 #                    track/state change. sketchybar hands us its payload in
 #                    $INFO, so the common case costs no AppleScript at all.
-#   - routine/other: fall back to asking Music.app directly (startup, wake).
+#   - forced/wake  : fall back to asking Music.app directly once at startup or
+#                    after the system wakes. There is deliberately no polling.
 
 source "$HOME/.config/sketchybar/icons.sh"
-
-MAX_LEN=40
 
 hide() {
   sketchybar --set "$NAME" drawing=off label="" 2>/dev/null
@@ -59,10 +58,6 @@ if [ -n "$artist" ]; then
   label="$track — $artist"
 else
   label="$track"
-fi
-
-if [ "${#label}" -gt "$MAX_LEN" ]; then
-  label="${label:0:$((MAX_LEN - 1))}…"
 fi
 
 sketchybar --set "$NAME" drawing=on icon="$MUSIC" label="$label"
