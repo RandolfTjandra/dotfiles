@@ -39,15 +39,6 @@ for file in .bashrc .fzf.bash .fzf.zsh .gitconfig .gitmessage .p10k.zsh .screenr
   fi
 done
 
-gitignore_src="${dotslocation}/.gitignore"
-gitignore_dest="$HOME/.gitignore"
-if [ -e "$gitignore_src" ]; then
-  ln -sfn "$gitignore_src" "$gitignore_dest"
-  echo "Linked $gitignore_src -> $gitignore_dest"
-else
-  echo "Warning: $gitignore_src does not exist, skipping."
-fi
-
 hammerspoon_src="${dotslocation}/hammerspoon"
 hammerspoon_dest="$HOME/.hammerspoon"
 if [ -d "$hammerspoon_src" ]; then
