@@ -67,6 +67,28 @@ else
   echo "Warning: $codex_profile_src does not exist, skipping."
 fi
 
+# Codex discovers global guidance from ~/.codex/AGENTS.md.
+codex_agents_src="${dotslocation}/codex/AGENTS.md"
+codex_agents_dest="${codex_root_dest}/AGENTS.md"
+if [ -e "$codex_agents_src" ]; then
+  ln -sfn "$codex_agents_src" "$codex_agents_dest"
+  echo "Linked $codex_agents_src -> $codex_agents_dest"
+else
+  echo "Warning: $codex_agents_src does not exist, skipping."
+fi
+
+# Command rules are Codex-specific and must live under ~/.codex/rules/.
+codex_rules_src="${dotslocation}/codex/rules/default.rules"
+codex_rules_root_dest="${codex_root_dest}/rules"
+codex_rules_dest="${codex_rules_root_dest}/default.rules"
+mkdir -p "$codex_rules_root_dest"
+if [ -e "$codex_rules_src" ]; then
+  ln -sfn "$codex_rules_src" "$codex_rules_dest"
+  echo "Linked $codex_rules_src -> $codex_rules_dest"
+else
+  echo "Warning: $codex_rules_src does not exist, skipping."
+fi
+
 # ~/.codex/skills is a real directory, not a symlink to this repo. Codex vendors
 # its own built-ins into .system/ there; those stay local and out of git. Only
 # the skills this repo owns are linked in, one at a time.

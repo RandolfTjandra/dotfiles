@@ -63,6 +63,7 @@ When I add or remove Homebrew packages on my main machine, I refresh the tracked
 | `sketchybar/` | Menu bar widgets and scripts |
 | `karabiner/` | Keyboard remaps + backups |
 | `git/`, `gitconfig/` | Git hooks and environment-specific configs |
+| `agents/`, `codex/` | Shared agent guidance and Codex-specific profiles, rules, and skills |
 | `home/` | Dotfiles linked into `$HOME` |
 | `bin/` | Local executables linked into `$HOME/.local/bin` |
 | `docs/` | Manual setup notes and examples |

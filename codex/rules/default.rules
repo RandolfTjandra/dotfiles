@@ -1,0 +1,24 @@
+prefix_rule(pattern=["git", "add", "PLAN.md", "extension/src/content.js", "extension/src/review-context.js", "test/review-context.test.mjs"], decision="allow")
+prefix_rule(pattern=["git", "add", "PLAN.md", "extension/manifest.json", "extension/src/content.js", "extension/src/sentence-provider.js", "extension/data/sentences.json", "test/sentence-provider.test.mjs"], decision="allow")
+prefix_rule(pattern=["git", "add", "PLAN.md", "README.md", "extension/options/options.html", "extension/options/options.js", "extension/src/content.js", "extension/src/styles.css", "package.json", "dist", "docs", "extension/src/sentence-panel.js", "extension/src/settings.js", "scripts/package-extension.mjs", "test/package-extension.test.mjs", "test/sentence-panel.test.mjs", "test/settings.test.mjs"], decision="allow")
+prefix_rule(pattern=["curl", "-L", "--silent"], decision="allow")
+prefix_rule(pattern=["git", "add"], decision="allow")
+prefix_rule(pattern=["git", "commit", "-m"], decision="allow")
+prefix_rule(pattern=["swift", "build"], decision="allow")
+prefix_rule(pattern=["make", "build"], decision="allow")
+prefix_rule(pattern=["python3", "codex/skills/issue-tracker/scripts/issue_tracker.py"], decision="allow")
+prefix_rule(pattern=["mv"], decision="allow")
+prefix_rule(pattern=["curl"], decision="allow")
+prefix_rule(pattern=["xcodebuild"], decision="allow")
+prefix_rule(pattern=["xcrun", "simctl"], decision="allow")
+prefix_rule(pattern=["pkill", "-f", "xcodebuild"], decision="allow")
+prefix_rule(pattern=["open", "-n", "/Users/randolftjandra/Library/Developer/Xcode/DerivedData/Travel-bngeskxmrqwqeqebsyejqaievpnt/Build/Products/Debug/Travel.app"], decision="allow")
+prefix_rule(pattern=["killall", "Travel"], decision="allow")
+prefix_rule(pattern=["make", "package"], decision="allow")
+prefix_rule(pattern=["open", "-n"], decision="allow")
+prefix_rule(pattern=["osascript", "-e"], decision="allow")
+prefix_rule(
+    pattern=["/opt/homebrew/bin/gh", "auth", "status", "-h", "github.com"],
+    decision="allow",
+    justification="Allow GitHub CLI to verify existing macOS Keychain credentials.",
+)
