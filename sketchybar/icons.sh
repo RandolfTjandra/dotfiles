@@ -25,6 +25,9 @@ GIT_PULL_REQUEST=􀙡
 GIT_COMMIT=􀡚
 GIT_INDICATOR=􀂓
 
+# Music Icons
+MUSIC=􀑪
+
 # Spotify Icons
 SPOTIFY_BACK=􀊎
 SPOTIFY_PLAY_PAUSE=􀊈
