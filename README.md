@@ -77,6 +77,7 @@ When I add or remove Homebrew packages on my main machine, I refresh the tracked
 - Neovim expects `python3`, `node`, `npm`, and `stylua` in `PATH`; those are included in `Brewfile`, though I still use `pyenv`/`nvm` in shell config too.
 - The WaniKani SketchyBar token is loaded at shell startup from `op` when `op` is installed and signed in.
 - Kitty themes include a bundled Dracula pack (`kitty/themes/kitty-master/`).
+- Terminal/tmux status icons need a Nerd Font. Kitty's `symbol_map` pins them to `FiraCode Nerd Font Mono`, installed via the tracked cask (`brew bundle` covers it, or run `brew install --cask font-fira-code-nerd-font` directly). Only use brew-managed Nerd Font casks—hand-installed font files in `~/Library/Fonts/` drift across Nerd Font versions and render the wrong glyphs.
 - macOS automation tools (Yabai, SKHD, Sketchybar, Karabiner, Hammerspoon) need permissions; follow their docs.
 - Git configs support multiple environments (`gitconfig/environments/`) and are linked by `setup.sh`.
 

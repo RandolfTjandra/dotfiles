@@ -13,19 +13,28 @@ set -e
 
 option="\#{window_flags}"
 
-# s/*//
+# Glyphs use the Font Awesome range (U+F0xx), which is stable across
+# Nerd Font versions. Reference (name / codepoint):
+#   *  ->    circle        U+F111
+#   -  ->    undo/back     U+F0E2
+#   #  ->    bolt          U+F0E7
+#   !  ->    bell          U+F0F3
+#   ~  ->    bell-slash    U+F1F6
+#   M  ->    bookmark      U+F02E
+#   Z  ->    expand        U+F065
 
 while IFS=\n read value; do
     mappings+=($value)
 done <<-EOM
-s/*//
-s/-//
-s/#//
-s/!//
-s/~/ﱝ/
+s/*//
+s/-//
+s/#//
+s/!//
+s/~//
 s/M//
-s/Z//
+s/Z/󰁌/
 EOM
+# cool zoom alternative: 
 
 sed_script="$(
     IFS=';'
