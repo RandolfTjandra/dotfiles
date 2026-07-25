@@ -27,6 +27,7 @@ function P.config()
       lua = { "stylua" },
       python = { "ruff_format" },
       go = { "gofmt" },
+      java = { "google-java-format" },
       sh = { "shfmt" },
       rust = { "rustfmt" },
       toml = { "taplo" },

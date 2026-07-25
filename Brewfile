@@ -111,6 +111,8 @@ brew "go"
 brew "gobject-introspection"
 # Terminal based graphical activity monitor inspired by gtop and vtop
 brew "gotop"
+# Open-source build automation tool based on the Groovy and Kotlin DSL
+brew "gradle"
 # Tool for glamorous shell scripts
 brew "gum"
 # User-friendly cURL replacement (command-line HTTP client)
@@ -131,6 +133,8 @@ brew "librsync"
 brew "llvm"
 # Rainbows and unicorns in your console!
 brew "lolcat"
+# Java-based project management
+brew "maven"
 # Music Player Daemon
 brew "mpd", restart_service: :changed
 # Ncurses-based client for the Music Player Daemon

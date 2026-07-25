@@ -84,6 +84,15 @@ fi
 
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
+# jdtls (Eclipse JDT.LS) needs Java 21+. Homebrew's openjdk kegs are not linked
+# into /Library/Java/JavaVirtualMachines, so /usr/libexec/java_home finds
+# nothing and JAVA_HOME has to be set explicitly for maven/gradle/jdtls.
+# The keg root is not a usable JDK home (no lib/jrt-fs.jar) -- point at the
+# nested Contents/Home instead.
+if [ -f "/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/lib/jrt-fs.jar" ]; then
+  export JAVA_HOME="/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home"
+fi
+
 # 1Password auto complete
 if [[ -o interactive ]]; then
   eval "$(op completion zsh)"; compdef _op op
