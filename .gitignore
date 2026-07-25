@@ -13,3 +13,7 @@ nvim.log
 codex/config.toml
 
 .rScripts
+
+# Scratch directory for generated artifacts (renders, QA sheets, run output).
+# Nothing here is dotfiles config.
+output/
