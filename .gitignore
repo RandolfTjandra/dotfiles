@@ -6,7 +6,13 @@ nvim.log
 
 # Local Claude Code state for this repo (worktrees, local settings).
 # The tracked `claude/` directory holds the config that gets symlinked out.
-.claude/
+#
+# .claude/agents is the exception: those agents audit this repo specifically and
+# are meaningless anywhere else, so they belong here rather than in the portable
+# claude/ tree. Written as `.claude/*` rather than `.claude/` because git does
+# not descend into an excluded directory, so a negation cannot reach inside one.
+.claude/*
+!.claude/agents/
 
 # Codex owns ~/.codex/config.toml and writes machine state and MCP credentials
 # into it. Only codex/dots.config.toml (the portable profile) is tracked.
