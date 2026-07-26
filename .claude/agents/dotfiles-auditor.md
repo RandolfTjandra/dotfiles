@@ -2,7 +2,7 @@
 name: dotfiles-auditor
 description: Audits a dotfiles repo for drift — config dirs setup.sh never links, symlink sources that no longer exist, stale links in $HOME, and Brewfile vs installed packages. Read-only. Use when asked to check dotfiles health, before setting up a new machine, or after moving config around.
 tools: Read, Grep, Glob, Bash
-model: sonnet
+model: opus
 color: purple
 ---
 
