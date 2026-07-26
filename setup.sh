@@ -204,6 +204,28 @@ else
   echo "Warning: $claude_themes_src does not exist, skipping."
 fi
 
+# Linked per-agent rather than as a whole directory: Claude Code writes into
+# ~/.claude/agents itself (the /agents command), so symlinking the directory
+# would land locally-created agents in this repo.
+claude_agents_dest="${claude_root_dest}/agents"
+mkdir -p "$claude_agents_dest"
+claude_agents_src="${dotslocation}/claude/agents"
+if [ -d "$claude_agents_src" ]; then
+  for agent_file in "$claude_agents_src"/*.md; do
+    [ -e "$agent_file" ] || continue
+    agent_name="$(basename "$agent_file")"
+    dest="${claude_agents_dest}/${agent_name}"
+    if [ -e "$dest" ] && [ ! -L "$dest" ]; then
+      echo "Warning: $dest is a real file (locally created?), skipping."
+      continue
+    fi
+    ln -sfn "$agent_file" "$dest"
+    echo "Linked $agent_file -> $dest"
+  done
+else
+  echo "Warning: $claude_agents_src does not exist, skipping."
+fi
+
 claude_skills_dest="${claude_root_dest}/skills"
 mkdir -p "$claude_skills_dest"
 
