@@ -15,7 +15,7 @@ fi
 
 echo "Linking config directories..."
 
-for dir in cmux fzf ghostty lsd kitty neofetch nvim sketchybar skhd spacebar tmux yabai zsh karabiner; do
+for dir in cmux fzf ghostty lsd kitty neofetch nvim sketchybar skhd tmux yabai zsh karabiner; do
   src="${dotslocation}/${dir}"
   dest="$HOME/.config/${dir}"
   if [ -e "$src" ]; then
@@ -186,6 +186,15 @@ else
   echo "Warning: $claude_statusline_src does not exist, skipping."
 fi
 
+claude_hooks_src="${dotslocation}/claude/hooks"
+claude_hooks_dest="${claude_root_dest}/hooks"
+if [ -d "$claude_hooks_src" ]; then
+  ln -sfn "$claude_hooks_src" "$claude_hooks_dest"
+  echo "Linked $claude_hooks_src -> $claude_hooks_dest"
+else
+  echo "Warning: $claude_hooks_src does not exist, skipping."
+fi
+
 claude_themes_src="${dotslocation}/claude/themes"
 claude_themes_dest="${claude_root_dest}/themes"
 if [ -d "$claude_themes_src" ]; then
@@ -234,14 +243,7 @@ for bin in diff-so-fancy; do
   fi
 done
 
-# Link git templates and hooks if they exist
-if [ -e "${dotslocation}/git/.git-templates" ]; then
-  ln -sfn "${dotslocation}/git/.git-templates" "$HOME/.git-templates"
-  echo "Linked ${dotslocation}/git/.git-templates -> $HOME/.git-templates"
-else
-  echo "Warning: ${dotslocation}/git/.git-templates does not exist, skipping."
-fi
-
+# Link git hooks if they exist
 if [ -e "${dotslocation}/git/hooks" ]; then
   ln -sfn "${dotslocation}/git/hooks" "$HOME/.git-hooks"
   echo "Linked ${dotslocation}/git/hooks -> $HOME/.git-hooks"

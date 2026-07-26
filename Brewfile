@@ -1,6 +1,5 @@
 tap "1password/tap"
 tap "charmbracelet/tap"
-tap "cmacrae/formulae"
 tap "dracula/install"
 tap "ehfeng/ted"
 tap "epk/epk"
@@ -191,6 +190,8 @@ brew "solr"
 brew "starship"
 # Opinionated Lua code formatter
 brew "stylua"
+# Send macOS User Notifications from the command-line
+brew "terminal-notifier"
 # Terminal multiplexer
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
@@ -239,8 +240,6 @@ cask "1password-cli"
 cask "audacity"
 # File manager
 cask "bloom"
-# Terminal-based AI coding assistant
-cask "claude-code"
 # Ghostty-based terminal with vertical tabs and notifications for AI coding agents
 cask "cmux"
 # OpenAI's coding agent that runs in your terminal

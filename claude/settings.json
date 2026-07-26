@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/randolftjandra/Dev/dotfiles/claude/hooks/notify.sh"
+            "command": "$HOME/.claude/hooks/notify.sh"
           }
         ]
       },
@@ -117,7 +117,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/randolftjandra/Dev/dotfiles/claude/hooks/notify.sh"
+            "command": "$HOME/.claude/hooks/notify.sh"
           }
         ]
       },
