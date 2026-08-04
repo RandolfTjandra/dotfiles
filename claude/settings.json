@@ -147,6 +147,7 @@
     "type": "command",
     "command": "$HOME/.claude/statusline.sh"
   },
+  "footerLinksRegexes": [],
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
     "superpowers@claude-plugins-official": false,
@@ -161,6 +162,7 @@
       }
     }
   },
+  "effortLevel": "medium",
   "theme": "custom:dracula",
   "editorMode": "normal",
   "verbose": false,

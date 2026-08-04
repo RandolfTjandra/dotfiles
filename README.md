@@ -49,6 +49,20 @@ When I add or remove Homebrew packages on my main machine, I refresh the tracked
 ./scripts/update-brewfile.sh
 ```
 
+### Installing one piece at a time
+
+`setup.sh` links everything at once. `setup_wizard.sh` is for installing a
+single component instead—useful on a machine where you don't want the full
+setup. It currently installs the Claude Code status line:
+
+```bash
+./setup_wizard.sh
+```
+
+This symlinks `claude/statusline.sh` to `~/.claude/statusline.sh` and points
+`statusLine` in `~/.claude/settings.json` at it. If `statusLine` is already
+set, it shows the current value and asks for confirmation before overwriting.
+
 ---
 
 ## Directory map
