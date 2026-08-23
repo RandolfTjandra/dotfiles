@@ -1,0 +1,28 @@
+onboarding = false
+[theme]
+name = "dracula"
+auto_switch = false
+
+[keys]
+prefix = "ctrl+space"
+goto = "prefix+g"
+new_tab = "prefix+c"
+next_tab = "prefix+n"
+previous_tab = "prefix+p"
+focus_pane_left = "alt+left"
+focus_pane_right = "alt+right"
+focus_pane_up = "alt+up"
+focus_pane_down = "alt+down"
+navigate_workspace_down = "down"
+navigate_pane_down = "ctrl+j"
+split_horizontal = "prefix+\""
+split_vertical = "prefix+%"
+rename_tab = "prefix+,"
+rename_workspace = "prefix+<"
+zoom = "prefix+f"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[ui.toast]
+delivery = "system"
