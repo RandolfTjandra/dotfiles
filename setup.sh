@@ -26,6 +26,34 @@ for dir in cmux fzf ghostty lsd kitty neofetch nvim sketchybar skhd tmux yabai z
   fi
 done
 
+# Keep ~/.config/herdr as a real directory and link only the individual files
+# owned by this repository.
+herdr_src="${dotslocation}/herdr"
+herdr_dest="$HOME/.config/herdr"
+if [ -L "$herdr_dest" ]; then
+  echo "Warning: $herdr_dest is a symlink, skipping."
+elif [ -e "$herdr_dest" ] && [ ! -d "$herdr_dest" ]; then
+  echo "Warning: $herdr_dest exists and is not a directory, skipping."
+elif [ -d "$herdr_src" ]; then
+  if [ ! -d "$herdr_dest" ]; then
+    echo "Creating $herdr_dest directory"
+    mkdir -p "$herdr_dest"
+  fi
+
+  for herdr_file in "$herdr_src"/* "$herdr_src"/.[!.]* "$herdr_src"/..?*; do
+    [ -f "$herdr_file" ] || continue
+    dest="${herdr_dest}/${herdr_file##*/}"
+    if [ -d "$dest" ] && [ ! -L "$dest" ]; then
+      echo "Warning: $dest is a real directory, skipping."
+      continue
+    fi
+    ln -sfn "$herdr_file" "$dest"
+    echo "Linked $herdr_file -> $dest"
+  done
+else
+  echo "Warning: $herdr_src does not exist, skipping."
+fi
+
 echo "Linking home files..."
 
 for file in .bashrc .fzf.bash .fzf.zsh .gitconfig .gitmessage .p10k.zsh .screenrc .zprofile .zshrc; do
