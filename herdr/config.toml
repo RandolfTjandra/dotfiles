@@ -6,20 +6,90 @@ auto_switch = false
 [keys]
 prefix = "ctrl+space"
 goto = "prefix+g"
+
+# Workspaces
+new_workspace = "prefix+alt+c"
+rename_workspace = "prefix+alt+,"
+close_workspace = "prefix+alt+x"
+
+# Tabs
 new_tab = "prefix+c"
 next_tab = "prefix+n"
 previous_tab = "prefix+p"
+rename_tab = "prefix+,"
+close_tab = "prefix+x"
+
+# Panes
 focus_pane_left = "alt+left"
 focus_pane_right = "alt+right"
 focus_pane_up = "alt+up"
 focus_pane_down = "alt+down"
-navigate_workspace_down = "down"
-navigate_pane_down = "ctrl+j"
 split_horizontal = "prefix+\""
 split_vertical = "prefix+%"
-rename_tab = "prefix+,"
-rename_workspace = "prefix+<"
 zoom = "prefix+f"
+close_pane = ""
+
+# Navigate Mode
+navigate_workspace_down = "down"
+navigate_pane_down = "ctrl+j"
+
+# Defaults
+help = "prefix+?"
+settings = "prefix+s"
+new_worktree = "prefix+shift+g"
+open_worktree = "" # unset by default
+remove_worktree = "" # unset by default
+workspace_picker = "prefix+w"
+navigate_workspace_up = "up"
+navigate_pane_left = "h"
+navigate_pane_up = "k"
+navigate_pane_right = "l"
+detach = "prefix+q"
+reload_config = "prefix+shift+r"
+open_notification_target = "prefix+o"
+previous_workspace = "" # unset by default
+next_workspace = "" # unset by default
+previous_agent = "" # unset by default
+next_agent = "" # unset by default
+focus_agent = "" # unset by default
+remote_image_paste = "ctrl+v"
+move_tab_previous = "" # unset by default
+move_tab_next = "" # unset by default
+switch_tab = "prefix+1..9"
+switch_workspace = "" # unset by default
+rename_pane = "prefix+shift+p"
+edit_scrollback = "prefix+e"
+copy_mode = "prefix+["
+
+swap_pane_left = "prefix+shift+h"
+swap_pane_down = "prefix+shift+j"
+swap_pane_up = "prefix+shift+k"
+swap_pane_right = "prefix+shift+l"
+
+cycle_pane_next = "prefix+tab"
+cycle_pane_previous = "prefix+shift+tab"
+last_pane = "" # unset by default
+resize_mode = "prefix+r"
+resize_pane_left = "" # unset by default
+resize_pane_down = "" # unset by default
+resize_pane_up = "" # unset by default
+resize_pane_right = "" # unset by default
+toggle_sidebar = "prefix+b"
+indexed.tabs = "" # unset by default
+indexed.workspaces = "" # unset by default
+indexed.agents = "" # unset by default
+
+[[keys.command]]
+key = "prefix+alt+l"
+type = "plugin_action"
+command = "herdr-last.toggle-workspace"
+description = "Toggle to last workspace"
+
+[[keys.command]]
+key = "prefix+l"
+type = "plugin_action"
+command = "herdr-last.toggle-tab"
+description = "Toggle to last tab"
 
 [ui]
 show_agent_labels_on_pane_borders = true
