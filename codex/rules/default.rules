@@ -22,3 +22,6 @@ prefix_rule(
     decision="allow",
     justification="Allow GitHub CLI to verify existing macOS Keychain credentials.",
 )
+prefix_rule(pattern=["/opt/homebrew/bin/gh", "search"], decision="allow")
+prefix_rule(pattern=["/opt/homebrew/bin/gh", "issue", "view"], decision="allow")
+prefix_rule(pattern=["herdr", "plugin", "list"], decision="allow")

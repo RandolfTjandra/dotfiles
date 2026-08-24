@@ -17,6 +17,9 @@
 
 model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+sandbox_mode = "workspace-write"
 
 [tui]
 status_line = [
@@ -36,3 +39,8 @@ status_line_use_colors = true
 [features]
 js_repl = false
 hooks = true
+
+[hooks.state]
+
+[hooks.state."vercel-plugin@plugins-cli:hooks/hooks.json:session_end:0:0"]
+trusted_hash = "sha256:9414154878f7ed6af2691aa2d61f3c57d866fb27b65aa638e7ddd635a2cc75a5"
