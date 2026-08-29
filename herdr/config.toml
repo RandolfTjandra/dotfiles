@@ -11,6 +11,8 @@ goto = "prefix+g"
 new_workspace = "prefix+alt+c"
 rename_workspace = "prefix+alt+,"
 close_workspace = "prefix+alt+x"
+previous_workspace = "prefix+shift+p"
+next_workspace = "prefix+shift+n"
 
 # Tabs
 new_tab = "prefix+c"
@@ -28,10 +30,19 @@ split_horizontal = "prefix+\""
 split_vertical = "prefix+%"
 zoom = "prefix+f"
 close_pane = ""
+swap_pane_left = "prefix+shift+h"
+swap_pane_down = "prefix+shift+j"
+swap_pane_up = "prefix+shift+k"
+swap_pane_right = "prefix+shift+l"
 
 # Navigate Mode
+navigate_workspace_up = "up"
 navigate_workspace_down = "down"
-navigate_pane_down = "ctrl+j"
+navigate_pane_down = "j"
+navigate_pane_up = "k"
+navigate_pane_left = "h"
+navigate_pane_right = "l"
+
 
 # Defaults
 help = "prefix+?"
@@ -40,15 +51,9 @@ new_worktree = "prefix+shift+g"
 open_worktree = "" # unset by default
 remove_worktree = "" # unset by default
 workspace_picker = "prefix+w"
-navigate_workspace_up = "up"
-navigate_pane_left = "h"
-navigate_pane_up = "k"
-navigate_pane_right = "l"
 detach = "prefix+q"
 reload_config = "prefix+shift+r"
 open_notification_target = "prefix+o"
-previous_workspace = "" # unset by default
-next_workspace = "" # unset by default
 previous_agent = "" # unset by default
 next_agent = "" # unset by default
 focus_agent = "" # unset by default
@@ -61,10 +66,6 @@ rename_pane = "prefix+shift+p"
 edit_scrollback = "prefix+e"
 copy_mode = "prefix+["
 
-swap_pane_left = "prefix+shift+h"
-swap_pane_down = "prefix+shift+j"
-swap_pane_up = "prefix+shift+k"
-swap_pane_right = "prefix+shift+l"
 
 cycle_pane_next = "prefix+tab"
 cycle_pane_previous = "prefix+shift+tab"
