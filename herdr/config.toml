@@ -66,7 +66,7 @@ move_tab_previous = "" # unset by default
 move_tab_next = "" # unset by default
 switch_tab = "prefix+1..9"
 switch_workspace = "" # unset by default
-rename_pane = "prefix+shift+p"
+rename_pane = "prefix+alt+p"
 edit_scrollback = "prefix+e"
 copy_mode = "prefix+["
 
