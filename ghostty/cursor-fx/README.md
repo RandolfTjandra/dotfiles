@@ -78,7 +78,8 @@ spans the window.
 - **The patch exits with `<step>: expected N, got M`:** upstream changed the code
   it matches. The failing file is left untouched (the script quits before writing).
   Read that shader's box-line functions (`boxLineY`, `clLineNear`, `linesLook`,
-  `clMarkAbove`, plus cyber's `fullLine`/`lineIn`), and extend the matching step in
+  `clMarkAbove`, `clLineBetween`, the `far` branch of `linesLook`, plus cyber's
+  `fullLine`/`lineIn`), and extend the matching step in
   `patch-herdr.py` rather than hand-editing the shader, so it stays repeatable.
   The run should end with `leftover-window-checks=0` for every file.
 - **Don't run upstream's `sync-from-ghostty.sh`** unless you mean to send these

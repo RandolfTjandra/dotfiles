@@ -127,11 +127,35 @@ def patch(src):
             r"\s*&& colorDist\(screenAt\(vec2\(0\.05 \* res\.x, y\) / res\)\.rgb, iBackgroundColor\) > 0\.03\n"
             r"\s*&& colorDist\(screenAt\(vec2\(0\.5 \* res\.x, y\) / res\)\.rgb, iBackgroundColor\) > 0\.03\)",
             "if (acrossPane(y, res))", 1)
-        # 1e. linesLook's cheap pre-check (cyber has none).
+        # 1e. linesLook's cheap pre-check (cyber's is `far` only). Newer upstream also
+        #     runs it for the far-above case: `(!look || far)`.
         sub("lines",
-            r"if \(!look && \(colorDist\(screenAt\(vec2\(0\.05 \* res\.x, p\.y\) / res\)\.rgb, iBackgroundColor\) < 0\.02\n"
+            r"if \((\(?!look(?: \|\| far)?\)?|far) && \(colorDist\(screenAt\(vec2\(0\.05 \* res\.x, p\.y\) / res\)\.rgb, iBackgroundColor\) < 0\.02\n"
             r"\s*\|\| colorDist\(screenAt\(vec2\(0\.95 \* res\.x, p\.y\) / res\)\.rgb, iBackgroundColor\) < 0\.02\)\) return col;",
-            "if (!look && !acrossPane(p.y, res)) return col;", (0, 1))
+            lambda m: "if (" + m.group(1) + " && !acrossPane(p.y, res)) return col;",
+            (0, 1))
+        # 1g. linesLook's far-above branch (a tall prompt): five window-fraction samples on the
+        #     row plus background above/below -> the pane-relative check on the same row.
+        sub("farrow",
+            r"        float v = p\.y / iResolution\.y, d4 = 4\.0 / iResolution\.y;\n"
+            r"        if \(distance\(screenAt\(vec2\(0\.95, v\)\)\.rgb, bgT\) < 0\.02[^;]*?return col;\n",
+            "        vec2 fres = iResolution.xy;\n"
+            "        if (!acrossPane(p.y, fres)) return col;\n"
+            "        if (distance(screenAt(vec2(lineSideX(fres), p.y + 4.0) / fres).rgb, bgT) > 0.02\n"
+            "                || distance(screenAt(vec2(lineSideX(fres), p.y - 4.0) / fres).rgb, bgT) > 0.02) return col;\n",
+            (0, 1))
+        # 1h. clLineBetween (far-above case): is there another line closer than the box's top line?
+        sub("between",
+            r"        if \(colorDist\(screenAt\(vec2\(0\.95 \* res\.x, y\) / res\)\.rgb, iBackgroundColor\) < 0\.03\n"
+            r"\s*\|\| colorDist\(screenAt\(vec2\(0\.05 \* res\.x, y\) / res\)\.rgb, iBackgroundColor\) < 0\.03\n"
+            r"\s*\|\| colorDist\(screenAt\(vec2\(0\.45 \* res\.x, y\) / res\)\.rgb, iBackgroundColor\) < 0\.03\n"
+            r"\s*\|\| colorDist\(screenAt\(vec2\(0\.66 \* res\.x, y\) / res\)\.rgb, iBackgroundColor\) < 0\.03\) continue;\n"
+            r"        if \(colorDist\(screenAt\(vec2\(0\.45 \* res\.x, y \+ 4\.0\) / res\)\.rgb, iBackgroundColor\) > 0\.03\n"
+            r"\s*\|\| colorDist\(screenAt\(vec2\(0\.45 \* res\.x, y - 4\.0\) / res\)\.rgb, iBackgroundColor\) > 0\.03\) continue;\n",
+            "        if (!acrossPane(y, res)) continue;\n"
+            "        if (colorDist(screenAt(vec2(lineSideX(res), y + 4.0) / res).rgb, iBackgroundColor) > 0.03\n"
+            "                || colorDist(screenAt(vec2(lineSideX(res), y - 4.0) / res).rgb, iBackgroundColor) > 0.03) continue;\n",
+            (0, 1))
         # 1f. cyber's own line finder for its rain: twelve points across the window -> the
         #     pane-relative check, and its one-pixel pre-check at the cursor's column.
         sub("fullLine",
@@ -151,7 +175,7 @@ def patch(src):
     sub("clip", r"\nvoid mainImage\(out vec4 fragColor, in vec2 fragCoord\) \{",
         "\nvoid fxImage(out vec4 fragColor, in vec2 fragCoord) {", 1)
     src = src.rstrip("\n") + "\n" + CLIP
-    left = re.findall(r"0\.(?:05|95|97) \* res\.x", src)
+    left = re.findall(r"0\.(?:05|95|97) \* res\.x|vec2\(0\.(?:05|95), v\b", src)
     return src, f"ok {n} leftover-window-checks={len(left)}"
 
 
