@@ -49,6 +49,14 @@ load, so only the always-on cursor look works.
    cursor's column for at least `BOX_MIN_CELLS` (24) cells. It still works in a
    plain Ghostty tab.
 
+The patch also keeps effects inside Claude Code's pane. Upstream draws them across
+the whole window. The original `mainImage` becomes `fxImage`, and a new `mainImage`
+wraps it. For any pixel an effect changed, the wrapper finds the pane's edges with
+`paneSpan()`, following the box line left and right from the cursor until its color
+changes. Pixels outside those edges get the terminal's original pixel back. With
+no box nearby (a shell pane) nothing is clipped, so a shell's Enter effect still
+spans the window.
+
 ## How it's wired
 
 - `../../claude/settings.json`: `UserPromptSubmit` runs `cursor-fx-signal`, `Stop` runs

@@ -608,7 +608,7 @@ void effects(inout vec4 fragColor, vec2 fragCoord) {
     fragColor = vec4(min(col + light * scan, vec3(1.0)), fragColor.a);
 }
 
-void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+void fxImage(out vec4 fragColor, in vec2 fragCoord) {
     vec2 res = iResolution.xy;
     if (Y_DOWN) fragCoord.y = res.y - fragCoord.y;
     fragColor = screenAt(fragCoord / res);
@@ -617,4 +617,45 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     if (((LINE_EFFECT && iFocus != 0) || (LINE_TINT && LINE_COLOR > 0.0)) && iCursorVisible != 0 && iCurrentCursorStyle == CURSORSTYLE_BLOCK) fragColor.rgb = min(linesLook(fragCoord, fragColor.rgb), vec3(1.0));
     if (iCursorVisible == 0) return;
     if (PROMPT_EFFECT && iCurrentCursorStyle == CURSORSTYLE_BLOCK) fragColor.rgb = min(promptLook(fragCoord, fragColor.rgb), vec3(1.0));
+}
+
+// herdr: effects are drawn across the whole window, but Claude Code's box may fill
+// only one pane. The box's line next to the cursor marks the pane's width: follow it
+// left and right from the cursor's column while it keeps its color. Returns the
+// pane's left and right x, or -1 with no box (a plain tab, a shell: nothing clipped).
+vec2 paneSpan(vec2 res) {
+    vec4 cur = upCursor(iCurrentCursor);
+    float h = cur.w;
+    float y = clLineNear(cur.y - 1.5 * h, 0.8 * h, res);
+    if (y < 0.0) y = clLineNear(cur.y + 0.4 * h, 0.6 * h, res);
+    if (y < 0.0) return vec2(-1.0);
+    float w = max(cellWOf(cur), 0.4 * h), x = cur.x + 0.5 * w;
+    vec3 c = screenAt(vec2(x, y) / res).rgb;
+    vec2 ends = vec2(x);
+    for (int side = 0; side < 2; side++) {
+        float dir = side == 0 ? -1.0 : 1.0, at = x;
+        // Four cells at a time, then cell by cell up to the line's end.
+        for (int k = 0; k < 120; k++) {
+            float nx = at + dir * 4.0 * w;
+            if (nx < 0.0 || nx > res.x || distance(screenAt(vec2(nx, y) / res).rgb, c) > 0.06) break;
+            at = nx;
+        }
+        for (int k = 0; k < 4; k++) {
+            float nx = at + dir * w;
+            if (nx < 0.0 || nx > res.x || distance(screenAt(vec2(nx, y) / res).rgb, c) > 0.06) break;
+            at = nx;
+        }
+        if (side == 0) ends.x = at; else ends.y = at;
+    }
+    return vec2(ends.x - 0.5 * w, ends.y + 0.5 * w);
+}
+
+void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+    fxImage(fragColor, fragCoord);
+    vec2 res = iResolution.xy;
+    vec2 p = Y_DOWN ? vec2(fragCoord.x, res.y - fragCoord.y) : fragCoord;
+    vec4 base = screenAt(p / res);
+    if (distance(fragColor.rgb, base.rgb) < 0.002) return;  // untouched: nothing to clip
+    vec2 span = paneSpan(res);
+    if (span.x >= 0.0 && (p.x < span.x || p.x > span.y)) fragColor = base;
 }
