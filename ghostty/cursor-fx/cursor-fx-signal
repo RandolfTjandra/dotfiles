@@ -1,0 +1,21 @@
+#!/bin/sh
+# Send a cursor-fx signal ("enter" by default, or "done") to the right terminal.
+# Inside herdr the pane's own tty never reaches Ghostty, so signal the tty of each
+# herdr client that is running in a Ghostty window instead.
+fx="$HOME/.local/bin/cursor-fx"
+if [ -n "$HERDR_ENV" ]; then
+  for pid in $(pgrep -x herdr); do
+    tty=$(ps -o tty= -p "$pid" | tr -d ' ')
+    case "$tty" in ''|'??') continue ;; esac
+    p=$pid
+    for _ in 1 2 3 4 5 6; do
+      p=$(ps -o ppid= -p "$p" | tr -d ' ')
+      [ -z "$p" ] || [ "$p" -le 1 ] && break
+      case "$(ps -o comm= -p "$p")" in
+        *Ghostty.app*) "$fx" signal "$@" --tty "/dev/$tty"; break ;;
+      esac
+    done
+  done
+  exit 0
+fi
+exec "$fx" signal "$@"

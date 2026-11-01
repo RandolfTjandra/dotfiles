@@ -41,6 +41,10 @@ profile at `codex/dots.config.toml` is layered on top via `codex -p dots`.
 
 **`setup.sh` is `/bin/sh`, not bash.** No arrays, no `[[ ]]`.
 
+**`ghostty/shaders/` carries a local patch.** The cursor-fx shaders are patched to
+work inside herdr; upstream's `install.sh` overwrites them. See
+`ghostty/cursor-fx/README.md` before touching shaders or the cursor-fx hooks.
+
 ## Conventions
 
 Themes are per-tool files scattered across `nvim/`, `kitty/`, `alacritty/`,

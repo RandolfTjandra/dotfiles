@@ -54,6 +54,21 @@ else
   echo "Warning: $herdr_src does not exist, skipping."
 fi
 
+# Ghostty cursor effects: the herdr-aware signal helper the Claude Code and zsh
+# hooks call (see ghostty/cursor-fx/README.md). cursor-fx itself comes from the
+# upstream installer.
+fx_src="${dotslocation}/ghostty/cursor-fx/cursor-fx-signal"
+fx_dest="$HOME/.local/bin/cursor-fx-signal"
+if [ -f "$fx_src" ]; then
+  mkdir -p "$HOME/.local/bin"
+  if [ -d "$fx_dest" ] && [ ! -L "$fx_dest" ]; then
+    echo "Warning: $fx_dest is a real directory, skipping."
+  else
+    ln -sfn "$fx_src" "$fx_dest"
+    echo "Linked $fx_src -> $fx_dest"
+  fi
+fi
+
 echo "Linking home files..."
 
 for file in .bashrc .fzf.bash .fzf.zsh .gitconfig .gitmessage .p10k.zsh .screenrc .zprofile .zshrc; do
