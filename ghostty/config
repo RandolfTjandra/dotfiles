@@ -8,3 +8,9 @@ split-divider-color = #3e4451
 working-directory = ~/Dev
 # Cursor effect preset from cursor-effects/ (switch with `cursor-fx <name>`, list with `cursor-fx`).
 config-file = cursor-effects/glitch.conf
+
+# Send Option as Alt so terminal apps (herdr, etc.) get Alt bindings.
+macos-option-as-alt = true
+# Ghostty binds alt+left/right to word jumps by default; free them for herdr pane focus.
+keybind = alt+arrow_left=unbind
+keybind = alt+arrow_right=unbind
