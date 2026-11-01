@@ -7,7 +7,7 @@ scrollback-limit = 100000
 split-divider-color = #3e4451
 working-directory = ~/Dev
 # Cursor effect preset from cursor-effects/ (switch with `cursor-fx <name>`, list with `cursor-fx`).
-config-file = cursor-effects/glitch.conf
+config-file = cursor-effects/lightning.conf
 
 # Send Option as Alt so terminal apps (herdr, etc.) get Alt bindings.
 macos-option-as-alt = true
