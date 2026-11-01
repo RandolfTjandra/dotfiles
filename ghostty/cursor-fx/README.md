@@ -6,6 +6,26 @@ Local fixes that make [ghostty-cursor-fx](https://github.com/Avarce/ghostty-curs
 but the Enter/done effects, the input-box line tint and the ❯ prompt glow never
 fire inside a herdr pane.
 
+## Installing on a new machine
+
+`cursor-fx` itself is not in this repo. It comes from upstream,
+<https://github.com/Avarce/ghostty-cursor-fx>, and is installed with its
+`install.sh`. This repo holds the patched shaders, the presets, the hooks and the
+herdr helper. Order matters: upstream's installer copies its unpatched shaders
+into `~/.config/ghostty`, which links to this repo, so the patch runs last.
+
+```sh
+cd ~/Dev/dotfiles && ./setup.sh                    # links ghostty/, hooks, cursor-fx-signal
+git clone https://github.com/Avarce/ghostty-cursor-fx ~/Dev/ai/ghostty-cursor-fx
+~/Dev/ai/ghostty-cursor-fx/install.sh              # installs ~/.local/bin/cursor-fx (and overwrites the shaders)
+~/Dev/dotfiles/ghostty/cursor-fx/patch-herdr.py    # re-applies the herdr patch
+```
+
+Afterwards `git status` in this repo should be clean. If `ghostty/shaders/` shows
+changes, the patch no longer matches upstream's code. See "For agents" below.
+Without `cursor-fx` on `PATH`, the hooks fail silently and the zsh hook doesn't
+load, so only the always-on cursor look works.
+
 ## What's here
 
 | File | What it does |
@@ -44,8 +64,9 @@ fire inside a herdr pane.
   `install.sh` overwrites `ghostty/shaders/` with unpatched copies. Rerun
   `ghostty/cursor-fx/patch-herdr.py` (no arguments needed), then reload Ghostty
   (`pkill -USR2 -f /Applications/Ghostty.app/Contents/MacOS/ghostty`, or Cmd+Shift+,).
-- **New machine:** `./setup.sh` links the helper. `cursor-fx` itself (in
-  `~/.local/bin`) comes from upstream's `install.sh`, so run that, then the patch.
+- **New machine, or `cursor-fx` missing from `~/.local/bin`:** follow "Installing on
+  a new machine" above. Don't copy `cursor-fx` into this repo: upstream is the
+  source for it.
 - **The patch exits with `<step>: expected N, got M`:** upstream changed the code
   it matches. The failing file is left untouched (the script quits before writing).
   Read that shader's box-line functions (`boxLineY`, `clLineNear`, `linesLook`,

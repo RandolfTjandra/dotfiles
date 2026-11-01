@@ -55,8 +55,8 @@ else
 fi
 
 # Ghostty cursor effects: the herdr-aware signal helper the Claude Code and zsh
-# hooks call (see ghostty/cursor-fx/README.md). cursor-fx itself comes from the
-# upstream installer.
+# hooks call (see ghostty/cursor-fx/README.md). cursor-fx itself is installed
+# separately from https://github.com/Avarce/ghostty-cursor-fx (its install.sh).
 fx_src="${dotslocation}/ghostty/cursor-fx/cursor-fx-signal"
 fx_dest="$HOME/.local/bin/cursor-fx-signal"
 if [ -f "$fx_src" ]; then
