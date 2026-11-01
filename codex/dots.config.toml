@@ -15,7 +15,7 @@
 # desktop-only settings ([desktop.*]) are deliberately left in the base config
 # where the app itself manages them.
 
-model = "gpt-5.6-sol"
+model = "gpt-6.1-sol"
 model_reasoning_effort = "medium"
 approval_policy = "on-request"
 approvals_reviewer = "auto_review"
@@ -40,7 +40,7 @@ screen_reader_detection_done = true
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 1
-"gpt-6.1-sol" = 1
+"gpt-6.1-sol" = 4
 
 [features]
 js_repl = false
